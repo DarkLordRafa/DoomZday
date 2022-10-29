@@ -12,74 +12,131 @@
 	<body class="text-center d-flex flex-column align-items-center">
 		
 		
-		<h2 class="mt-5">Título salvo:</h2>
-		<h3 class="mt-2" id="title-h3"></h3>
+		<h2 class="mt-5">Usuário:</h2>
+		<h3 id="null-message">Não há usuário</h3>
+		<div class="w-50 text-start" id="user-info">
+			<h3 class="mt-2" id="user-name"><span></span></h3>
+			<h3 class="mt-2" id="user-age"><span></span></h3>
+			<h3 class="mt-2" id="user-food"><span></span></h3>
+		</div>
 		<form class="form mt-3 d-flex flex-column align-items-center" action="">
-			<input type="text" name="title_text" id="text" required />
-			<input type="submit" id="submit" value="Salvar" class="btn btn-primary mt-2" />
-			<button type="button" id="load" value="Carregar" class="btn btn-light mt-1 border-dark">Carregar</button>
+			<input type="text" name="title_text" id="text" required placeholder="Adicione ou atualize o título" maxlength="10" />
+			<button type="button" id="edit" class="btn btn-light mt-2 border-dark">
+				Editar
+			</button>
+			<input type="submit" id="submit" value="Salvar" class="btn btn-primary mt-1" />
+			<button type="button" id="load" class="btn btn-light mt-1 border-dark">
+				Carregar
+			</button>
+			<button type="button" class="btn btn-danger mt-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+				Redefinir
+			</button>
 		</form>
+		
+		
+		<!-- Modal -->
+		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="staticBackdropLabel">Redefinir</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        Tem certeza de que quer deletar o usuário?
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+		        <button type="button" class="btn btn-danger" id="reset">Deletar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 		
 		
 		<script src="assets/bootstrap5/js/bootstrap.bundle.min.js" type="text/javascript">
 		</script>
 		<script type="text/javascript">
-			let titleH3 = document.querySelector("#title-h3");
-			let titleInput = document.querySelector("#text");
-			let savedTitle;
+			const nullMessage = document.querySelector("#null-message");
+			const userInfo = document.querySelector("#user-info");
+			const userName = document.querySelector("#user-name span");
+			const userAge = document.querySelector("#user-age span");
+			const userFood = document.querySelector("#user-food span");
+			const userNameInput = document.querySelector("#text");
+			let savedUser;
 			let newUser;
+			
+			function displayUserData(){
+				userName.innerHTML = savedUser.userNameProp;
+				userAge.innerHTML = savedUser.userAgeProp;
+				userFood.innerHTML = savedUser.userFoodProp;
+			}
 			const checkNewUser = () =>{
 				try{
-					savedTitle = JSON.parse(window.localStorage.getItem("title_key"));
-					console.log(savedTitle.titleProp);
+					savedUser = JSON.parse(window.localStorage.getItem("user_key"));
+					console.log(savedUser.userNameProp);
 					newUser = false;
 				}
 				catch {
-					savedTitle = {
-						titleProp: ""
+					savedUser = {
+						userNameProp: "",
+						userAgeProp: "",
+						userFoodProp: "",
 					};
-					console.log(savedTitle.titleProp);
+					console.log(savedUser.userNameProp);
 					newUser = true;
 				}
 				finally{
-					titleH3.innerHTML = savedTitle.titleProp;
+					if (newUser === true){
+						userInfo.style.display ="none";
+					}
+					else{
+						userInfo.style.display = "block";
+						nullMessage.style.display = "none";
+					}
+					displayUserData();
 				}
 			}
 			checkNewUser();
 			const saveButton = document.querySelector("#submit");
 			const loadButton = document.querySelector("#load");
+			const resetButton = document.querySelector("#reset");
 			
-			function saveTitle(){
-				savedTitle.titleProp = titleInput.value;
-				window.localStorage.setItem("title_key", JSON.stringify(savedTitle));
-				alert("Seu título foi salvo. Agora você pode carregá-lo");
+			function saveUser(){
+				window.localStorage.setItem("user_key", JSON.stringify(savedUser));
+				newUser = false;
+				alert("Seu usuário foi salvo. Agora você pode carregá-lo");
 			}
 			
-			function loadTitle(){
-				if (savedTitle.titleProp != "" && newUser === false){
-					savedTitle = JSON.parse(window.localStorage.getItem("title_key"));
-					titleH3.innerHTML = savedTitle.titleProp;
-					alert("Título carregado com êxito 🙂");
-					console.log(savedTitle.titleProp);
+			function loadUser(){
+				if (newUser === false){
+					savedUser = JSON.parse(window.localStorage.getItem("user_key"));
+					displayUserData();
+					alert("Usuário carregado com sucesso 🙂");
+					console.log(savedUser.userNameProp);
 					}
 				else{
-						alert("Nenhum título foi encontrado.")
+						alert("Nenhum usuário foi encontrado.")
 					}
+			}
+			
+			function resetData(){
+				window.localStorage.clear();
+				location.reload();
 			}
 
 			function clearInput(){
-				titleInput.value = "";
+				userNameInput.value = "";
 			}
 			
 			saveButton.addEventListener("click", (click) => {
-				if (titleInput.value != ""){
+				if (userNameInput.value != ""){
 				click.preventDefault();
-				saveTitle();
+				saveUser();
 				}
 			});
-			loadButton.addEventListener("click", loadTitle);
-			saveButton.addEventListener("click", clearInput);
-			loadButton.addEventListener("click", clearInput);
+			loadButton.addEventListener("click", loadUser);
+			resetButton.addEventListener("click", resetData);
 		</script>
 	</body>
 </html>
