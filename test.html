@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DoomZday - Survival Zombie Apocalipse Game</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable='no'">
+		<meta http-equiv="X-UA-compatible" content="IE=Edge" />
+		<meta name="description" content="Zombies, Game, Apocalipse, Survival, DoomZday, Online Game, Browser Game, Zumbis, Jogo, Jogo Online, Sobrevivência, Jogo de zumbi " />
+		<link rel="stylesheet" href="assets/bootstrap5/css/bootstrap.min.css" type="text/css"/>
+	</head>
+	
+	<body class="text-center d-flex flex-column align-items-center">
+		
+		
+		<h2 class="mt-5">Título salvo:</h2>
+		<h3 class="mt-2" id="title-h3"></h3>
+		<form class="form mt-3 d-flex flex-column align-items-center" action="">
+			<input type="text" name="title_text" id="text" required />
+			<input type="submit" id="submit" value="Salvar" class="btn btn-primary mt-2" />
+			<button type="button" id="load" value="Carregar" class="btn btn-light mt-1 border-dark">Carregar</button>
+		</form>
+		
+		
+		<script src="assets/bootstrap5/js/bootstrap.bundle.min.js" type="text/javascript">
+		</script>
+		<script type="text/javascript">
+			let titleH3 = document.querySelector("#title-h3");
+			let titleInput = document.querySelector("#text");
+			let savedTitle;
+			let newUser;
+			const checkNewUser = () =>{
+				try{
+					savedTitle = JSON.parse(window.localStorage.getItem("title_key"));
+					console.log(savedTitle.titleProp);
+					newUser = false;
+				}
+				catch {
+					savedTitle = {
+						titleProp: ""
+					};
+					console.log(savedTitle.titleProp);
+					newUser = true;
+				}
+				finally{
+					titleH3.innerHTML = savedTitle.titleProp;
+				}
+			}
+			checkNewUser();
+			const saveButton = document.querySelector("#submit");
+			const loadButton = document.querySelector("#load");
+			
+			function saveTitle(){
+				savedTitle.titleProp = titleInput.value;
+				window.localStorage.setItem("title_key", JSON.stringify(savedTitle));
+				alert("Seu título foi salvo. Agora você pode carregá-lo");
+			}
+			
+			function loadTitle(){
+				if (savedTitle.titleProp != "" && newUser === false){
+					savedTitle = JSON.parse(window.localStorage.getItem("title_key"));
+					titleH3.innerHTML = savedTitle.titleProp;
+					alert("Título carregado com êxito 🙂");
+					console.log(savedTitle.titleProp);
+					}
+				else{
+						alert("Nenhum título foi encontrado.")
+					}
+			}
+
+			function clearInput(){
+				titleInput.value = "";
+			}
+			
+			saveButton.addEventListener("click", (click) => {
+				if (titleInput.value != ""){
+				click.preventDefault();
+				saveTitle();
+				}
+			});
+			loadButton.addEventListener("click", loadTitle);
+			saveButton.addEventListener("click", clearInput);
+			loadButton.addEventListener("click", clearInput);
+		</script>
+	</body>
+</html>
