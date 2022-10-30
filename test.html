@@ -1,34 +1,42 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>DoomZday - Survival Zombie Apocalipse Game</title>
+		<title>Local Storage 01</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable='no'">
 		<meta http-equiv="X-UA-compatible" content="IE=Edge" />
-		<meta name="description" content="Zombies, Game, Apocalipse, Survival, DoomZday, Online Game, Browser Game, Zumbis, Jogo, Jogo Online, Sobrevivência, Jogo de zumbi " />
 		<link rel="stylesheet" href="assets/bootstrap5/css/bootstrap.min.css" type="text/css"/>
+		<style type="text/css">
+			.tt{
+				
+			}
+		</style>
 	</head>
 	
 	<body class="text-center d-flex flex-column align-items-center">
 		
 		
-		<h2 class="mt-5">Usuário:</h2>
-		<h3 id="null-message">Não há usuário</h3>
-		<div class="w-50 text-start" id="user-info">
-			<h3 class="mt-2" id="user-name"><span></span></h3>
-			<h3 class="mt-2" id="user-age"><span></span></h3>
-			<h3 class="mt-2" id="user-food"><span></span></h3>
+		<h2 class="mt-2">Usuário:</h2>
+		<h3 id="null-message" class="d-none">Não há usuário</h3>
+		<div class="w-75 text-start" id="user-info">
+			<h3 class="mt-2" id="user-name">Nome: <span></span></h3>
+			<h3 class="mt-2" id="user-age">Idade: <span></span></h3>
+			<h3 class="mt-2" id="user-food">Comida favorita: <span></span></h3>
 		</div>
-		<form class="form mt-3 d-flex flex-column align-items-center" action="">
-			<input type="text" name="title_text" id="text" required placeholder="Adicione ou atualize o título" maxlength="10" />
+		<form class="form mt-3 d-flex flex-column align-items-center">
+			<div id="form__inputs" class="flex-column align-items-center d-none">
+				<input type="text" name="user_name" id="user-name-input" required placeholder="Seu nome" maxlength="10" />
+				<input type="number" name="user_age" id="user-age-input" class="w-100 mt-2" placeholder="Sua idade" min="0" max="150" />
+				<input type="text" name="user_food" id="user-food-input" class="mt-2" placeholder="Comida favorita" maxlength="10" />
+			</div>
+			<input type="submit" id="submit" value="Salvar" class="btn btn-primary mt-1 d-none" />
 			<button type="button" id="edit" class="btn btn-light mt-2 border-dark">
 				Editar
 			</button>
-			<input type="submit" id="submit" value="Salvar" class="btn btn-primary mt-1" />
 			<button type="button" id="load" class="btn btn-light mt-1 border-dark">
 				Carregar
 			</button>
-			<button type="button" class="btn btn-danger mt-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+			<button type="button" class="btn btn-danger mt-1" id="reset" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 				Redefinir
 			</button>
 		</form>
@@ -47,7 +55,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-		        <button type="button" class="btn btn-danger" id="reset">Deletar</button>
+		        <button type="button" class="btn btn-danger" id="modal-reset">Deletar</button>
 		      </div>
 		    </div>
 		  </div>
@@ -59,23 +67,45 @@
 		<script type="text/javascript">
 			const nullMessage = document.querySelector("#null-message");
 			const userInfo = document.querySelector("#user-info");
+			const formInputs = document.querySelector("#form__inputs");
 			const userName = document.querySelector("#user-name span");
 			const userAge = document.querySelector("#user-age span");
 			const userFood = document.querySelector("#user-food span");
-			const userNameInput = document.querySelector("#text");
+			const userNameInput = document.querySelector("#user-name-input");
+			const userAgeInput = document.querySelector("#user-age-input");
+			const userFoodInput = document.querySelector("#user-food-input");
 			let savedUser;
 			let newUser;
 			
 			function displayUserData(){
+				if (newUser === true){
+					userInfo.style.display ="none";
+					nullMessage.classList.remove("d-none");
+				}
+				else{
+					userInfo.style.display = "block";
+					nullMessage.classList.add("d-none");
+				}
 				userName.innerHTML = savedUser.userNameProp;
 				userAge.innerHTML = savedUser.userAgeProp;
 				userFood.innerHTML = savedUser.userFoodProp;
+				const userData = document.querySelectorAll("#user-info h3");
+				userData.forEach((element) =>{
+					if (element.getElementsByTagName("span")[0].innerHTML == ""){
+						element.classList.add("d-none");
+					}
+					else{
+						element.classList.remove("d-none");
+					}
+				});
 			}
+			
 			const checkNewUser = () =>{
 				try{
 					savedUser = JSON.parse(window.localStorage.getItem("user_key"));
 					console.log(savedUser.userNameProp);
 					newUser = false;
+					console.log(newUser);
 				}
 				catch {
 					savedUser = {
@@ -87,13 +117,6 @@
 					newUser = true;
 				}
 				finally{
-					if (newUser === true){
-						userInfo.style.display ="none";
-					}
-					else{
-						userInfo.style.display = "block";
-						nullMessage.style.display = "none";
-					}
 					displayUserData();
 				}
 			}
@@ -101,10 +124,21 @@
 			const saveButton = document.querySelector("#submit");
 			const loadButton = document.querySelector("#load");
 			const resetButton = document.querySelector("#reset");
+			const modalResetButton = document.querySelector("#modal-reset");
+			const editButton = document.querySelector("#edit");
+			
+			if (newUser === true){
+			resetButton.classList.add("d-none");
+			}
 			
 			function saveUser(){
+				savedUser.userNameProp = userNameInput.value;
+				savedUser.userAgeProp = userAgeInput.value;
+				savedUser.userFoodProp = userFoodInput.value;
 				window.localStorage.setItem("user_key", JSON.stringify(savedUser));
 				newUser = false;
+				nullMessage.classList.add("d-none");
+				resetButton.classList.remove("d-none");
 				alert("Seu usuário foi salvo. Agora você pode carregá-lo");
 			}
 			
@@ -112,6 +146,7 @@
 				if (newUser === false){
 					savedUser = JSON.parse(window.localStorage.getItem("user_key"));
 					displayUserData();
+					formInputs.classList.add("d-none");
 					alert("Usuário carregado com sucesso 🙂");
 					console.log(savedUser.userNameProp);
 					}
@@ -126,17 +161,31 @@
 			}
 
 			function clearInput(){
-				userNameInput.value = "";
+				const inputs = document.querySelectorAll("#form__inputs input");
+				inputs.forEach((element) =>{
+					element.value = "";
+				})
 			}
 			
 			saveButton.addEventListener("click", (click) => {
-				if (userNameInput.value != ""){
+				if (userNameInput.value != "" && userAgeInput.value <= 150){
 				click.preventDefault();
 				saveUser();
+				clearInput();
+				formInputs.classList.remove("d-flex");
+				formInputs.classList.add("d-none");
+				saveButton.classList.add("d-none");
+				editButton.classList.remove("d-none");
 				}
 			});
+			editButton.addEventListener("click", () =>{
+				formInputs.classList.add("d-flex");
+				formInputs.classList.remove("d-none");
+				saveButton.classList.remove("d-none");
+				editButton.classList.add("d-none");
+			});
 			loadButton.addEventListener("click", loadUser);
-			resetButton.addEventListener("click", resetData);
+			modalResetButton.addEventListener("click", resetData);
 		</script>
 	</body>
 </html>
