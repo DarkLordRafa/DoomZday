@@ -1,0 +1,10 @@
+
+*{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	box-sizing:  border-box;
+	text-size-adjust: none!important;
+	-webkit-tap-highlight-color: transparent;
+	scroll-behavior: smooth;
+	}
