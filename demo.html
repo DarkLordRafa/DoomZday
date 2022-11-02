@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="assets/css/reset/reset.css" type="text/css"/>
 	</head>
 	
-	<body class="bg-black d-flex flex-cloumn align-items-center">
+	<body class="bg-black d-flex flex-column align-items-center">
 		
 		<main class="main-screen w-100 h-100 position-relative">
 			
@@ -82,7 +82,7 @@
 				<img />
 			</div>
 			
-			<div class="player-hud position-absolute bottom-0 d-flex justify-content-space-between">
+			<div class="player-hud position-absolute bottom-0 d-flex justify-content-between">
 					
 				<div class="player-menu-area d-flex">
 					<nav class="player-menu-area__options">
@@ -91,6 +91,7 @@
 							<li><img src="assets/images/icons/consumables_icon.png" /></li>
 							<li><img src="assets/images/icons/others_icon.png" /></li>
 							<li><img src="assets/images/icons/craft_icon.png" /></li>
+							<li><img src="assets/images/icons/chest_icon.png" /></li>
 							<li><img src="assets/images/icons/menu_icon.png" /></li>
 						</ul>
 					</nav>
@@ -115,13 +116,18 @@
 					<div class="player-menu-area__life-bar">
 						<img src="assets/images/screen/healt_line_fine.png" />
 					</div>
-					
 				</div>
 				
-				<div class="actions-area">
-					<!--
-					botões de atirar, andar e buscar com ícones. Botão de atirar com arma e quantidade de munição
-					-->
+				<div class="actions-area d-flex flex-column align-items-center">
+					<div class="actions-area__button actions-area__search-button d-flex justify-content-center align-items-center">
+						<img src="assets/images/icons/search_icon.png" />
+					</div>
+					<div class="actions-area__button actions-area__attack-button d-flex justify-content-center align-items-center">
+						<img src="assets/images/items/handgun.png" />
+					</div>
+					<div class="actions-area__button actions-area__walk-button d-flex justify-content-center align-items-center">
+						<img src="assets/images/icons/walk_icon.png" />
+					</div>
 				</div>
 			</div>
 			

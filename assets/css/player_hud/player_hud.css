@@ -7,7 +7,7 @@
 	height: 100%;
 }
 
-.player-menu-area__options, .player-menu-area__display, .player-menu-area__display li{
+.player-menu-area__options, .player-menu-area-display__screen, .player-menu-area__display li{
 	background-color: #e8dcb8;
 	border: 1px solid black;
 }
@@ -24,6 +24,19 @@
 
 .player-menu-area__options{
 	width: 13vw;
+	overflow-y: auto;
+}
+
+.player-menu-area__options::-webkit-scrollbar{
+	background-color: transparent;
+}
+
+.player-menu-area__options::-webkit-scrollbar-track{
+	background-color: darkgrey;
+}
+
+.player-menu-area__options::-webkit-scrollbar-thumb{
+	background-color: black;
 }
 
 .player-menu-area__options li{
@@ -36,7 +49,7 @@
 	margin-bottom: 2vw;
 }
 
-.player-menu-area__options li:hover, .player-menu-area__display li:hover{
+.player-menu-area__options li:hover, .player-menu-area__display li:hover, .actions-area__button:active{
 	background-color: #8B4000;
 }
 
@@ -54,10 +67,12 @@
 .player-menu-area__display{
 	position: relative;
 	border-left: none;
+	height: 100%;
 }
 
 .player-menu-area-display__screen{
 	position: absolute;
+	border-left: none;
 }
 
 .player-menu-area__display, .player-menu-area__display li{
@@ -67,6 +82,7 @@
 
 .player-menu-area__display li{
 	border-left: none;
+	border-right: none;
 }
 
 .player-menu-area__display li img{
@@ -101,4 +117,43 @@
 .player-menu-area__life-bar img{
 	height: 40vh;
 	max-width: 100%;
+}
+
+.actions-area{
+	width: 52vw;
+}
+
+.actions-area__button{
+	border-radius: 50%;
+	background-color: #CD7F32;
+	border: 5px solid #A0522D;
+}
+
+.actions-area__button img{
+	height: 70%;
+	width: 70%;
+	object-fit: contain;
+}
+
+.actions-area__search-button{
+	height: 15vw;
+	width: 15vw;
+	align-self: flex-end;
+	margin-right: 5vw;
+	margin-top: 5vw;
+}
+
+.actions-area__attack-button{
+	height: 25vw;
+	width: 25vw;
+	margin-right: 5vw;
+	margin-top: 2vw;
+	margin-bottom: 2vw;
+}
+
+.actions-area__walk-button{
+	height: 15vw;
+	width: 15vw;
+	align-self: flex-end;
+	margin-right: 10vw;
 }
