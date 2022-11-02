@@ -1,0 +1,104 @@
+
+.player-menu-area{
+	height: 40vh;
+}
+
+.player-menu-area div, .player-menu-area nav{
+	height: 100%;
+}
+
+.player-menu-area__options, .player-menu-area__display, .player-menu-area__display li{
+	background-color: #e8dcb8;
+	border: 1px solid black;
+}
+
+.player-menu-area li{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.player-menu-area ul{
+	padding-top: 2vw;
+}
+
+.player-menu-area__options{
+	width: 13vw;
+}
+
+.player-menu-area__options li{
+	background-color: #CC5500;
+	border: 2px solid black;
+	border-radius: 10px;
+	margin-left: 1vw;
+	margin-right: 2vw;
+	width: 10vw;
+	margin-bottom: 2vw;
+}
+
+.player-menu-area__options li:hover, .player-menu-area__display li:hover{
+	background-color: #8B4000;
+}
+
+.player-menu-area__options, .player-menu-area__options li{
+	height: 6vh;
+}
+
+.player-menu-area__options li img{
+	height: 100%;
+	width: 100%;
+	padding: 0.5vw;
+	object-fit: contain;
+}
+
+.player-menu-area__display{
+	position: relative;
+	border-left: none;
+}
+
+.player-menu-area-display__screen{
+	position: absolute;
+}
+
+.player-menu-area__display, .player-menu-area__display li{
+	width: 25vw;
+	height: 7vh;
+}
+
+.player-menu-area__display li{
+	border-left: none;
+}
+
+.player-menu-area__display li img{
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+.player-menu-area-display__weapons{
+	z-index: 3;
+}
+
+.player-menu-area-display__consumables{
+	z-index: 2;
+}
+
+.player-menu-area-display__others{
+	z-index: 1;
+}
+
+.player-menu-area__life-bar{
+	width: 10vw;
+	height: 100%;
+	align-self: flex-end;
+	/*box-shadow: 0 0 5px 5px inset green;*/
+	background-color: rgba(00, 00, 00, 0.5);
+	display: flex;
+	align-items: flex-end;
+	overflow-y: hidden;
+}
+
+.player-menu-area__life-bar img{
+	height: 40vh;
+	max-width: 100%;
+}

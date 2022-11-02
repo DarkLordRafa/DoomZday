@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>DoomZday - Survival Zombie Apocalipse Game</title>
+		<title>DoomZday - Survival Zombie Apocalipse Game (Demo)</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable='no'">
 		<meta http-equiv="X-UA-compatible" content="IE=Edge" />
@@ -15,7 +15,7 @@
 	
 	<body class="bg-black d-flex flex-cloumn align-items-center">
 		
-		<main class="main-screen w-100 h-100">
+		<main class="main-screen w-100 h-100 position-relative">
 			
 			<div class="enemies-area d-flex justify-content-center">
 				<div class="enemy d-flex flex-column align-items-center" id="enemy1">
@@ -75,15 +75,47 @@
 			</div>
 			
 			<div class="event-area">
-				<img src="assets/images/screen/molotov_fire1.gif" />
+				<img src="assets/images/screen/molotov_fire2.png" />
 			</div>
 			
-			<div class="player-hud">
+			<div class="screen-blood-area">
+				<img />
+			</div>
+			
+			<div class="player-hud position-absolute bottom-0 d-flex justify-content-space-between">
 					
-				<div class="menu-area">
-					<!--
-					lista de categorias do lado com ícones, no meio uma lista com os itens destacando o item selecionandl. Na direita a barra de vida que diminui e muda de cord
-					-->
+				<div class="player-menu-area d-flex">
+					<nav class="player-menu-area__options">
+						<ul class="ps-0 ms-0">
+							<li><img src="assets/images/icons/weapons_icon.png" /></li>
+							<li><img src="assets/images/icons/consumables_icon.png" /></li>
+							<li><img src="assets/images/icons/others_icon.png" /></li>
+							<li><img src="assets/images/icons/craft_icon.png" /></li>
+							<li><img src="assets/images/icons/menu_icon.png" /></li>
+						</ul>
+					</nav>
+					<div class="player-menu-area__display">
+						<div class="player-menu-area-display__screen player-menu-area-display__weapons">
+							<ul class="ps-0 ms-0">
+								<li><img src="assets/images/items/handgun.png" /></li>
+							</ul>
+						</div>
+						<div class="player-menu-area-display__screen player-menu-area-display__consumables">
+							<ul class="ps-0 ms-0">
+								<li><img src="assets/images/items/bandage.png" /></li>
+								<li><img src="assets/images/items/medikit.png" /></li>
+							</ul>
+						</div>
+						<div class="player-menu-area-display__screen player-menu-area-display__others">
+							<ul class="ps-0 ms-0">
+								<li><img src="assets/images/items/molotov.png" /></li>
+							</ul>
+						</div>
+					</div>
+					<div class="player-menu-area__life-bar">
+						<img src="assets/images/screen/healt_line_fine.png" />
+					</div>
+					
 				</div>
 				
 				<div class="actions-area">

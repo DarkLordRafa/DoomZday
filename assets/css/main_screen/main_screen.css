@@ -18,7 +18,7 @@ body{
 
 .enemies-area .enemy{
 	height: 20vh;
-	width: 18vw;
+	max-width: 17vw;
 }
 
 .enemy .enemy__damage{
@@ -53,5 +53,5 @@ body{
 
 .event-area img{
 	width: 100%;
-	height: 20vh;
+	max-height: 30vh;
 }
