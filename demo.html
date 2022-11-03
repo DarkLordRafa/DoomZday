@@ -13,9 +13,9 @@
 		<link rel="stylesheet" href="assets/css/reset/reset.css" type="text/css"/>
 	</head>
 	
-	<body class="bg-black d-flex flex-column align-items-center">
+	<body class="bg-black d-flex flex-column align-items-start">
 		
-		<main class="main-screen w-100 h-100 position-relative">
+		<main class="main-screen w-100 h-100 position-relative d-flex flex-column align-items-center">
 			
 			<div class="enemies-area d-flex justify-content-center">
 				<div class="enemy d-flex flex-column align-items-center" id="enemy1">
@@ -74,8 +74,39 @@
 				</div>
 			</div>
 			
+			<div class="game-texts-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="game-texts text-center d-flex flex-column align-items-center justify-content-between bg-black">
+					<div class="game-texts__text-area d-flex align-items-center">
+						<p>Você está controlando David, um dos poucos sobreviventes de um vírus mortal que assolou o mundo e transformou quase todos em seres irracionais famintos. O mundo que você conhecia não existe mais. Este não é um lugar para os fracos.</p>
+					</div>
+					<span class="game-texts__next-button align-self-end next-button">Avançar</span>
+				</div>
+			</div>
+			
+			<div class="characters-dialogues-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="characters-dialogues d-flex flex-column align-items-center justify-content-between bg-black">
+					<div class="characters-dialogues__text-area">
+						<p>David - Oi</p>
+					</div>
+					<span class="characters-dialogues__next-button align-self-end next-button">Avançar</span>
+				</div>
+			</div>
+			
+			<div class="received-items-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="received-items d-flex flex-column align-items-center">
+					<div class="received-items__content d-flex flex-column align-items-center text-center">
+						<span class="received-items__title">Você obteve</span>
+						<img />
+						<span class="received-items__quantity">5</span>
+						<p>Alguma coisa</p>
+					</div>
+					<span class="received-items__ok-button align-self-end">Ok</span>
+				</div>
+			</div>
+			
 			<div class="event-area">
-				<img src="assets/images/screen/molotov_fire2.png" />
+				<img class="event-area__fire" src="assets/images/screen/molotov_fire2.png" />
+				<img class="event-area__explosion" />
 			</div>
 			
 			<div class="screen-blood-area">
@@ -83,7 +114,6 @@
 			</div>
 			
 			<div class="player-hud position-absolute bottom-0 d-flex justify-content-between">
-					
 				<div class="player-menu-area d-flex">
 					<nav class="player-menu-area__options">
 						<ul class="ps-0 ms-0">

@@ -1,4 +1,10 @@
 
+@keyframes enemy-damage-animation{
+	0%{opacity: 1;}
+	100%{opacity:1; transform: translateY(-5vh);}
+}
+
+
 body{
 	width: 100vw;
 	height: 90vh;
@@ -24,6 +30,17 @@ body{
 .enemy .enemy__damage{
 	color: white;
 	font-size: 5vw;
+	opacity: 0;
+	font-weight: bold;
+}
+
+.enemy-damage-display{
+	animation: enemy-damage-animation 1s linear;
+}
+
+.enemy-damage-display-critical{
+	animation: enemy-damage-animation 1s linear;
+	color: yellow;
 }
 
 .mini-boss-area{
@@ -36,6 +53,7 @@ body{
 
 .boss-area{
 	margin-top: -30vh;
+	z-index: 2;
 }
 
 .boss-area .enemy{
@@ -48,10 +66,49 @@ body{
 
 .event-area{
 	width: 100vw;
-	margin-top: -10vh;
+	margin-top: -30vh;
 }
 
-.event-area img{
-	width: 100%;
-	max-height: 30vh;
+.event-area__explosion{
+	display: none;
+}
+
+.event-area__fire{
+  width: 100%;
+  display: none;
+}
+
+.game-texts, .characters-dialogues, .received-items{
+	margin-top: 20vh;
+	color: white;
+}
+
+.offset-screen{
+	z-index: 99;
+}
+
+.game-texts p, .characters-dialogues p, .received-items p{
+	margin-bottom: 0!important;
+}
+
+.game-texts__text-area p, .characters-dialogues__text-area p{
+	height: 100%;
+	font-size: 4.5vw;
+}
+
+.next-button{
+	text-decoration: underline;
+	margin-top: 5vw;
+	font-size: 4.2vw;
+}
+
+.game-texts{
+	width: 100vw;
+	padding: 5vw 15vw;
+}
+
+.game-texts__text-area{
+	height: 25vh;
+	overflow-y: auto;
+	padding-right: 2vw;
 }

@@ -1,4 +1,8 @@
 
+.player-hud{
+	z-index: 3;
+}
+
 .player-menu-area{
 	height: 40vh;
 }
@@ -7,7 +11,7 @@
 	height: 100%;
 }
 
-.player-menu-area__options, .player-menu-area-display__screen, .player-menu-area__display li{
+.player-menu-area-display__screen, .player-menu-area__display li{
 	background-color: #e8dcb8;
 	border: 1px solid black;
 }
@@ -25,6 +29,9 @@
 .player-menu-area__options{
 	width: 13vw;
 	overflow-y: auto;
+	border-top-left-radius: 10px;
+	background-color: black;
+	border: 1px solid black;
 }
 
 .player-menu-area__options::-webkit-scrollbar{
@@ -32,11 +39,11 @@
 }
 
 .player-menu-area__options::-webkit-scrollbar-track{
-	background-color: darkgrey;
+	background-color: transparent;
 }
 
 .player-menu-area__options::-webkit-scrollbar-thumb{
-	background-color: black;
+	background-color: #CD7F32;
 }
 
 .player-menu-area__options li{
