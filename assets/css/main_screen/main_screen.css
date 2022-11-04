@@ -11,6 +11,64 @@ body{
 	font-family: Arial, Sans-Serif;
 }
 
+.menu-screen{
+	z-index: 98;
+}
+
+.menu-screen nav{
+	margin-top: 20vh;
+}
+
+.menu-screen nav div{
+	color: white;
+	font-size: 5vw;
+	text-align: center;
+	font-weight: 900;
+	border-bottom: 3px solid white;
+	text-transform: uppercase;
+}
+
+.menu-screen nav div:hover{
+	background-color: white;
+	color: black;
+}
+
+.menu-screen .confirmation-screen{
+	width: 100%;
+	height: 100%;
+	z-index: 99;
+	background-color: black;
+	padding: 0 15vw;
+}
+
+.confirmation-screen p{
+	margin-top: 20vh;
+	font-size: 6vw;
+	color: white;
+	font-weight: 900;
+	margin-bottom: 10vw;
+	text-align: center;
+}
+
+.confirmation-button-area{
+	padding: 0 10vw;
+}
+
+.confirmation-button-area .button{
+  color: white;
+	font-size: 5vw;
+	text-align: center;
+	font-weight: 900;
+	text-transform: uppercase;
+	padding: 1vw 3vw;
+	border: 3px solid white;
+}
+
+.confirmation-button-area .button:hover{
+	background-color: white;
+	color: black;
+}
+
 .main-screen{
 	background-image: url("../../images/scenaries/scenary1c.jpeg");
 	background-size: cover;
@@ -78,6 +136,18 @@ body{
   display: none;
 }
 
+.screen-blood-area{
+	z-index: 99;
+	height: 50vh;
+	top: 20vh;
+}
+
+.screen-blood-area img{
+	height: 100%;
+	max-width: 100%;
+	object-fit: contain;
+}
+
 .game-texts, .characters-dialogues, .received-items{
 	margin-top: 20vh;
 	color: white;
@@ -111,4 +181,39 @@ body{
 	height: 25vh;
 	overflow-y: auto;
 	padding-right: 2vw;
+}
+
+.received-items{
+	background-color: black;
+	border-radius: 20px;
+	height: 40vh;
+	width: 70vw;
+	padding: 3vw;
+}
+
+.received-items__title{
+	font-size: 7vw;
+	font-weight: 900;
+}
+
+.received-items img{
+	max-height: 10vh;
+	max-width: 90%;
+	background-color: #343434;
+}
+
+.received-items__quantity{
+	font-size: 6vw;
+	font-weight: 900;
+}
+
+.received-items p{
+	font-size: 5vw;
+	font-weight: 900;
+}
+
+.received-items__ok-button{
+	font-size: 6vw;
+	font-weight: 900;
+	text-transform: uppercase;
 }

@@ -94,13 +94,77 @@
 			
 			<div class="received-items-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
 				<div class="received-items d-flex flex-column align-items-center">
-					<div class="received-items__content d-flex flex-column align-items-center text-center">
-						<span class="received-items__title">Você obteve</span>
-						<img />
+					<div class="received-items__content d-flex flex-column align-items-center text-center justify-content-center h-100 w-100">
+						<span class="received-items__title">Obteve</span>
+						<img src="assets/images/items/medikit.png" />
 						<span class="received-items__quantity">5</span>
-						<p>Alguma coisa</p>
+						<p>Kit médico</p>
 					</div>
-					<span class="received-items__ok-button align-self-end">Ok</span>
+					<span class="received-items__ok-button align-self-end mt-2 me-3">Ok</span>
+				</div>
+			</div>
+			
+			<!--Imagem bonita de fundo com tema de zumbis-->
+			<div class="menu-screen position-absolute w-100 h-100 bg-black d-flex flex-column align-items-center d-none">
+				<nav>
+					<div class="menu-screen__new-game p-2 mb-3">
+						Novo jogo
+					</div>
+					<div class="menu-screen__load-game p-2 mb-3">
+						Carregar
+					</div>
+					<div class="menu-screen__save-game p-2 mb-3">
+						Salvar
+					</div>
+					<div class="menu-screen__feedback p-2 d-none">
+						Feedback
+					</div>
+				</nav>
+				
+				<div class="new-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
+					<p>
+						Tem certeza que quer começar um NOVO JOGO?<br>Todo seu progresso atual será APAGADO
+					</p>
+					<div class="confirmation-button-area d-flex justify-content-between w-100">
+						<div class="button" id="new-game-cancel-button">
+							Não
+						</div>
+						<div class="button" id="new-game-confirm-button">
+							Sim
+						</div>
+					</div>
+				</div>
+				
+				<div class="load-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
+					<p>
+						Quer carregar o jogo?
+					</p>
+					<div class="confirmation-button-area d-flex justify-content-between w-100">
+						<div class="button" id="load-game-cancel-button">
+							Não
+						</div>
+						<div class="button" id="load-game-confirm-button">
+							Sim
+						</div>
+					</div>
+				</div>
+				
+				<div class="load-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
+					<p>
+						Quer salvar o jogo?
+					</p>
+					<div class="confirmation-button-area d-flex justify-content-between w-100">
+						<div class="button" id="save-game-cancel-button">
+							Não
+						</div>
+						<div class="button" id="save-game-confirm-button">
+							Sim
+						</div>
+					</div>
+				</div>
+				
+				<div class="feedback-screen d-none">
+					
 				</div>
 			</div>
 			
@@ -109,8 +173,8 @@
 				<img class="event-area__explosion" />
 			</div>
 			
-			<div class="screen-blood-area">
-				<img />
+			<div class="screen-blood-area position-absolute d-flex justify-content-center d-none">
+				<img src="assets/images/screen/screen_blood.png" />
 			</div>
 			
 			<div class="player-hud position-absolute bottom-0 d-flex justify-content-between">
@@ -121,7 +185,8 @@
 							<li><img src="assets/images/icons/consumables_icon.png" /></li>
 							<li><img src="assets/images/icons/others_icon.png" /></li>
 							<li><img src="assets/images/icons/craft_icon.png" /></li>
-							<li><img src="assets/images/icons/chest_icon.png" /></li>
+							<li class="d-none"><img src="assets/images/icons/chest_icon.png" /></li>
+							<li class="d-none"><img src="assets/images/icons/characters_icon4.png" /></li>
 							<li><img src="assets/images/icons/menu_icon.png" /></li>
 						</ul>
 					</nav>
@@ -160,12 +225,6 @@
 					</div>
 				</div>
 			</div>
-			
-			
-			
-			
-			
-			
 		</main>
 		
 		<script src="assets/bootstrap5/js/bootstrap.bundle.min.js" type="text/javascript">
