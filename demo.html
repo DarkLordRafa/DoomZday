@@ -119,6 +119,9 @@
 					<div class="menu-screen__feedback p-2 d-none">
 						Feedback
 					</div>
+					<div class="menu-screen__return p-2 d-none">
+						Voltar
+					</div>
 				</nav>
 				
 				<div class="new-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
@@ -149,7 +152,7 @@
 					</div>
 				</div>
 				
-				<div class="load-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
+				<div class="save-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
 					<p>
 						Quer salvar o jogo?
 					</p>
@@ -173,8 +176,10 @@
 				<img class="event-area__explosion" />
 			</div>
 			
-			<div class="screen-blood-area position-absolute d-flex justify-content-center d-none">
-				<img src="assets/images/screen/screen_blood.png" />
+			<div class="screen-damage-area position-absolute h-100 w-100 d-none">
+				<div class="screen-blood-area d-flex justify-content-center">
+					<img src="assets/images/screen/screen_blood.png" />
+				</div>
 			</div>
 			
 			<div class="player-hud position-absolute bottom-0 d-flex justify-content-between">
@@ -190,19 +195,20 @@
 							<li><img src="assets/images/icons/menu_icon.png" /></li>
 						</ul>
 					</nav>
+					
 					<div class="player-menu-area__display">
-						<div class="player-menu-area-display__screen player-menu-area-display__weapons">
+						<div class="player-menu-area-display__screen player-menu-area-display__weapons d-none">
 							<ul class="ps-0 ms-0">
 								<li><img src="assets/images/items/handgun.png" /></li>
 							</ul>
 						</div>
-						<div class="player-menu-area-display__screen player-menu-area-display__consumables">
+						<div class="player-menu-area-display__screen player-menu-area-display__consumables d-none">
 							<ul class="ps-0 ms-0">
 								<li><img src="assets/images/items/bandage.png" /></li>
 								<li><img src="assets/images/items/medikit.png" /></li>
 							</ul>
 						</div>
-						<div class="player-menu-area-display__screen player-menu-area-display__others">
+						<div class="player-menu-area-display__screen player-menu-area-display__others d-none">
 							<ul class="ps-0 ms-0">
 								<li><img src="assets/images/items/molotov.png" /></li>
 							</ul>
@@ -217,8 +223,11 @@
 					<div class="actions-area__button actions-area__search-button d-flex justify-content-center align-items-center">
 						<img src="assets/images/icons/search_icon.png" />
 					</div>
-					<div class="actions-area__button actions-area__attack-button d-flex justify-content-center align-items-center">
+					<div class="actions-area__button actions-area__attack-button d-flex flex-column justify-content-start align-items-center position-relative">
 						<img src="assets/images/items/handgun.png" />
+						<div class="actions-area-weapon-ammo position-absolute">
+							15
+						</div>
 					</div>
 					<div class="actions-area__button actions-area__walk-button d-flex justify-content-center align-items-center">
 						<img src="assets/images/icons/walk_icon.png" />
@@ -229,7 +238,11 @@
 		
 		<script src="assets/bootstrap5/js/bootstrap.bundle.min.js" type="text/javascript">
 		</script>
-		<script src="assets/js/main/main.js" type="text/javascript">
+		<script src="assets/js/main/main.js" type="module">
+		</script>
+		<script src="assets/js/menu/menu.js" type="module">
+		</script>
+		<script src="assets/js/player_menu/player_menu.js" type="module">
 		</script>
 	</body>
 </html>
