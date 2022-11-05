@@ -36,3 +36,7 @@ menuDisplayButton.addEventListener("click", function(){
 	menuScreen.classList.remove("d-none");
 	menuScreenReturnButton.classList.remove("d-none");
 });
+
+menuScreenReturnButton.addEventListener("click", function(){
+	menuScreen.classList.add("d-none");
+});
