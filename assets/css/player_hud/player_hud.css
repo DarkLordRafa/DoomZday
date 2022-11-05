@@ -1,6 +1,6 @@
 
 .player-hud{
-	z-index: 3;
+	z-index: 4;
 }
 
 .player-menu-area{
@@ -75,6 +75,7 @@
 	position: relative;
 	border-left: none;
 	height: 100%;
+	background-color: #e8dcb8;
 }
 
 .player-menu-area-display__screen{
@@ -93,8 +94,8 @@
 }
 
 .player-menu-area__display li img{
-	height: 100%;
-	width: 100%;
+	max-height: 100%;
+	max-width: 100%;
 	object-fit: contain;
 }
 
@@ -156,6 +157,18 @@
 	margin-right: 5vw;
 	margin-top: 2vw;
 	margin-bottom: 2vw;
+}
+
+.actions-area-weapon-ammo{
+	color: white;
+	font-size: 4.5vw;
+	bottom: 10%;
+	right: 15%;
+	padding: 0.5vw 1vw;
+	border-radius: 5px;
+	max-width: 90%;
+	overflow: hidden;
+	background-color: rgba(00, 00, 00, 0.6);
 }
 
 .actions-area__walk-button{

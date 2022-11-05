@@ -76,6 +76,11 @@ body{
 	background-repeat: no-repeat;
 }
 
+.screen-damage-area{
+	box-shadow: 0 0 20px 10px red inset;
+	z-index: 99;
+}
+
 .enemies-area{
 	margin-top: 20vh;
 }
@@ -137,9 +142,8 @@ body{
 }
 
 .screen-blood-area{
-	z-index: 99;
 	height: 50vh;
-	top: 20vh;
+	margin-top: 20vh;
 }
 
 .screen-blood-area img{
@@ -216,4 +220,17 @@ body{
 	font-size: 6vw;
 	font-weight: 900;
 	text-transform: uppercase;
+}
+
+.game-texts-screen,
+.characters-dialogues-screen,
+.received-items-screen,
+.menu-screen,
+.menu-screen__feedback,
+.new-game-screen,
+.load-game-screen,
+.save-game-screen,
+.feedback-screen,
+.screen-blood-area{
+	
 }
