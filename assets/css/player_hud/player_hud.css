@@ -57,7 +57,7 @@
 }
 
 .player-menu-area__options li:hover, .player-menu-area__display li:hover, .actions-area__button:active{
-	background-color: #8B4000;
+	background-color: #8B4000!important;
 }
 
 .player-menu-area__options, .player-menu-area__options li{
@@ -176,4 +176,26 @@
 	width: 15vw;
 	align-self: flex-end;
 	margin-right: 10vw;
+}
+
+.player-item-confirm{
+	background-color: black;
+	margin-bottom: 20vh;
+	padding: 10vw 10vw;
+	margin-left: 38vw;
+}
+
+.player-item-confirm div{
+	background-color: #CD7F32;
+	border-radius: 10px;
+	border: 3px solid #A0522D;
+	min-width: 20vw;
+	text-align: center;
+	color: black;
+	padding: 1vw 0;
+}
+
+.player-item-confirm div:hover{
+	background-color: #8B4000;
+	color: white;
 }

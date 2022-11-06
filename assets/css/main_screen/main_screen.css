@@ -221,16 +221,3 @@ body{
 	font-weight: 900;
 	text-transform: uppercase;
 }
-
-.game-texts-screen,
-.characters-dialogues-screen,
-.received-items-screen,
-.menu-screen,
-.menu-screen__feedback,
-.new-game-screen,
-.load-game-screen,
-.save-game-screen,
-.feedback-screen,
-.screen-blood-area{
-	
-}

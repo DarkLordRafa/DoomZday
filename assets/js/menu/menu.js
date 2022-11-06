@@ -20,14 +20,11 @@ function menuScreenDisplay(targetScreen){
 	targetScreen.classList.remove("d-none");
 }
 
-function menuScreenClose(targetScreen){
+function menuScreenClose(targetScreen, targetMenuScreen){
 	targetScreen.classList.add("d-none");
+	targetMenuScreen.classList.add("d-none");
 }
 
-export function menuScreenConfirmAction(targetScreen, action){
-	targetScreen.classList.add("d-none");
-	action();
-}
 
 newGameButton.addEventListener("click", function(){
 	menuScreenDisplay(newGameScreen);
@@ -35,6 +32,10 @@ newGameButton.addEventListener("click", function(){
 
 newGameCancelButton.addEventListener("click", function(){
 	menuScreenClose(newGameScreen);
+});
+
+newGameConfirmButton.addEventListener("click", function(){
+	menuScreenClose(newGameScreen, menuScreen);
 });
 
 loadGameButton.addEventListener("click", function(){
@@ -45,10 +46,22 @@ loadGameCancelButton.addEventListener("click", function(){
 	menuScreenClose(loadGameScreen);
 });
 
+loadGameConfirmButton.addEventListener("click", function(){
+	menuScreenClose(loadGameScreen, menuScreen);
+});
+
 saveGameButton.addEventListener("click", function(){
 	menuScreenDisplay(saveGameScreen);
 });
 
 saveGameCancelButton.addEventListener("click", function(){
 	menuScreenClose(saveGameScreen);
+});
+
+saveGameConfirmButton.addEventListener("click", function(){
+	menuScreenClose(saveGameScreen, menuScreen);
+});
+
+menuScreenReturnButton.addEventListener("click", function(){
+	menuScreen.classList.add("d-none");
 });
