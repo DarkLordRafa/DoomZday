@@ -1,4 +1,5 @@
 
+//Variáveis de elementos
 const playerMenuOptions = document.querySelectorAll(".player-menu-area__options ul li");
 const weaponsDisplayButton = playerMenuOptions[0];
 const consumablesDisplayButton = playerMenuOptions[1];
@@ -28,14 +29,21 @@ const molotovReturnButton = document.querySelector("#molotov-return-button");
 const playerMenuWeaponsList = document.querySelectorAll(".player-menu-area-display__weapons li");
 const playerMenuConsumablesList = document.querySelectorAll(".player-menu-area-display__consumables li");
 const playerMenuOthersList = document.querySelectorAll(".player-menu-area-display__others li");
+const itemInfoScreenOKButton = document.querySelector(".item-info-ok-button");
+const weaponInfoScreenOKButton = document.querySelector(".weapon-info-ok-button");
+const playerItemInfoScreen = document.querySelector("#player-item-info-screen");
+const playerWeaponInfoScreen = document.querySelector("#player-weapon-info-screen");
 
+
+//Variáveis das imagens
 const pistolImage = "assets/images/items/handgun.png";
 const molotovImage = "assets/images/items/molotov.png";
 
+//Variável do item atualmente equipado
 let equipedMenuItem = playerMenuWeaponsList[0];
 
 
-
+//Função que faz a mudança visual do item equipado, baseada nas variáveis de imagem, a nodeList do item, e a posição do item
 function changeEquipedItem(itemImage, itemList, itemIndex){
 	attackButtonWeaponImage.src = itemImage;
 	itemList.forEach(function(item){
@@ -46,15 +54,17 @@ function changeEquipedItem(itemImage, itemList, itemIndex){
 	equipedMenuItem = itemList[itemIndex];
 }
 
-function displayItemConfirmScreen(targetScreen){
+//Função que abre uma tela baseada no argumento passado
+function displayScreen(targetScreen){
 	targetScreen.classList.remove("d-none");
 }
 
-function closeItemConfirmScreen(targetScreen){
+//Função que fecha uma tela baseada no argumento passado
+function closeScreen(targetScreen){
 	targetScreen.classList.add("d-none");
 }
 
-
+//Função que troca as telas de itens do menu do jogador baseada no argumento passado
 function displayPlayerMenuItemScreen(itemScreen){
 	playerMenuItemsScreens.forEach(function(screen){
 		screen.classList.add("d-none");
@@ -63,7 +73,7 @@ function displayPlayerMenuItemScreen(itemScreen){
 }
 
 
-
+//Botões que trocam as telas de itens do menu
 weaponsDisplayButton.addEventListener("click", function(){
 	displayPlayerMenuItemScreen(0);
 });
@@ -76,58 +86,86 @@ othersDisplayButton.addEventListener("click", function(){
 	displayPlayerMenuItemScreen(2);
 });
 
+//Botão que abre o menu principal com o botão "voltar" exibido
 menuDisplayButton.addEventListener("click", function(){
 	menuScreen.classList.remove("d-none");
 	menuScreenReturnButton.classList.remove("d-none");
 });
 
+//Botões que exibem a tela de confirmação do item específico ao clicar nele no menu
 playerMenuWeaponsList[0].addEventListener("click", function(){
-	displayItemConfirmScreen(pistolConfirmScreen);
+	displayScreen(pistolConfirmScreen);
 });
 
 playerMenuConsumablesList[0].addEventListener("click", function(){
-	displayItemConfirmScreen(bandageConfirmScreen);
+	displayScreen(bandageConfirmScreen);
 });
 
 playerMenuConsumablesList[1].addEventListener("click", function(){
-	displayItemConfirmScreen(medikitConfirmScreen);
+	displayScreen(medikitConfirmScreen);
 });
 
 playerMenuOthersList[0].addEventListener("click", function(){
-	displayItemConfirmScreen(molotovConfirmScreen);
+	displayScreen(molotovConfirmScreen);
 });
 
+//Botões que fecham a tela de confirmação do item
 pistolReturnButton.addEventListener("click" , function(){
-	closeItemConfirmScreen(pistolConfirmScreen);
+	closeScreen(pistolConfirmScreen);
 });
 
 bandageReturnButton.addEventListener("click" , function(){
-	closeItemConfirmScreen(bandageConfirmScreen);
+	closeScreen(bandageConfirmScreen);
 });
 
 medikitReturnButton.addEventListener("click" , function(){
-	closeItemConfirmScreen(medikitConfirmScreen);
+	closeScreen(medikitConfirmScreen);
 });
 
 molotovReturnButton.addEventListener("click" , function(){
-	closeItemConfirmScreen(molotovConfirmScreen);
+	closeScreen(molotovConfirmScreen);
 });
 
 bandageUseButton.addEventListener("click", function(){
-	closeItemConfirmScreen(bandageConfirmScreen);
+	closeScreen(bandageConfirmScreen);
 });
 
 medikitUseButton.addEventListener("click", function(){
-	closeItemConfirmScreen(medikitConfirmScreen);
+	closeScreen(medikitConfirmScreen);
 });
 
+
+//Botões que fazem a mudança visual do item equipado
 pistolEquipButton.addEventListener("click", function(){
 	changeEquipedItem(pistolImage, playerMenuWeaponsList, 0);
-	closeItemConfirmScreen(pistolConfirmScreen);
+	closeScreen(pistolConfirmScreen);
+});
+
+pistolInfoButton.addEventListener("click", function(){
+	displayScreen(playerWeaponInfoScreen);
+});
+
+bandageInfoButton.addEventListener("click", function(){
+	displayScreen(playerItemInfoScreen);
+});
+
+medikitInfoButton.addEventListener("click", function(){
+	displayScreen(playerItemInfoScreen);
+});
+
+molotovInfoButton.addEventListener("click", function(){
+	displayScreen(playerWeaponInfoScreen);
 });
 
 molotovEquipButton.addEventListener("click", function(){
 	changeEquipedItem(molotovImage, playerMenuOthersList, 0);
-	closeItemConfirmScreen(molotovConfirmScreen);
+	closeScreen(molotovConfirmScreen);
 });
 
+itemInfoScreenOKButton.addEventListener("click", function(){
+	closeScreen(playerItemInfoScreen);
+});
+
+weaponInfoScreenOKButton.addEventListener("click", function(){
+	closeScreen(playerWeaponInfoScreen);
+});

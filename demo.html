@@ -15,8 +15,10 @@
 	
 	<body class="bg-black d-flex flex-column align-items-start">
 		
+		<!-- Tela principal do jogo -->
 		<main class="main-screen w-100 h-100 position-relative d-flex flex-column align-items-center">
 			
+			<!-- Área dos inimigos comuns da batalha (parte de trás) -->
 			<div class="enemies-area d-flex justify-content-center">
 				<div class="enemy d-flex flex-column align-items-center" id="enemy1">
 					<div class="enemy__damage text-end align-self-end">
@@ -50,6 +52,7 @@
 				</div>
 			</div>
 			
+			<!-- Área dos inimigos fortes da batalha (parte do meio) -->
 			<div class="mini-boss-area d-flex justify-content-center">
 				<div class="enemy d-flex flex-column align-items-center" id="mini-boss-1">
 					<div class="enemy__damage text-end align-self-end">
@@ -65,6 +68,7 @@
 				</div>
 			</div>
 			
+			<!-- Área do chefe da batalha (parte da frente) -->
 			<div class="boss-area d-flex justify-content-center">
 				<div class="enemy d-flex flex-column align-items-center" id="boss">
 					<div class="enemy__damage text-end align-self-end">
@@ -74,6 +78,7 @@
 				</div>
 			</div>
 			
+			<!-- Tela de textos do jogo -->
 			<div class="game-texts-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
 				<div class="game-texts text-center d-flex flex-column align-items-center justify-content-between bg-black">
 					<div class="game-texts__text-area d-flex align-items-center">
@@ -83,6 +88,7 @@
 				</div>
 			</div>
 			
+			<!-- Tela de textos dos personagens -->
 			<div class="characters-dialogues-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
 				<div class="characters-dialogues d-flex flex-column align-items-center justify-content-between bg-black">
 					<div class="characters-dialogues__text-area">
@@ -92,6 +98,7 @@
 				</div>
 			</div>
 			
+			<!-- Tela de item recebido -->
 			<div class="received-items-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
 				<div class="received-items d-flex flex-column align-items-center">
 					<div class="received-items__content d-flex flex-column align-items-center text-center justify-content-center h-100 w-100">
@@ -104,7 +111,8 @@
 				</div>
 			</div>
 			
-			<!--Imagem bonita de fundo com tema de zumbis-->
+			<!-- Imagem bonita de fundo com tema de zumbis (anotação pessoal) -->
+			<!-- Menu principal -->
 			<div class="menu-screen position-absolute w-100 h-100 bg-black d-flex flex-column align-items-center d-none">
 				<nav>
 					<div class="menu-screen__new-game p-2 mb-3">
@@ -124,6 +132,7 @@
 					</div>
 				</nav>
 				
+				<!-- Telas de confirmação das opções do menu principal -->
 				<div class="new-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
 					<p>
 						Tem certeza que quer começar um NOVO JOGO?<br>Todo seu progresso atual será APAGADO
@@ -166,24 +175,65 @@
 					</div>
 				</div>
 				
+				<!-- Tela da mensagem de feedback -->
 				<div class="feedback-screen d-none">
 					
 				</div>
 			</div>
 			
+			<!-- Área de eventos do jogo (fogo, explosóes, etc). -->
 			<div class="event-area">
 				<img class="event-area__fire" src="assets/images/screen/molotov_fire2.png" />
 				<img class="event-area__explosion" />
 			</div>
 			
+			<!-- Tela de dano sofrido pelo jogador -->
 			<div class="screen-damage-area position-absolute h-100 w-100 d-none">
 				<div class="screen-blood-area d-flex justify-content-center">
 					<img src="assets/images/screen/screen_blood.png" />
 				</div>
 			</div>
 			
+			<!-- Telas de info do item selecionado -->
+			<div class="player-item-info-screen position-absolute offset-screen h-100 w-100 d-flex justify-content-center align-items-start d-none" id="player-item-info-screen">
+				<div class="player-item-info d-flex flex-column align-items-center">
+					<span class="item-info-name mb-3">Bandagem</span>
+					<img class="item-info-image mb-2" src="assets/images/items/bandage.png" />
+					<span class="item-info-legendary mb-2 d-none">Lendário</span>
+					<p class="item-info-description me-2">
+						Curativo simples feito com trapos e um pouco de álcool. Recupera parte da vida.
+					</p>
+					<span class="item-info-ok-button align-self-end mt-2 me-2">Ok</span>
+				</div>
+			</div>
+			
+			<div class="player-weapon-info-screen position-absolute offset-screen h-100 w-100 d-flex justify-content-center align-items-start d-none" id="player-weapon-info-screen">
+				<div class="player-weapon-info d-flex flex-column align-items-center">
+					<span class="weapon-info-name mb-3">Pistola 9mm</span>
+					<img class="weapon-info-image mb-2" src="assets/images/items/handgun.png" />
+					<span class="weapon-info-legendary mb-2 d-none">Lendário</span>
+					<div class="weapon-info-content pe-2">
+						<p class="weapon-info-description">
+							Pistola 9mm gasta mas que ainda funciona muito bem. Não possui muito poder de fogo mas tem certa chance de crítico e chance de dar mais de um tiro.
+						</p>
+						<ul class="weapon-info-attributes p-0 text-start">
+							<li>Dano: <span>Baixo</span></li>
+							<li>Chance de acerto: <span>Moderada</span></li>
+							<li>Chance de crítico: <span>Baixa</span></li>
+						</ul>
+						<p class="weapon-info-text">
+							"As armas são para dizer que lutamos, e as rosas para dizer que vencemos" - Axl Rose
+						</p>
+					</div>
+					<span class="weapon-info-ok-button align-self-end mt-2 me-2">Ok</span>
+				</div>
+			</div>
+			
+			<!-- Área do HUD do jogador -->
 			<div class="player-hud position-absolute bottom-0 d-flex justify-content-between">
+				<!-- Área do menu do jogador -->
 				<div class="player-menu-area d-flex">
+					<!-- Botões de opções do menu do jogador -->
 					<nav class="player-menu-area__options">
 						<ul class="ps-0 ms-0">
 							<li><img src="assets/images/icons/weapons_icon.png" /></li>
@@ -195,7 +245,7 @@
 							<li><img src="assets/images/icons/menu_icon.png" /></li>
 						</ul>
 					</nav>
-					
+					<!-- Telas dos itens do menu do jogador -->
 					<div class="player-menu-area__display">
 						<div class="player-menu-area-display__screen player-menu-area-display__weapons">
 							<ul class="ps-0 ms-0">
@@ -218,10 +268,10 @@
 						<img src="assets/images/screen/healt_line_fine.png" />
 					</div>
 				</div>
-				
+				<!-- Telas de confirmação dos itens do menu do jogador -->
 				<div class="offset-screen position-absolute w-100 h-100 d-flex align-items-end d-none" id="pistol-confirm-screen">
 					<div class="player-item-confirm d-flex flex-column align-items-center justify-content-center">
-						<div class="mb-3" id="pistol-equip-button">
+						<div class="equip-weapon-button mb-3" id="pistol-equip-button">
 							Equipar
 						</div>
 						<div class="mb-3" id="pistol-info-button">
@@ -275,6 +325,7 @@
 					</div>
 				</div>
 				
+				<!-- Botões de ações do jogador -->
 				<div class="actions-area d-flex flex-column align-items-center">
 					<div class="actions-area__button actions-area__search-button d-flex justify-content-center align-items-center">
 						<img src="assets/images/icons/search_icon.png" />

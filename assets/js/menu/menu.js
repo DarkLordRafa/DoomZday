@@ -1,4 +1,5 @@
 
+//Variáveis de elementos
 const menuScreen = document.querySelector(".menu-screen");
 const newGameButton = document.querySelector(".menu-screen__new-game");
 const loadGameButton = document.querySelector(".menu-screen__load-game");
@@ -15,17 +16,18 @@ const saveGameConfirmButton = document.querySelector("#save-game-confirm-button"
 const menuScreenReturnButton = document.querySelector(".menu-screen__return");
 
 
-
+//Função que abre a tela de confirmação da opção do menu principal, baseada no argumento passado
 function menuScreenDisplay(targetScreen){
 	targetScreen.classList.remove("d-none");
 }
 
+//Função que fecha a tela de confirmação da opção do menu principal junto com o menu, baseada no argumento passado
 function menuScreenClose(targetScreen, targetMenuScreen){
 	targetScreen.classList.add("d-none");
 	targetMenuScreen.classList.add("d-none");
 }
 
-
+//Botões que fecham a tela da opçáo do menu ou a tela de opção junto com o menu
 newGameButton.addEventListener("click", function(){
 	menuScreenDisplay(newGameScreen);
 });

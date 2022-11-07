@@ -199,3 +199,46 @@
 	background-color: #8B4000;
 	color: white;
 }
+
+.player-item-info, .player-weapon-info{
+	background-color: black;
+	height: 70vh;
+	width: 80vw;
+	margin-top: 10vh;
+	color: white;
+	padding: 5vw;
+}
+
+.item-info-name, .weapon-info-name{
+	font-size: 6vw;
+	font-weight: bold;
+}
+
+.item-info-image, .weapon-info-image{
+	max-height: 15vh;
+	max-width: 90%;
+	background-color: #343434;
+}
+
+.item-info-legendary, .weapon-info-legendary{
+	font-size: 4vw;
+	font-weight: 900;
+	background-color: #DAA520;
+	text-transform: uppercase;
+	padding: 1vw 3vw;
+	color: black;
+	border-radius: 5px;
+}
+
+.item-info-description, .weapon-info-content{
+	text-align: center;
+	font-size: 4.5vw;
+	overflow-y: auto;
+	height: 100%;
+}
+
+.item-info-ok-button, .weapon-info-ok-button{
+  font-size: 6vw;
+	font-weight: 900;
+	text-transform: uppercase;
+}
