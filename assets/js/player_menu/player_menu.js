@@ -33,6 +33,27 @@ const itemInfoScreenOKButton = document.querySelector(".item-info-ok-button");
 const weaponInfoScreenOKButton = document.querySelector(".weapon-info-ok-button");
 const playerItemInfoScreen = document.querySelector("#player-item-info-screen");
 const playerWeaponInfoScreen = document.querySelector("#player-weapon-info-screen");
+const itemInfoName = document.querySelector(".item-info-name");
+const itemInfoImage = document.querySelector(".item-info-image");
+const itemInfoLegendary = document.querySelector(".item-info-legendary");
+const itemInfoDescription = document.querySelector(".item-info-description");
+const WeaponInfoName = document.querySelector(".weapon-info-name");
+const WeaponInfoImage = document.querySelector(".weapon-info-image");
+const WeaponInfoLegendary = document.querySelector(".weapon-info-legendary");
+const WeaponInfoDescription = document.querySelector(".weapon-info-description");
+const WeaponInfoDamage = document.querySelector(".weapon-info-damage");
+const WeaponInfoHitChance = document.querySelector(".weapon-info-hit-chance");
+const WeaponInfoCriticalChance = document.querySelector(".weapon-info-critical-chance");
+const WeaponInfoText = document.querySelector(".weapon-info-text");
+
+
+//Objetos das infos dos itens
+const bandageInfo = {
+	name: "Bandagem",
+	image: "assets/images/items/bandage.png",
+	description: "Curativo simples feito com trapos e um pouco de álcool. Recupera parte da vida.",
+	legendary: false
+};
 
 
 //Variáveis das imagens
@@ -71,6 +92,20 @@ function displayPlayerMenuItemScreen(itemScreen){
 	});
 	playerMenuItemsScreens[itemScreen].classList.remove("d-none");
 }
+
+//Função que muda as informações da tela de info de item baseada no objeto desse item
+function changeItemInfoScreenInfo(itemInfoObject){
+	itemInfoName.innerHTML = itemInfoObject.name;
+	itemInfoImage.src = itemInfoObject.image;
+	itemInfoDescription.innerHTML = itemInfoObject.description;
+	if (itemInfoObject.legendary === true){
+		itemInfoLegendary.classList.remove("d-none");
+	}
+	else{
+		itemInfoLegendary.classList.add("d-none");
+	}
+}
+
 
 
 //Botões que trocam as telas de itens do menu
@@ -169,3 +204,4 @@ itemInfoScreenOKButton.addEventListener("click", function(){
 weaponInfoScreenOKButton.addEventListener("click", function(){
 	closeScreen(playerWeaponInfoScreen);
 });
+
