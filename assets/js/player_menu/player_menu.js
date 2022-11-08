@@ -37,14 +37,15 @@ const itemInfoName = document.querySelector(".item-info-name");
 const itemInfoImage = document.querySelector(".item-info-image");
 const itemInfoLegendary = document.querySelector(".item-info-legendary");
 const itemInfoDescription = document.querySelector(".item-info-description");
-const WeaponInfoName = document.querySelector(".weapon-info-name");
-const WeaponInfoImage = document.querySelector(".weapon-info-image");
-const WeaponInfoLegendary = document.querySelector(".weapon-info-legendary");
-const WeaponInfoDescription = document.querySelector(".weapon-info-description");
-const WeaponInfoDamage = document.querySelector(".weapon-info-damage");
-const WeaponInfoHitChance = document.querySelector(".weapon-info-hit-chance");
-const WeaponInfoCriticalChance = document.querySelector(".weapon-info-critical-chance");
-const WeaponInfoText = document.querySelector(".weapon-info-text");
+const weaponInfoContent = document.querySelector(".weapon-info-content");
+const weaponInfoName = document.querySelector(".weapon-info-name");
+const weaponInfoImage = document.querySelector(".weapon-info-image");
+const weaponInfoLegendary = document.querySelector(".weapon-info-legendary");
+const weaponInfoDescription = document.querySelector(".weapon-info-description");
+const weaponInfoDamage = document.querySelector(".weapon-info-damage");
+const weaponInfoHitChance = document.querySelector(".weapon-info-hit-chance");
+const weaponInfoCriticalChance = document.querySelector(".weapon-info-critical-chance");
+const weaponInfoText = document.querySelector(".weapon-info-text");
 
 
 //Objetos das infos dos itens
@@ -55,10 +56,40 @@ const bandageInfo = {
 	legendary: false
 };
 
+const medikitInfo = {
+	name: "Kit médico",
+	image: "assets/images/items/medikit.png",
+	description: "Um kit médico quase em perfeito estado que contém medicamentos e itens de primeiros socorros muito úteis. Recupera boa parte da vida.",
+	legendary: false
+};
+
+const pistolInfo = {
+	name: "Pistola 9mm",
+	image: "assets/images/items/handgun.png",
+	description: "Pistola 9mm gasta mas que ainda funciona muito bem. Não possui muito poder de fogo mas tem certa chance de crítico e chance de dar mais de um tiro.",
+	damage: "Baixo",
+	hitChance: "Moderada",
+	criticalChance: "Baixa",
+	text: '"As armas são para dizer que lutamos, e as rosas para dizer que vencemos" - Axl Rose".',
+	legendary: false
+};
+
+const molotovlInfo = {
+	name: "Molotov",
+	image: "assets/images/items/molotov.png",
+	description: "Coquetel molotov improvisado feito com uma garrafa de bebida velha e um pano que você encontrou. Atinge todos os inimigos na tela e os deixa queimando, causando dano contínuo por 3 turnos.",
+	damage: "Baixo",
+	hitChance: "Garantido",
+	criticalChance: "Baixa",
+	text: "Veja esses malditos zumbis queimarem.",
+	legendary: false
+};
+
 
 //Variáveis das imagens
 const pistolImage = "assets/images/items/handgun.png";
 const molotovImage = "assets/images/items/molotov.png";
+
 
 //Variável do item atualmente equipado
 let equipedMenuItem = playerMenuWeaponsList[0];
@@ -75,15 +106,18 @@ function changeEquipedItem(itemImage, itemList, itemIndex){
 	equipedMenuItem = itemList[itemIndex];
 }
 
+
 //Função que abre uma tela baseada no argumento passado
 function displayScreen(targetScreen){
 	targetScreen.classList.remove("d-none");
 }
 
+
 //Função que fecha uma tela baseada no argumento passado
 function closeScreen(targetScreen){
 	targetScreen.classList.add("d-none");
 }
+
 
 //Função que troca as telas de itens do menu do jogador baseada no argumento passado
 function displayPlayerMenuItemScreen(itemScreen){
@@ -93,8 +127,10 @@ function displayPlayerMenuItemScreen(itemScreen){
 	playerMenuItemsScreens[itemScreen].classList.remove("d-none");
 }
 
-//Função que muda as informações da tela de info de item baseada no objeto desse item
+
+//Função que muda as informações da tela de info do item baseada no objeto desse item
 function changeItemInfoScreenInfo(itemInfoObject){
+	itemInfoDescription.scrollTo(0, 0);
 	itemInfoName.innerHTML = itemInfoObject.name;
 	itemInfoImage.src = itemInfoObject.image;
 	itemInfoDescription.innerHTML = itemInfoObject.description;
@@ -103,6 +139,24 @@ function changeItemInfoScreenInfo(itemInfoObject){
 	}
 	else{
 		itemInfoLegendary.classList.add("d-none");
+	}
+}
+
+//Função que muda as informações da tela de info da arma baseada no objeto dessa arma
+function changeWeaponInfoScreenInfo(weaponInfoObject){
+	weaponInfoContent.scrollTo(0, 0);
+	weaponInfoName.innerHTML = weaponInfoObject.name;
+	weaponInfoImage.src = weaponInfoObject.image;
+	weaponInfoDescription.innerHTML = weaponInfoObject.description;
+	weaponInfoDamage.innerHTML = weaponInfoObject.damage;
+	weaponInfoHitChance.innerHTML = weaponInfoObject.hitChance;
+	weaponInfoCriticalChance.innerHTML = weaponInfoObject.criticalChance;
+	weaponInfoText.innerHTML = weaponInfoObject.text;
+	if (weaponInfoObject.legendary === true){
+		weaponInfoLegendary.classList.remove("d-none");
+	}
+	else{
+		weaponInfoLegendary.classList.add("d-none");
 	}
 }
 
@@ -178,18 +232,22 @@ pistolEquipButton.addEventListener("click", function(){
 
 pistolInfoButton.addEventListener("click", function(){
 	displayScreen(playerWeaponInfoScreen);
+	changeWeaponInfoScreenInfo(pistolInfo);
 });
 
 bandageInfoButton.addEventListener("click", function(){
 	displayScreen(playerItemInfoScreen);
+	changeItemInfoScreenInfo(bandageInfo);
 });
 
 medikitInfoButton.addEventListener("click", function(){
 	displayScreen(playerItemInfoScreen);
+	changeItemInfoScreenInfo(medikitInfo);
 });
 
 molotovInfoButton.addEventListener("click", function(){
 	displayScreen(playerWeaponInfoScreen);
+	changeWeaponInfoScreenInfo(molotovlInfo);
 });
 
 molotovEquipButton.addEventListener("click", function(){

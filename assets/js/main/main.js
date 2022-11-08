@@ -11,4 +11,3 @@ const loadGameCancelButton = document.querySelector("#load-game-cancel-button");
 const loadGameConfirmButton = document.querySelector("#load-game-confirm-button");
 const saveGameCancelButton = document.querySelector("#save-game-cancel-button");
 const saveGameConfirmButton = document.querySelector("#save-game-confirm-button");
-
