@@ -242,3 +242,86 @@
 	font-weight: 900;
 	text-transform: uppercase;
 }
+
+.craft-item-screen__content{
+	height: 50vh;
+	width: 100vw;
+	background-color: black;
+	position: relative;
+	margin-top: 20vh;
+}
+
+.craft-item__item-list{
+	height: 100%;
+	width: 30%;
+}
+
+.craft-item__item-list li{
+	height: 20%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.craft-item__item-list li img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.craft-item-area{
+	background-color: black;
+	position: absolute;
+	height: 100%;
+	width: 70%;
+	right: 0;
+}
+
+.craft-item-area__content{
+	margin-bottom: 10%;
+}
+
+.craft-item__materials-list{
+	width: 40%;
+	height: 50%;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.craft-item__materials-list li{
+	height: 50%;
+	width: 50%;
+}
+
+.craft-item__materials-list li img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.craft-item__arrow-icon{
+	width: 30%;
+}
+
+.craft-item__result{
+	height: 30vw;
+	width: 30vw;
+	display: flex;
+	align-items: center;
+}
+
+.craft-item__result img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.craft-item-area__button{
+	color: white;
+}
+
+#craft-item-area__bandage{
+	z-index: 2;
+}
+
+#craft-item-area__molotov{
+	z-index: 1;
+}
