@@ -91,6 +91,20 @@
 .player-menu-area__display li{
 	border-left: none;
 	border-right: none;
+	position: relative;
+}
+
+.displayed-item-quantity{
+	position: absolute;
+	background-color: black;
+	color: white;
+	font-size: 4vw;
+	display: inline-block;
+	bottom: 0;
+	right: 0;
+	height: auto!important;
+	padding: 0.5vw 2vw;
+	padding-bottom: 0;
 }
 
 .player-menu-area__display li img{
@@ -311,6 +325,20 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	position: relative;
+}
+
+.displayed-craft-item-quantity{
+	position: absolute;
+	background-color: rgba(00, 00, 00, 0.7);
+	color: white;
+	font-size: 4vw;
+	display: inline-block;
+	bottom: 0;
+	right: 0;
+	height: auto!important;
+	padding: 0.5vw 2vw;
+	padding-bottom: 0;
 }
 
 .craft-item__materials-list li img{

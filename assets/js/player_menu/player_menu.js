@@ -286,11 +286,11 @@ weaponInfoScreenOKButton.addEventListener("click", function(){
 
 //Botões que trocam a tela de item atual da tela de criação de itens
 craftItemList[0].addEventListener("click", function(){
-	displayCraftItemScreens(0);
+	displayCraftItemScreens(1);
 });
 
 craftItemList[1].addEventListener("click", function(){
-	displayCraftItemScreens(1);
+	displayCraftItemScreens(2);
 });
 
 
