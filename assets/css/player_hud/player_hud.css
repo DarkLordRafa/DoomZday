@@ -193,6 +193,7 @@
 	text-align: center;
 	color: black;
 	padding: 1vw 0;
+	font-size: 4.5vw;
 }
 
 .player-item-confirm div:hover{
@@ -344,11 +345,11 @@
 	min-width: 20vw;
 	text-align: center;
 	padding: 1vw 0;
+	font-size: 4.5vw;
 }
 
 .craft-item-area__button:active{
 	background-color: #8B4000;
 	color: white;
 }
-
 
