@@ -252,15 +252,22 @@
 }
 
 .craft-item__item-list{
-	height: 100%;
+	height: 90%;
 	width: 30%;
+	background-color: #e8dcb8;
+	overflow-y: auto;
 }
 
 .craft-item__item-list li{
-	height: 20%;
+	height: 15%;
 	width: 100%;
 	display: flex;
 	justify-content: center;
+	border: 1px solid black;
+}
+
+.craft-item__item-list li:hover{
+	background-color: #8B4000;
 }
 
 .craft-item__item-list li img{
@@ -274,23 +281,35 @@
 	height: 100%;
 	width: 70%;
 	right: 0;
+	padding-bottom: 10%;
 }
 
 .craft-item-area__content{
-	margin-bottom: 10%;
+	margin-bottom: 5%;
+	padding: 0 3%;
+	height: 100%;
+}
+.craft-item-area__content *{
+	flex-shrink: 0;
+	flex-grow: 0;
 }
 
 .craft-item__materials-list{
-	width: 40%;
-	height: 50%;
+	width: 30vw;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	flex-wrap: wrap;
+	gap: 2vw;
 }
 
 .craft-item__materials-list li{
-	height: 50%;
-	width: 50%;
+	height: 14vw;
+	width: 14vw;
+	background-color: grey;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .craft-item__materials-list li img{
@@ -299,14 +318,17 @@
 }
 
 .craft-item__arrow-icon{
-	width: 30%;
+	width: 15%;
 }
 
 .craft-item__result{
-	height: 30vw;
-	width: 30vw;
+	height: 20vw;
+	width: 20vw;
 	display: flex;
+	justify-content: center;
 	align-items: center;
+	background-color: #e8dcb8;
+	background-color: grey;
 }
 
 .craft-item__result img{
@@ -315,13 +337,18 @@
 }
 
 .craft-item-area__button{
+	color: black;
+  background-color: #CD7F32;
+	border-radius: 10px;
+	border: 3px solid #A0522D;
+	min-width: 20vw;
+	text-align: center;
+	padding: 1vw 0;
+}
+
+.craft-item-area__button:active{
+	background-color: #8B4000;
 	color: white;
 }
 
-#craft-item-area__bandage{
-	z-index: 2;
-}
 
-#craft-item-area__molotov{
-	z-index: 1;
-}

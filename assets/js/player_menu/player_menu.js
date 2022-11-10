@@ -46,6 +46,10 @@ const weaponInfoDamage = document.querySelector(".weapon-info-damage");
 const weaponInfoHitChance = document.querySelector(".weapon-info-hit-chance");
 const weaponInfoCriticalChance = document.querySelector(".weapon-info-critical-chance");
 const weaponInfoText = document.querySelector(".weapon-info-text");
+const craftItemScreen = document.querySelector("#craft-item-screen");
+const craftItemScreenScreenList = document.querySelectorAll(".craft-item-area");
+const craftItemList = document.querySelectorAll(".craft-item__item-list li");
+const craftItemScreenReturnButtons = document.querySelectorAll(".craft-item-area__return-button");
 
 
 //Objetos das infos dos itens
@@ -127,6 +131,14 @@ function displayPlayerMenuItemScreen(itemScreen){
 	playerMenuItemsScreens[itemScreen].classList.remove("d-none");
 }
 
+//Função que troca as telas dos itens da tela de criação de itens baseada no argumento passado
+function displayCraftItemScreens(screenIndex){
+	craftItemScreenScreenList.forEach(function(screen){
+		screen.classList.add("d-none");
+	});
+	craftItemScreenScreenList[screenIndex].classList.remove("d-none");
+}
+
 
 //Função que muda as informações da tela de info do item baseada no objeto desse item
 function changeItemInfoScreenInfo(itemInfoObject){
@@ -141,6 +153,7 @@ function changeItemInfoScreenInfo(itemInfoObject){
 		itemInfoLegendary.classList.add("d-none");
 	}
 }
+
 
 //Função que muda as informações da tela de info da arma baseada no objeto dessa arma
 function changeWeaponInfoScreenInfo(weaponInfoObject){
@@ -174,6 +187,13 @@ consumablesDisplayButton.addEventListener("click", function(){
 othersDisplayButton.addEventListener("click", function(){
 	displayPlayerMenuItemScreen(2);
 });
+
+
+//Botão que abre a tela de criação de item
+craftDisplayButton.addEventListener("click", function(){
+	displayScreen(craftItemScreen);
+});
+
 
 //Botão que abre o menu principal com o botão "voltar" exibido
 menuDisplayButton.addEventListener("click", function(){
@@ -263,3 +283,20 @@ weaponInfoScreenOKButton.addEventListener("click", function(){
 	closeScreen(playerWeaponInfoScreen);
 });
 
+
+//Botões que trocam a tela de item atual da tela de criação de itens
+craftItemList[0].addEventListener("click", function(){
+	displayCraftItemScreens(0);
+});
+
+craftItemList[1].addEventListener("click", function(){
+	displayCraftItemScreens(1);
+});
+
+
+//Botões que fecham a tela de criação item
+craftItemScreenReturnButtons.forEach(function(button){
+	button.addEventListener("click", function(){
+		closeScreen(craftItemScreen);
+	});
+});
