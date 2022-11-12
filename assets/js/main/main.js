@@ -11,6 +11,10 @@ const displayedAlcoholQuantity = document.querySelectorAll(".displayed-alcohol-q
 const displayedBottleQuantity = document.querySelectorAll(".displayed-bottle-quantity");
 
 
+//Variável da quantidade de munição exibida no botão de ataque
+const displayedAmmoQuantity = document.querySelector(".actions-area-weapon-ammo");
+
+
 //Variáveis dos botões de criar item
 const craftBandageButton = document.querySelector("#craft-bandage-button");
 const craftMolotovButton = document.querySelector("#craft-molotov-button");
@@ -21,15 +25,39 @@ const playerMenuConsumablesList = document.querySelectorAll(".player-menu-area-d
 const playerMenuOthersList = document.querySelectorAll(".player-menu-area-display__others li");
 
 
+//Variáveil da lista de armas no menu do jogador
+const playerMenuWeaponsList = document.querySelectorAll(".player-menu-area-display__weapons li");
+
+
+//Botões de equipar armas e itens
+const pistolEquipButton = document.querySelector("#pistol-equip-button");
+const molotovEquipButton = document.querySelector("#molotov-equip-button");
+
+//Botões de ação do jogador
+const attackButton = document.querySelector(".actions-area__attack-button");
+
+
+
 
 //Variável do jogo salvo
-let gameSaved = {};
+let savedGame = {};
 
 //Objeto do jogo salvo
-gameSaved = {
+savedGame = {
 	player: {
 		life: 100,
-		equipedWeapon: {},
+		equipedWeapon: "none",
+//Quando a munição for infinita, trocar por "---"
+		hitChance: 0,
+		criticalChance: 0,
+		minDamage: 0,
+		maxDamage: 0,
+		minCriticalDamage: 0,
+		maxCriticalDamage: 0,
+		weapons: {
+			pistol: true,
+			pistolAmmo: 10
+		},
 		itemsQuantity: {
 			bandage: 0,
 			medikit: 0,
@@ -45,16 +73,16 @@ gameSaved = {
 
 
 
-//Função que mostra a quantidade do item na tela baseada no elemento alvo e no nome da propriedade do objeto gameSaved.player.itemsQuantity
+//Função que mostra a quantidade do item na tela baseada no elemento alvo e no nome da propriedade do objeto savedGame.player.itemsQuantity
 function displayItemQuantity(targetElement, propertyName){
-	targetElement.innerHTML = gameSaved.player.itemsQuantity[propertyName];
+	targetElement.innerHTML = savedGame.player.itemsQuantity[propertyName];
 }
 
 
-//Função que mostra a quantidade do item de criação na tela baseada na node list dos elementos alvos e no nome da propriedade do objeto gameSaved.player.craftingItemsQuantity
+//Função que mostra a quantidade do item de criação na tela baseada na node list dos elementos alvos e no nome da propriedade do objeto savedGame.player.craftingItemsQuantity
 function displayCraftingItemQuantity(targetNodeList, propertyName){
 	targetNodeList.forEach(function(element){
-		element.innerHTML = gameSaved.player.craftingItemsQuantity[propertyName];
+		element.innerHTML = savedGame.player.craftingItemsQuantity[propertyName];
 	});
 }
 
@@ -64,14 +92,14 @@ function displayCraftingItemQuantity(targetNodeList, propertyName){
 function craftBandage(){
 	//Checando se a quantidade de todos os itens necessários no array é maior que 0 com o método every
 	if ([
-		gameSaved.player.craftingItemsQuantity.cloth,
-		gameSaved.player.craftingItemsQuantity.alcohol
+		savedGame.player.craftingItemsQuantity.cloth,
+		savedGame.player.craftingItemsQuantity.alcohol
 		].every(value =>{return value > 0;}))
 		{
 		//Fazendo as alterações
-		gameSaved.player.craftingItemsQuantity.cloth -= 1;
-		gameSaved.player.craftingItemsQuantity.alcohol -= 1;
-		gameSaved.player.itemsQuantity.bandage += 1;
+		savedGame.player.craftingItemsQuantity.cloth -= 1;
+		savedGame.player.craftingItemsQuantity.alcohol -= 1;
+		savedGame.player.itemsQuantity.bandage += 1;
 	}
 }
 
@@ -79,14 +107,14 @@ function craftBandage(){
 //Função de criação do molotov
 function craftMolotov(){
 	if ([
-		gameSaved.player.craftingItemsQuantity.cloth,
-		gameSaved.player.craftingItemsQuantity.bottle
+		savedGame.player.craftingItemsQuantity.cloth,
+		savedGame.player.craftingItemsQuantity.bottle
 		].every(value =>{return value > 0;}))
 		{
 		//Fazendo as alterações
-		gameSaved.player.craftingItemsQuantity.cloth -= 1;
-		gameSaved.player.craftingItemsQuantity.bottle -= 1;
-		gameSaved.player.itemsQuantity.molotov += 1;
+		savedGame.player.craftingItemsQuantity.cloth -= 1;
+		savedGame.player.craftingItemsQuantity.bottle -= 1;
+		savedGame.player.itemsQuantity.molotov += 1;
 	}
 }
 
@@ -116,13 +144,55 @@ function craftItemCheck(
 
 //Função que checa se o jogador possui pelo menos uma unidade do item e esconde ele caso contrário
 function menuItemCheck(itemName, targetNodeList, elementPosition){
-	if (gameSaved.player.itemsQuantity[itemName] > 0){
+	if (savedGame.player.itemsQuantity[itemName] > 0){
 		targetNodeList[elementPosition].classList.remove("d-none");
 	}
 	else{
 		targetNodeList[elementPosition].classList.add("d-none");
 	}
 }
+
+
+//Função que checa se o jogador possui uma arma e esconde ela caso contrário
+function menuWeaponCheck(weaponName, targetNodeList, elementPosition){
+	if (savedGame.player.weapons[weaponName] === true){
+		targetNodeList[elementPosition].classList.remove("d-none");
+	}
+	else{
+		targetNodeList[elementPosition].classList.add("d-none");
+	}
+}
+
+
+//Funcão que faz a troca da arma ou item equipado
+function changedEquipedWeapon(
+	weaponName,
+	hitChance,
+	criticalChance,
+	minDamage,
+	maxDamage,
+	minCriticalDamage,
+	maxCriticalDamage)
+	{
+	savedGame.player.equipedWeapon = weaponName;
+	savedGame.player.hitChance = hitChance;
+	savedGame.player.criticalChance = criticalChance;
+	savedGame.player.minDamage = minDamage;
+	savedGame.player.maxDamage = maxDamage;
+	savedGame.player.minCriticalDamage = minCriticalDamage;
+	savedGame.player.maxCriticalDamage = maxCriticalDamage;
+	console.log(
+		savedGame.player.equipedWeapon,
+		savedGame.player.hitChance,
+		savedGame.player.criticalChance,
+		savedGame.player.minDamage,
+		savedGame.player.maxDamage,
+		savedGame.player.minCriticalDamage,
+		savedGame.player.maxCriticalDamage
+		);
+}
+
+
 
 
 
@@ -138,6 +208,18 @@ craftMolotovButton.addEventListener("click", function(){
 );
 
 
+//Ações dos botões de equipar armas e itens
+pistolEquipButton.addEventListener("click", function(){
+	changedEquipedWeapon("pistol", 40, 20, 50, 70, 100, 150);
+});
+molotovEquipButton.addEventListener("click", function(){
+	changedEquipedWeapon("molotov", 100, 30, 40, 50, 80, 120);
+});
+
+
+
+
+
 
 //Princial função de exibição
 function mainDisplayFunction(){
@@ -149,22 +231,38 @@ function mainDisplayFunction(){
 	displayCraftingItemQuantity(displayedClothQuantity, "cloth");
 	displayCraftingItemQuantity(displayedAlcoholQuantity, "alcohol");
 	displayCraftingItemQuantity(displayedBottleQuantity, "bottle");
+	//Munição da arma equipada
+	if (savedGame.player.equipedWeapon === "none"){
+		displayedAmmoQuantity.innerHTML = "?";
+		attackButton.classList.add("opacity-0", "pe-none");
+	}
+	else{
+		attackButton.classList.remove("opacity-0", "pe-none");
+	}
+  if (savedGame.player.equipedWeapon === "pistol"){
+		displayedAmmoQuantity.innerHTML = savedGame.player.weapons.pistolAmmo;
+	}
+  else if (savedGame.player.equipedWeapon === "molotov"){
+		displayedAmmoQuantity.innerHTML = savedGame.player.itemsQuantity.molotov;
+  }
 	//Validando os botões de criação de item
 	craftItemCheck(
 		craftBandageButton,
-		gameSaved.player.craftingItemsQuantity.cloth,
-		gameSaved.player.craftingItemsQuantity.alcohol
+		savedGame.player.craftingItemsQuantity.cloth,
+		savedGame.player.craftingItemsQuantity.alcohol
 		);
 		
 	craftItemCheck(
 		craftMolotovButton,
-		gameSaved.player.craftingItemsQuantity.cloth,
-		gameSaved.player.craftingItemsQuantity.bottle
+		savedGame.player.craftingItemsQuantity.cloth,
+		savedGame.player.craftingItemsQuantity.bottle
 		);
 		//Checando se o jogador possui os itens no menu do jogador
 		menuItemCheck("bandage", playerMenuConsumablesList, 0);
 		menuItemCheck("medikit", playerMenuConsumablesList, 1);
 		menuItemCheck("molotov", playerMenuOthersList, 0);
+		//Checando se o jogador possui as armas no menu do jogador
+		menuWeaponCheck("pistol", playerMenuWeaponsList, 0);
 }
 
 //Chamando a função mainDisplayFunction constantemente
