@@ -258,33 +258,33 @@ function searchItems(){
 	let clothPercentage = randomPercentage();
 	let alcoholPercentage = randomPercentage();
 	let bottlePercentage = randomPercentage();
-	if (bandagePercentage <= 5){
+	if (bandagePercentage <= 10){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;
 	}
-	else if (medikitPercentage <= 3){
+	else if (medikitPercentage <= 5){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(medikitImage, foundQuantity, "Kit médico");
 		savedGame.player.itemsQuantity.medikit += foundQuantity;
 	}
-	else if (molotovPercentage <= 2){
+	else if (molotovPercentage <= 3){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
 	}
-	else if (clothPercentage <= 10){
-		let foundQuantity = randomRangeNumber(1, 3);
+	else if (clothPercentage <= 25){
+		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 10){
-		let foundQuantity = randomRangeNumber(1, 3);
+	else if (alcoholPercentage <= 25){
+		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
-	else if (bottlePercentage <= 5){
-		let foundQuantity = randomRangeNumber(1, 2);
+	else if (bottlePercentage <= 10){
+		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
