@@ -51,6 +51,31 @@ let maxCriticalDamage = 0;
 
 
 
+//Variáveis das imagens dos itens
+const bandageImage = "assets/images/items/bandage.png";
+const medikitImage = "assets/images/items/medikit.png";
+const molotovImage = "assets/images/items/molotov.png";
+
+
+//Variáveis das imagens dos itens de criação
+const clothImage = "assets/images/crafting_items/cloth.png";
+const alcoholImage = "assets/images/crafting_items/alcohol.png";
+const bottleImage = "assets/images/crafting_items/bottle.png";
+
+
+//Variáveis das imagens das armas
+const pistolImage = "assets/images/items/handgun.png";
+
+
+
+
+//Variáveis da tela de item recebido
+const receivedItemsScreen = document.querySelector(".received-items-screen");
+const receivedItemsImage = document.querySelector(".received-items__image");
+const receivedItemsQuantity = document.querySelector(".received-items__quantity");
+const receivedItemsName = document.querySelector(".received-items__name");
+const searchFailScreen = document.querySelector(".search-fail-screen");
+
 
 
 
@@ -72,9 +97,9 @@ savedGame = {
 			molotov: 0
 		},
 		craftingItemsQuantity: {
-			cloth: 2,
-			alcohol: 2,
-			bottle: 1
+			cloth: 0,
+			alcohol: 0,
+			bottle: 0
 		}
 	}
 };
@@ -212,6 +237,17 @@ function randomRangeNumber(minNumber, maxNumber){
 }
 
 
+//Função de exibir a tela de item recebido baseada nos argumentos passados
+function displayReceivedItemScreen(image, quantity, name, legendary){
+	receivedItemsScreen.classList.remove("d-none");
+	if (legendary === true){
+		console.log("legendary");
+	}
+	receivedItemsImage.src = image;
+	receivedItemsQuantity.innerHTML = quantity;
+	receivedItemsName.innerHTML = name;
+}
+
 
 
 //Função de fazer busca
@@ -224,40 +260,38 @@ function searchItems(){
 	let bottlePercentage = randomPercentage();
 	if (bandagePercentage <= 5){
 		let foundQuantity = randomRangeNumber(1, 2);
-		alert("achou bandagem x" + foundQuantity);
+		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;
 	}
 	else if (medikitPercentage <= 3){
 		let foundQuantity = randomRangeNumber(1, 1);
-		alert("achou kit médico x" + foundQuantity);
+		displayReceivedItemScreen(medikitImage, foundQuantity, "Kit médico");
 		savedGame.player.itemsQuantity.medikit += foundQuantity;
 	}
 	else if (molotovPercentage <= 2){
 		let foundQuantity = randomRangeNumber(1, 1);
-		alert("achou molotov x" + foundQuantity);
+		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
 	}
-	else if (clothPercentage <= 15){
+	else if (clothPercentage <= 10){
 		let foundQuantity = randomRangeNumber(1, 3);
-		alert("achou pano x" + foundQuantity);
+		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 15){
+	else if (alcoholPercentage <= 10){
 		let foundQuantity = randomRangeNumber(1, 3);
-		alert("achou álcool x" + foundQuantity);
+		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
-	else if (bottlePercentage <= 12){
+	else if (bottlePercentage <= 5){
 		let foundQuantity = randomRangeNumber(1, 2);
-		alert("achou garrafa x" + foundQuantity);
+		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
 	else{
-		alert("Não achou nada");
+		searchFailScreen.classList.remove("d-none");
 	}
 }
-
-searchButton.addEventListener("click", searchItems);
 
 
 
@@ -314,6 +348,9 @@ molotovEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("molotov", 100, 30, 40, 50, 80, 120);
 });
 
+
+//Ações dos botões de ações
+searchButton.addEventListener("click", searchItems);
 
 
 

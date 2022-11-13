@@ -50,6 +50,11 @@ const craftItemScreen = document.querySelector("#craft-item-screen");
 const craftItemScreenScreenList = document.querySelectorAll(".craft-item-area");
 const craftItemList = document.querySelectorAll(".craft-item__item-list li");
 const craftItemScreenReturnButtons = document.querySelectorAll(".craft-item-area__return-button");
+const receivedItemsScreen = document.querySelector(".received-items-screen");
+const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
+const searchFailScreen = document.querySelector(".search-fail-screen");
+const searchFailOkButton = document.querySelector(".search-fail__ok-button");
+
 
 
 //Objetos das infos dos itens
@@ -300,3 +305,16 @@ craftItemScreenReturnButtons.forEach(function(button){
 		closeScreen(craftItemScreen);
 	});
 });
+
+
+//Botão que fecha a tela de item recebido
+receivedItemsOkButton.addEventListener("click", function(){
+	closeScreen(receivedItemsScreen);
+});
+
+
+//Botão que fecha a tela de busca malsucedida
+searchFailOkButton.addEventListener("click", function(){
+	closeScreen(searchFailScreen);
+});
+

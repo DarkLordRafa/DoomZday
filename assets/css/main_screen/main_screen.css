@@ -222,3 +222,22 @@ body{
 	text-transform: uppercase;
 }
 
+.search-fail{
+	background-color: black;
+	border-radius: 20px;
+	width: 90vw;
+	padding: 3vw;
+  margin-top: 30vh;
+	color: white;
+}
+
+.search-fail__text{
+	font-size: 6vw;
+	font-weight: 900;
+}
+
+.search-fail__ok-button{
+	font-size: 6vw;
+	font-weight: 900;
+	text-transform: uppercase;
+}
