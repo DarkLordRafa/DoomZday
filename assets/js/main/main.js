@@ -25,7 +25,7 @@ const playerMenuConsumablesList = document.querySelectorAll(".player-menu-area-d
 const playerMenuOthersList = document.querySelectorAll(".player-menu-area-display__others li");
 
 
-//Variáveil da lista de armas no menu do jogador
+//Variável da lista de armas no menu do jogador
 const playerMenuWeaponsList = document.querySelectorAll(".player-menu-area-display__weapons li");
 
 
@@ -35,6 +35,21 @@ const molotovEquipButton = document.querySelector("#molotov-equip-button");
 
 //Botões de ação do jogador
 const attackButton = document.querySelector(".actions-area__attack-button");
+const searchButton = document.querySelector(".actions-area__search-button");
+
+
+
+
+//Variáveis das armas e dos atributos
+let equipedWeapon = "none";
+let hitChance = 0;
+let criticalChance = 0;
+let minDamage = 0;
+let maxDamage = 0;
+let minCriticalDamage = 0;
+let maxCriticalDamage = 0;
+
+
 
 
 
@@ -46,16 +61,9 @@ let savedGame = {};
 savedGame = {
 	player: {
 		life: 100,
-		equipedWeapon: "none",
-//Quando a munição for infinita, trocar por "---"
-		hitChance: 0,
-		criticalChance: 0,
-		minDamage: 0,
-		maxDamage: 0,
-		minCriticalDamage: 0,
-		maxCriticalDamage: 0,
 		weapons: {
 			pistol: true,
+//Quando a munição for infinita, trocar por "---"
 			pistolAmmo: 10
 		},
 		itemsQuantity: {
@@ -119,7 +127,7 @@ function craftMolotov(){
 }
 
 
-//Funcão que checa se tem itens de criação suficientes para criar o item e mostra ou esconde o botão de criação relacionado
+//Função que checa se tem itens de criação suficientes para criar o item e mostra ou esconde o botão de criação relacionado
 function craftItemCheck(
   targetCraftButton,
 	necessaryItem1,
@@ -164,36 +172,126 @@ function menuWeaponCheck(weaponName, targetNodeList, elementPosition){
 }
 
 
-//Funcão que faz a troca da arma ou item equipado
+//Função que faz a troca da arma ou item equipado
 function changedEquipedWeapon(
 	weaponName,
-	hitChance,
-	criticalChance,
-	minDamage,
-	maxDamage,
-	minCriticalDamage,
-	maxCriticalDamage)
+	newHitChance,
+	newCriticalChance,
+	newMinDamage,
+	newMaxDamage,
+	newMinCriticalDamage,
+	newMaxCriticalDamage)
 	{
-	savedGame.player.equipedWeapon = weaponName;
-	savedGame.player.hitChance = hitChance;
-	savedGame.player.criticalChance = criticalChance;
-	savedGame.player.minDamage = minDamage;
-	savedGame.player.maxDamage = maxDamage;
-	savedGame.player.minCriticalDamage = minCriticalDamage;
-	savedGame.player.maxCriticalDamage = maxCriticalDamage;
+	equipedWeapon = weaponName;
+	hitChance = newHitChance;
+	criticalChance = newCriticalChance;
+	minDamage = newMinDamage;
+	maxDamage = newMaxDamage;
+	minCriticalDamage = newMinCriticalDamage;
+	maxCriticalDamage = newMaxCriticalDamage;
 	console.log(
-		savedGame.player.equipedWeapon,
-		savedGame.player.hitChance,
-		savedGame.player.criticalChance,
-		savedGame.player.minDamage,
-		savedGame.player.maxDamage,
-		savedGame.player.minCriticalDamage,
-		savedGame.player.maxCriticalDamage
+		equipedWeapon,
+		hitChance,
+		criticalChance,
+		minDamage,
+		maxDamage,
+		minCriticalDamage,
+		maxCriticalDamage
 		);
 }
 
 
+//Função da porcentagem que retorna um número entre 1 e 100
+function randomPercentage(){
+	return Math.floor(Math.random() * (100)) + 1;
+}
 
+//Função que retorna um número aleatório entre os números mínimo e máximo passados
+function randomRangeNumber(minNumber, maxNumber){
+	return Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
+}
+
+
+
+
+//Função de fazer busca
+function searchItems(){
+	let bandagePercentage = randomPercentage();
+	let medikitPercentage = randomPercentage();
+	let molotovPercentage = randomPercentage();
+	let clothPercentage = randomPercentage();
+	let alcoholPercentage = randomPercentage();
+	let bottlePercentage = randomPercentage();
+	if (bandagePercentage <= 5){
+		let foundQuantity = randomRangeNumber(1, 2);
+		alert("achou bandagem x" + foundQuantity);
+		savedGame.player.itemsQuantity.bandage += foundQuantity;
+	}
+	else if (medikitPercentage <= 3){
+		let foundQuantity = randomRangeNumber(1, 1);
+		alert("achou kit médico x" + foundQuantity);
+		savedGame.player.itemsQuantity.medikit += foundQuantity;
+	}
+	else if (molotovPercentage <= 2){
+		let foundQuantity = randomRangeNumber(1, 1);
+		alert("achou molotov x" + foundQuantity);
+		savedGame.player.itemsQuantity.molotov += foundQuantity;
+	}
+	else if (clothPercentage <= 15){
+		let foundQuantity = randomRangeNumber(1, 3);
+		alert("achou pano x" + foundQuantity);
+		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
+	}
+	else if (alcoholPercentage <= 15){
+		let foundQuantity = randomRangeNumber(1, 3);
+		alert("achou álcool x" + foundQuantity);
+		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
+	}
+	else if (bottlePercentage <= 12){
+		let foundQuantity = randomRangeNumber(1, 2);
+		alert("achou garrafa x" + foundQuantity);
+		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
+	}
+	else{
+		alert("Não achou nada");
+	}
+}
+
+searchButton.addEventListener("click", searchItems);
+
+
+
+
+
+
+
+//Ideia para a função de ataque
+/*
+function attack(){
+  let pistolHitChance = randomPercentage();
+  let doubleHitChance = randomPercentage();
+  if (doubleHitChance <= 20){
+  	console.log(doubleHitChance);
+  	alert("double hit");
+  	pistolHitChance = randomPercentage();
+	  if (pistolHitChance <= 40){
+	  	alert("acertou");
+    	console.log(pistolHitChance);
+	  }
+	  pistolHitChance = randomPercentage();
+	  if (pistolHitChance <= 40){
+	  	alert("acertou");
+    	console.log(pistolHitChance);
+	  }
+  }
+  else if (pistolHitChance <= 40){
+  	alert("acertou");
+  	console.log(pistolHitChance);
+  }
+}
+
+attackButton.addEventListener("click", attack);
+*/
 
 
 //Ações dos botões de criar item
@@ -232,17 +330,17 @@ function mainDisplayFunction(){
 	displayCraftingItemQuantity(displayedAlcoholQuantity, "alcohol");
 	displayCraftingItemQuantity(displayedBottleQuantity, "bottle");
 	//Munição da arma equipada
-	if (savedGame.player.equipedWeapon === "none"){
+	if (equipedWeapon === "none"){
 		displayedAmmoQuantity.innerHTML = "?";
 		attackButton.classList.add("opacity-0", "pe-none");
 	}
 	else{
 		attackButton.classList.remove("opacity-0", "pe-none");
 	}
-  if (savedGame.player.equipedWeapon === "pistol"){
+  if (equipedWeapon === "pistol"){
 		displayedAmmoQuantity.innerHTML = savedGame.player.weapons.pistolAmmo;
 	}
-  else if (savedGame.player.equipedWeapon === "molotov"){
+  else if (equipedWeapon === "molotov"){
 		displayedAmmoQuantity.innerHTML = savedGame.player.itemsQuantity.molotov;
   }
 	//Validando os botões de criação de item
