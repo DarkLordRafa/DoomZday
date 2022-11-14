@@ -72,8 +72,19 @@ const pistolImage = "assets/images/items/handgun.png";
 //Variáveis da tela de item recebido
 const receivedItemsScreen = document.querySelector(".received-items-screen");
 const receivedItemsImage = document.querySelector(".received-items__image");
+const receivedItemsLegendary = document.querySelector(".received-items-screen .legendary-badge");
 const receivedItemsQuantity = document.querySelector(".received-items__quantity");
 const receivedItemsName = document.querySelector(".received-items__name");
+
+
+//Variáveis da tela de arma recebida
+const receivedWeaponScreen = document.querySelector(".received-weapon-screen");
+const receivedWeaponImage = document.querySelector(".received-weapon__image");
+const receivedWeaponLegendary = document.querySelector(".received-weapon-screen .legendary-badge");
+const receivedWeaponName = document.querySelector(".received-weapon__name");
+
+
+//Variável da tela de busca malsucedida
 const searchFailScreen = document.querySelector(".search-fail-screen");
 
 
@@ -87,7 +98,7 @@ savedGame = {
 	player: {
 		life: 100,
 		weapons: {
-			pistol: true,
+			pistol: false,
 //Quando a munição for infinita, trocar por "---"
 			pistolAmmo: 10
 		},
@@ -241,7 +252,10 @@ function randomRangeNumber(minNumber, maxNumber){
 function displayReceivedItemScreen(image, quantity, name, legendary){
 	receivedItemsScreen.classList.remove("d-none");
 	if (legendary === true){
-		console.log("legendary");
+		receivedItemsLegendary.classList.remove("d-none");
+	}
+	else{
+		receivedItemsLegendary.classList.add("d-none");
 	}
 	receivedItemsImage.src = image;
 	receivedItemsQuantity.innerHTML = quantity;
@@ -249,16 +263,35 @@ function displayReceivedItemScreen(image, quantity, name, legendary){
 }
 
 
+//Função de exibir a tela de arma recebida baseada nos argumentos passados
+function displayReceivedWeaponScreen(image, name, legendary){
+	receivedWeaponScreen.classList.remove("d-none");
+	if (legendary === true){
+		receivedWeaponLegendary.classList.remove("d-none");
+	}
+	else{
+		receivedWeaponLegendary.classList.add("d-none");
+	}
+	receivedWeaponImage.src = image;
+	receivedWeaponName.innerHTML = name;
+}
+
+
 
 //Função de fazer busca
 function searchItems(){
+	let pistolPercentage = randomPercentage();
 	let bandagePercentage = randomPercentage();
 	let medikitPercentage = randomPercentage();
 	let molotovPercentage = randomPercentage();
 	let clothPercentage = randomPercentage();
 	let alcoholPercentage = randomPercentage();
 	let bottlePercentage = randomPercentage();
-	if (bandagePercentage <= 10){
+	if (pistolPercentage <= 100 && savedGame.player.weapons.pistol === false){
+		displayReceivedWeaponScreen(pistolImage, "Pistola 9mm");
+		savedGame.player.weapons.pistol = true;
+	}
+	else if (bandagePercentage <= 10){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;

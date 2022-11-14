@@ -35,12 +35,12 @@ const playerItemInfoScreen = document.querySelector("#player-item-info-screen");
 const playerWeaponInfoScreen = document.querySelector("#player-weapon-info-screen");
 const itemInfoName = document.querySelector(".item-info-name");
 const itemInfoImage = document.querySelector(".item-info-image");
-const itemInfoLegendary = document.querySelector(".item-info-legendary");
+const itemInfoLegendary = document.querySelector(".player-item-info .legendary-badge");
 const itemInfoDescription = document.querySelector(".item-info-description");
 const weaponInfoContent = document.querySelector(".weapon-info-content");
 const weaponInfoName = document.querySelector(".weapon-info-name");
 const weaponInfoImage = document.querySelector(".weapon-info-image");
-const weaponInfoLegendary = document.querySelector(".weapon-info-legendary");
+const weaponInfoLegendary = document.querySelector(".player-weapon-info .legendary-badge");
 const weaponInfoDescription = document.querySelector(".weapon-info-description");
 const weaponInfoDamage = document.querySelector(".weapon-info-damage");
 const weaponInfoHitChance = document.querySelector(".weapon-info-hit-chance");
@@ -52,6 +52,8 @@ const craftItemList = document.querySelectorAll(".craft-item__item-list li");
 const craftItemScreenReturnButtons = document.querySelectorAll(".craft-item-area__return-button");
 const receivedItemsScreen = document.querySelector(".received-items-screen");
 const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
+const receivedWeaponScreen = document.querySelector(".received-weapon-screen");
+const receivedWeaponOkButton = document.querySelector(".received-weapon__ok-button");
 const searchFailScreen = document.querySelector(".search-fail-screen");
 const searchFailOkButton = document.querySelector(".search-fail__ok-button");
 
@@ -310,6 +312,12 @@ craftItemScreenReturnButtons.forEach(function(button){
 //Botão que fecha a tela de item recebido
 receivedItemsOkButton.addEventListener("click", function(){
 	closeScreen(receivedItemsScreen);
+});
+
+
+//Botão que fecha a tela de arma recebida
+receivedWeaponOkButton.addEventListener("click", function(){
+	closeScreen(receivedWeaponScreen);
 });
 
 

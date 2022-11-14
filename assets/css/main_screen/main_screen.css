@@ -152,7 +152,7 @@ body{
 	object-fit: contain;
 }
 
-.game-texts, .characters-dialogues, .received-items{
+.game-texts, .characters-dialogues, .received-items, .received-weapon{
 	margin-top: 20vh;
 	color: white;
 }
@@ -187,7 +187,7 @@ body{
 	padding-right: 2vw;
 }
 
-.received-items{
+.received-items, .received-weapon{
 	background-color: black;
 	border-radius: 20px;
 	height: 40vh;
@@ -195,12 +195,12 @@ body{
 	padding: 3vw;
 }
 
-.received-items__title{
+.received-items__title, .received-weapon__title{
 	font-size: 7vw;
 	font-weight: 900;
 }
 
-.received-items img{
+.received-items img, .received-weapon img{
 	max-height: 10vh;
 	max-width: 90%;
 	background-color: #343434;
@@ -211,12 +211,12 @@ body{
 	font-weight: 900;
 }
 
-.received-items p{
+.received-items p, .received-weapon p{
 	font-size: 5vw;
 	font-weight: 900;
 }
 
-.received-items__ok-button{
+.received-items__ok-button, .received-weapon__ok-button{
 	font-size: 6vw;
 	font-weight: 900;
 	text-transform: uppercase;

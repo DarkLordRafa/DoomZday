@@ -235,7 +235,7 @@
 	background-color: #343434;
 }
 
-.item-info-legendary, .weapon-info-legendary{
+.legendary-badge{
 	font-size: 4vw;
 	font-weight: 900;
 	background-color: #DAA520;

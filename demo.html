@@ -104,6 +104,7 @@
 					<div class="received-items__content d-flex flex-column align-items-center text-center justify-content-center h-100 w-100">
 						<span class="received-items__title">Obteve</span>
 						<img class="received-items__image" src="assets/images/items/medikit.png" />
+						<span class="legendary-badge mt-2 d-none">Lendário</span>
 						<span class="received-items__quantity">5</span>
 						<p class="received-items__name">Kit médico</p>
 					</div>
@@ -112,15 +113,15 @@
 			</div>
 			
 			<!-- Tela de arma recebida -->
-			<div class="received-items-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center">
-				<div class="received-items d-flex flex-column align-items-center">
-					<div class="received-items__content d-flex flex-column align-items-center text-center justify-content-start h-100 w-100">
-						<span class="received-items__title">Obteve</span>
-						<img class="received-items__image" src="assets/images/items/handgun.png" />
-						<span class="item-info-legendary mt-2 mb-2">Lendário</span>
-						<p class="received-items__name">Pistola 9mm</p>
+			<div class="received-weapon-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="received-weapon d-flex flex-column align-items-center">
+					<div class="received-weapon__content d-flex flex-column align-items-center text-center justify-content-start h-100 w-100">
+						<span class="received-weapon__title">Obteve</span>
+						<img class="received-weapon__image" src="assets/images/items/handgun.png" />
+						<span class="legendary-badge mt-2 mb-2 d-none">Lendário</span>
+						<p class="received-weapon__name">Pistola 9mm</p>
 					</div>
-					<span class="received-items__ok-button align-self-end mt-2 me-3">Ok</span>
+					<span class="received-weapon__ok-button align-self-end mt-2 me-3">Ok</span>
 				</div>
 			</div>
 			
@@ -221,7 +222,7 @@
 				<div class="player-item-info d-flex flex-column align-items-center">
 					<span class="item-info-name mb-3"></span>
 					<img class="item-info-image mb-2" />
-					<span class="item-info-legendary mb-2 d-none">Lendário</span>
+					<span class="legendary-badge mb-2 d-none">Lendário</span>
 					<p class="item-info-description me-2">
 					</p>
 					<span class="item-info-ok-button align-self-end mt-2 me-2">Ok</span>
@@ -232,7 +233,7 @@
 				<div class="player-weapon-info d-flex flex-column align-items-center">
 					<span class="weapon-info-name mb-3"></span>
 					<img class="weapon-info-image mb-2" />
-					<span class="weapon-info-legendary mb-2 d-none">Lendário</span>
+					<span class="legendary-badge mb-2 d-none">Lendário</span>
 					<div class="weapon-info-content pe-2">
 						<p class="weapon-info-description">
 						</p>
