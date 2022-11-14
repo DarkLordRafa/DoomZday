@@ -1,7 +1,6 @@
 
 @keyframes enemy-damage-animation{
-	0%{opacity: 1;}
-	100%{opacity:1; transform: translateY(-5vh);}
+	100%{transform: translateY(-5vh);}
 }
 
 
@@ -81,6 +80,11 @@ body{
 	z-index: 99;
 }
 
+.enemy{
+	transition: opacity 0.5s;
+	pointer-events: none;
+}
+
 .enemies-area{
 	margin-top: 20vh;
 }
@@ -93,16 +97,18 @@ body{
 .enemy .enemy__damage{
 	color: white;
 	font-size: 5vw;
-	opacity: 0;
 	font-weight: bold;
+	margin-left: 30%;
 }
 
 .enemy-damage-display{
 	animation: enemy-damage-animation 1s linear;
+	opacity: 1!important;
 }
 
 .enemy-damage-display-critical{
 	animation: enemy-damage-animation 1s linear;
+	opacity: 1!important;
 	color: yellow;
 }
 
