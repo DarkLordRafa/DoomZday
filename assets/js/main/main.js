@@ -191,11 +191,11 @@ let fightDifficult = 1;
 
 
 //Variáveis das chances dos inimigos surgirem
-let enemy1AppearChance = 100;
-let enemy2AppearChance = 100;
-let enemy3AppearChance = 100;
-let enemy4AppearChance = 100;
-let enemy5AppearChance = 100;
+let enemy1AppearChance = 10;
+let enemy2AppearChance = 10;
+let enemy3AppearChance = 10;
+let enemy4AppearChance = 10;
+let enemy5AppearChance = 10;
 let enemy6AppearChance = 50;
 let enemy7AppearChance = 50;
 let enemy8AppearChance = 100;
