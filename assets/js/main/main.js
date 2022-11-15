@@ -402,12 +402,6 @@ function displayReceivedWeaponScreen(image, name, legendary){
 
 //Função de fazer busca
 function searchItems(){
-	const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
-	const receivedWeaponOkButton = document.querySelector(".received-weapon__ok-button");
-  const searchFailOkButton = document.querySelector(".search-fail__ok-button");
-  receivedItemsOkButton.addEventListener("click", randomFight);
-  receivedWeaponOkButton.addEventListener("click", randomFight);
-  searchFailOkButton.addEventListener("click", randomFight);
 	let pistolPercentage = randomPercentage();
 	let bandagePercentage = randomPercentage();
 	let medikitPercentage = randomPercentage();
@@ -629,7 +623,6 @@ function activateEnemy5(){
 		enemy5.minCriticalDamage = 25;
 		enemy5.maxCriticalDamage = 35;
 	}
-	console.log(enemiesImageList[4].src);
 }
 
 
@@ -742,6 +735,7 @@ function activateEnemy8(){
 
 //Função de luta aleatória
 function randomFight(){
+	console.log(fightChance);
 	let fightChanceResult = randomPercentage();
 	if (fightChanceResult <= fightChance){
 		let enemy1AppearResult = randomPercentage();
@@ -784,10 +778,10 @@ function randomFight(){
 
 //função que controla o progresso do jogo
 function gameProgress(){
-	if (savedGame.player.scenary1Progress === 0){
+	if (savedGame.player.scenary1Progress <= 5){
 		fightChance = 0;
 	}
-	else if (savedGame.player.scenary1Progress > 0 && savedGame.player.scenary1Progress <= 50){
+	else if (savedGame.player.scenary1Progress > 5 && savedGame.player.scenary1Progress <= 50){
 		fightChance = 30;
 		fightDifficult = 1;
 		enemy1AppearChance = 0;
@@ -885,11 +879,21 @@ molotovEquipButton.addEventListener("click", function(){
 
 //Ações dos botões de ações
 searchButton.addEventListener("click", function(){
-	if (savedGame.player.scenary1Progress !== 0){
-		fightChance += 100;
+	if (savedGame.player.scenary1Progress === 0){
+		savedGame.player.scenary1Progress += 5;
+		gameProgress();
 	}
-	searchItems();
-	randomFight();
+	else{
+		fightChance += 10;
+		//Aumentar mais as dificuldades, como chance dos inimigos aparecerem e a dificuldade da luta
+	}
+		searchItems();
+	const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
+	const receivedWeaponOkButton = document.querySelector(".received-weapon__ok-button");
+  const searchFailOkButton = document.querySelector(".search-fail__ok-button");
+  receivedItemsOkButton.addEventListener("click", randomFight);
+  receivedWeaponOkButton.addEventListener("click", randomFight);
+  searchFailOkButton.addEventListener("click", randomFight);
 });
 
 //Ideia para função de ataque
@@ -908,6 +912,7 @@ attackButton.addEventListener("click", function(){
 
 walkButton.addEventListener("click", function(){
 	savedGame.player.scenary1Progress += 10;
+	progressControlFunction();
 	gameProgress();
 	randomFight();
 });
@@ -915,7 +920,7 @@ walkButton.addEventListener("click", function(){
 
 
 
-//Princial função de exibição
+//Principal função de exibição do jogo
 function mainDisplayFunction(){
 	//Itens gerais
 	displayItemQuantity(displayedBandageQuantity, "bandage");
@@ -957,10 +962,54 @@ function mainDisplayFunction(){
 		menuItemCheck("molotov", playerMenuOthersList, 0);
 		//Checando se o jogador possui as armas no menu do jogador
 		menuWeaponCheck("pistol", playerMenuWeaponsList, 0);
+		//Checando se é o início do jogo
+		if (savedGame.player.scenary1Progress === 0){
+			walkButton.classList.add("opacity-0", "pe-none");
+		}
+		else{
+			walkButton.classList.remove("opacity-0", "pe-none");
+		}
+		//Checando se pegou a pistola na busca no tutorial
+		if (savedGame.player.scenary1Progress === 5){
+			searchButton.classList.add("opacity-0", "pe-none");
+		}
+		else{
+			searchButton.classList.remove("opacity-0", "pe-none");
+		}
+	//Checando a vida dos inimigos e fazendo eles sumirem caso a vida seja 0
+	enemiesObjects.forEach(function(object, objectIndex){
+		if (object.life < 0){
+			enemiesList[objectIndex].classList.add("opacity-0");
+		}
+	});
 }
+
+
+//Principal função de controle do jogo
+function mainControlFunction(){
+	//Prevenindo a vida dos inimigos de ficar negativa
+	enemiesObjects.forEach(function(object, objectIndex){
+		if (object.life < 0){
+			enemiesObjects[objectIndex].life = 0;
+		}
+	});
+}
+
+
+//Função que previne o progresso dos cenários de ultrapassar o limite de evento final e limite de 100
+function progressControlFunction(){
+	if (savedGame.player.scenary1Progress > 90 && savedGame.player.scenary1Progress < 100){
+		savedGame.player.scenary1Progress = 90;
+	}
+}
+
+
 
 //Chamando a função mainDisplayFunction constantemente
 setInterval(mainDisplayFunction, 100);
+
+//Chamando a função mainControlFunction constantemente
+setInterval(mainControlFunction, 100);
 
 //Chamando a função gameProgress
 gameProgress();
