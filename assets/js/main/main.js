@@ -68,6 +68,10 @@ const bottleImage = "assets/images/crafting_items/bottle.png";
 const pistolImage = "assets/images/items/handgun.png";
 
 
+//Variáveis das imagens das munições
+const ammoImage9mm = "assets/images/ammo/9mm_ammo.png";
+
+
 
 
 //Variáveis da tela de item recebido
@@ -189,6 +193,11 @@ let fightChance = 0;
 
 //Variável da dificuldade da luta
 let fightDifficult = 1;
+
+
+//Variável com o estado da luta
+let fighting = false;
+
 
 
 //Variáveis das chances dos inimigos surgirem
@@ -409,6 +418,7 @@ function searchItems(){
 	let clothPercentage = randomPercentage();
 	let alcoholPercentage = randomPercentage();
 	let bottlePercentage = randomPercentage();
+	let ammo9mmPercentage = randomPercentage();
 	if (pistolPercentage <= 100 && savedGame.player.weapons.pistol === false){
 		displayReceivedWeaponScreen(pistolImage, "Pistola 9mm");
 		savedGame.player.weapons.pistol = true;
@@ -442,6 +452,11 @@ function searchItems(){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
+	}
+	else if (ammo9mmPercentage <= 30){
+		let foundQuantity = randomRangeNumber(5, 15);
+		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
+		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
 	else{
 		searchFailScreen.classList.remove("d-none");
@@ -898,6 +913,28 @@ searchButton.addEventListener("click", function(){
 
 //Ideia para função de ataque
 attackButton.addEventListener("click", function(){
+	//Checando a arma equipada
+	if (equipedWeapon == "pistol"){
+		if (savedGame.player.weapons.pistolAmmo === 0){
+		alert("Sem munição, tome um pouco");
+		savedGame.player.weapons.pistolAmmo += 10;
+		return;
+		}
+		else{
+			savedGame.player.weapons.pistolAmmo -= 1;
+		}
+	}
+	
+	if (equipedWeapon == "molotov"){
+		if (savedGame.player.itemsQuantity.molotov === 0){
+		alert("Sem munição");
+		return;
+		}
+		else{
+			savedGame.player.itemsQuantity.molotov -= 1;
+		}
+	}
+	
 	let enemyPosition = randomRangeNumber(0, 7);
 	//Falta validar os inimigos para o cálculo ser feito apenas nos inimigos que apareceram na tela
 	let enemyReceivedDamage = randomRangeNumber(50, 70);
@@ -930,12 +967,25 @@ function mainDisplayFunction(){
 	displayCraftingItemQuantity(displayedClothQuantity, "cloth");
 	displayCraftingItemQuantity(displayedAlcoholQuantity, "alcohol");
 	displayCraftingItemQuantity(displayedBottleQuantity, "bottle");
-	//Munição da arma equipada
+	//Checando se o jogador está em uma luta
+	if (fighting === true){
+		searchButton.classList.add("opacity-0", "pe-none");
+		walkButton.classList.add("opacity-0", "pe-none");
+		attackButton.classList.remove("opacity-0", "pe-none");
+	}
+	else{
+		searchButton.classList.remove("opacity-0", "pe-none");
+		walkButton.classList.remove("opacity-0", "pe-none");
+		attackButton.classList.add("opacity-0", "pe-none");
+		attackButton.classList.add("opacity-0", "pe-none");
+	}
+	
+	//Checando a arma equipada
 	if (equipedWeapon === "none"){
 		displayedAmmoQuantity.innerHTML = "?";
 		attackButton.classList.add("opacity-0", "pe-none");
 	}
-	else{
+	else if (equipedWeapon !== "none" && fighting === true){
 		attackButton.classList.remove("opacity-0", "pe-none");
 	}
   if (equipedWeapon === "pistol"){
@@ -966,16 +1016,16 @@ function mainDisplayFunction(){
 		if (savedGame.player.scenary1Progress === 0){
 			walkButton.classList.add("opacity-0", "pe-none");
 		}
-		else{
+		/*else{
 			walkButton.classList.remove("opacity-0", "pe-none");
-		}
+		}*/
 		//Checando se pegou a pistola na busca no tutorial
 		if (savedGame.player.scenary1Progress === 5){
 			searchButton.classList.add("opacity-0", "pe-none");
 		}
-		else{
+		/*else{
 			searchButton.classList.remove("opacity-0", "pe-none");
-		}
+		}*/
 	//Checando a vida dos inimigos e fazendo eles sumirem caso a vida seja 0
 	enemiesObjects.forEach(function(object, objectIndex){
 		if (object.life < 0){
@@ -993,6 +1043,17 @@ function mainControlFunction(){
 			enemiesObjects[objectIndex].life = 0;
 		}
 	});
+	//Prevenindo que a Variável fightChance ultrapasse 100
+	if (fightChance > 100){
+		fightChance = 100;
+	}
+	//Checando se o jogador está numa luta
+	if (enemiesList[0].classList.contains("opacity-0") && enemiesList[1].classList.contains("opacity-0") && enemiesList[2].classList.contains("opacity-0") && enemiesList[3].classList.contains("opacity-0") && enemiesList[4].classList.contains("opacity-0") && enemiesList[5].classList.contains("opacity-0") && enemiesList[6].classList.contains("opacity-0") && enemiesList[7].classList.contains("opacity-0")){
+		fighting = false;
+	}
+	else{
+		fighting = true;
+	}
 }
 
 

@@ -91,7 +91,7 @@ body{
 
 .enemies-area .enemy{
 	height: 20vh;
-	max-width: 17vw;
+	width: 17vw;
 }
 
 .enemy .enemy__damage{
@@ -119,6 +119,7 @@ body{
 
 .mini-boss-area .enemy{
 	height: 30vh;
+	width: 40vw;
 }
 
 .boss-area{
