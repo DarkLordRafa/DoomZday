@@ -460,5 +460,20 @@
 		</script>
 		<script src="assets/js/player_menu/player_menu.js" type="module">
 		</script>
+		<script type="text/javascript">
+			var images = new Array()
+			function preload() {
+				for (i = 0; i < preload.arguments.length; i++) {
+					images[i] = new Image()
+					images[i].src = preload.arguments[i]
+				}
+			}
+			preload(
+				"assets/images/enemies/zombie1.png",
+				"assets/images/enemies/zombie2.png",
+				"assets/images/enemies/zombie3.png",
+				"assets/images/enemies/zombie4.png"
+			)
+		</script>
 	</body>
 </html>
