@@ -36,6 +36,7 @@ const molotovEquipButton = document.querySelector("#molotov-equip-button");
 //Botões de ação do jogador
 const attackButton = document.querySelector(".actions-area__attack-button");
 const searchButton = document.querySelector(".actions-area__search-button");
+const walkButton = document.querySelector(".actions-area__walk-button");
 
 
 
@@ -183,7 +184,7 @@ const enemiesObjects = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7, 
 
 
 //Variável de chance de luta aleatória
-let fightChance = 50;
+let fightChance = 0;
 
 
 //Variável da dificuldade da luta
@@ -191,14 +192,14 @@ let fightDifficult = 1;
 
 
 //Variáveis das chances dos inimigos surgirem
-let enemy1AppearChance = 10;
-let enemy2AppearChance = 10;
-let enemy3AppearChance = 10;
-let enemy4AppearChance = 10;
-let enemy5AppearChance = 10;
-let enemy6AppearChance = 50;
-let enemy7AppearChance = 50;
-let enemy8AppearChance = 100;
+let enemy1AppearChance = 0;
+let enemy2AppearChance = 0;
+let enemy3AppearChance = 0;
+let enemy4AppearChance = 0;
+let enemy5AppearChance = 0;
+let enemy6AppearChance = 0;
+let enemy7AppearChance = 0;
+let enemy8AppearChance = 0;
 
 
 //Imagens dos inimigos
@@ -628,13 +629,14 @@ function activateEnemy5(){
 		enemy5.minCriticalDamage = 25;
 		enemy5.maxCriticalDamage = 35;
 	}
+	console.log(enemiesImageList[4].src);
 }
 
 
 function activateEnemy6(){
 	enemiesList[5].classList.remove("opacity-0");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
-		enemiesImageList[5].src = zombie2Image;
+		enemiesImageList[5].src = zombie1Image;
 		enemy6.life = 100;
 		enemy6.hitChance = 50;
 		enemy6.criticalChance = 20;
@@ -654,7 +656,7 @@ function activateEnemy6(){
 		enemy6.maxCriticalDamage = 35;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
-		enemiesImageList[5].src = zombie2Image;
+		enemiesImageList[5].src = zombie3Image;
 		enemy6.life = 100;
 		enemy6.hitChance = 50;
 		enemy6.criticalChance = 20;
@@ -669,7 +671,7 @@ function activateEnemy6(){
 function activateEnemy7(){
 	enemiesList[6].classList.remove("opacity-0");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
-		enemiesImageList[6].src = zombie3Image;
+		enemiesImageList[6].src = zombie1Image;
 		enemy7.life = 100;
 		enemy7.hitChance = 50;
 		enemy7.criticalChance = 20;
@@ -689,8 +691,8 @@ function activateEnemy7(){
 		enemy7.maxCriticalDamage = 35;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
-		enemiesImageList[6].src = zombie3Image;
 		enemy7.life = 100;
+		enemiesImageList[6].src = zombie4Image;
 		enemy7.hitChance = 50;
 		enemy7.criticalChance = 20;
 		enemy7.minDamage = 10;
@@ -780,6 +782,57 @@ function randomFight(){
 
 
 
+//função que controla o progresso do jogo
+function gameProgress(){
+	if (savedGame.player.scenary1Progress === 0){
+		fightChance = 0;
+	}
+	else if (savedGame.player.scenary1Progress > 0 && savedGame.player.scenary1Progress <= 50){
+		fightChance = 30;
+		fightDifficult = 1;
+		enemy1AppearChance = 0;
+		enemy2AppearChance = 0;
+		enemy3AppearChance = 0;
+		enemy4AppearChance = 0;
+		enemy5AppearChance = 0;
+		enemy6AppearChance = 30;
+		enemy7AppearChance = 30;
+		enemy8AppearChance = 50;
+	}
+	else if (savedGame.player.scenary1Progress > 50 && savedGame.player.scenary1Progress < 90){
+		fightChance = 40;
+		fightDifficult = 2;
+		enemy1AppearChance = 0;
+		enemy2AppearChance = 0;
+		enemy3AppearChance = 0;
+		enemy4AppearChance = 0;
+		enemy5AppearChance = 0;
+		enemy6AppearChance = 50;
+		enemy7AppearChance = 50;
+		enemy8AppearChance = 50;
+	}
+	else if (savedGame.player.scenary1Progress > 0 && savedGame.player.scenary1Progress === 90){
+		fightChance = 100;
+		fightDifficult = 3;
+		enemy1AppearChance = 50;
+		enemy2AppearChance = 50;
+		enemy3AppearChance = 50;
+		enemy4AppearChance = 50;
+		enemy5AppearChance = 50;
+		enemy6AppearChance = 100;
+		enemy7AppearChance = 100;
+		enemy8AppearChance = 100;
+	}
+}
+
+
+
+
+
+
+
+
+
 //Ideia para a função de ataque
 /*
 function attack(){
@@ -831,7 +884,14 @@ molotovEquipButton.addEventListener("click", function(){
 
 
 //Ações dos botões de ações
-searchButton.addEventListener("click", searchItems);
+searchButton.addEventListener("click", function(){
+	if (savedGame.player.scenary1Progress !== 0){
+		fightChance += 100;
+	}
+	searchItems();
+	randomFight();
+});
+
 //Ideia para função de ataque
 attackButton.addEventListener("click", function(){
 	let enemyPosition = randomRangeNumber(0, 7);
@@ -844,6 +904,12 @@ attackButton.addEventListener("click", function(){
 	  enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display");
 	});
   console.log(enemy1.life, enemy2.life, enemy3.life, enemy4.life, enemy5.life, enemy6.life, enemy7.life, enemy8.life);
+});
+
+walkButton.addEventListener("click", function(){
+	savedGame.player.scenary1Progress += 10;
+	gameProgress();
+	randomFight();
 });
 
 
@@ -896,3 +962,5 @@ function mainDisplayFunction(){
 //Chamando a função mainDisplayFunction constantemente
 setInterval(mainDisplayFunction, 100);
 
+//Chamando a função gameProgress
+gameProgress();

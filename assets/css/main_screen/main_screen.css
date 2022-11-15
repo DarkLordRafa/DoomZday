@@ -98,7 +98,9 @@ body{
 	color: white;
 	font-size: 5vw;
 	font-weight: bold;
-	margin-left: 30%;
+	opacity: 1!important;
+	min-width: 10vw;
+	text-align: right;
 }
 
 .enemy-damage-display{
