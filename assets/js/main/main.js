@@ -976,8 +976,7 @@ function mainDisplayFunction(){
 	else{
 		searchButton.classList.remove("opacity-0", "pe-none");
 		walkButton.classList.remove("opacity-0", "pe-none");
-		attackButton.classList.add("opacity-0", "pe-none");
-		attackButton.classList.add("opacity-0", "pe-none");
+		attackButton.classList.add("pe-none");
 	}
 	
 	//Checando a arma equipada
@@ -985,8 +984,8 @@ function mainDisplayFunction(){
 		displayedAmmoQuantity.innerHTML = "?";
 		attackButton.classList.add("opacity-0", "pe-none");
 	}
-	else if (equipedWeapon !== "none" && fighting === true){
-		attackButton.classList.remove("opacity-0", "pe-none");
+	else if (equipedWeapon !== "none"){
+		attackButton.classList.remove("opacity-0");
 	}
   if (equipedWeapon === "pistol"){
 		displayedAmmoQuantity.innerHTML = savedGame.player.weapons.pistolAmmo;
