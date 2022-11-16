@@ -945,6 +945,12 @@ attackButton.addEventListener("click", function(){
 	  enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display");
 	});
   console.log(enemy1.life, enemy2.life, enemy3.life, enemy4.life, enemy5.life, enemy6.life, enemy7.life, enemy8.life);
+  //Condição para quando for preciso chamar um evento logo após uma luta
+  /*
+  if (fighting === true && savedGame.player.scenary1Progress >= 90 && enemiesObjects.every(object =>{return object.life <= 0;})){
+  	alert("Evento exatamente após acabar a última luta");
+  }
+  */
 });
 
 walkButton.addEventListener("click", function(){
@@ -1063,7 +1069,7 @@ function progressControlFunction(){
 	}
 	if (savedGame.player.scenary1Progress > 90 && fighting === false){
 		savedGame.player.scenary1Progress = 100;
-		alert("Fim do cenário");
+		alert("Evento após acabar a última luta e clicar em andar");
 	}
 }
 
