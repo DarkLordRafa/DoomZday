@@ -81,7 +81,7 @@ body{
 }
 
 .enemy{
-	transition: opacity 0.5s;
+	transition: opacity 1s ease-out;
 	pointer-events: none;
 }
 

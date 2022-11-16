@@ -1027,7 +1027,7 @@ function mainDisplayFunction(){
 		}*/
 	//Checando a vida dos inimigos e fazendo eles sumirem caso a vida seja 0
 	enemiesObjects.forEach(function(object, objectIndex){
-		if (object.life < 0){
+		if (object.life <= 0){
 			enemiesList[objectIndex].classList.add("opacity-0");
 		}
 	});
@@ -1038,7 +1038,7 @@ function mainDisplayFunction(){
 function mainControlFunction(){
 	//Prevenindo a vida dos inimigos de ficar negativa
 	enemiesObjects.forEach(function(object, objectIndex){
-		if (object.life < 0){
+		if (object.life <= 0){
 			enemiesObjects[objectIndex].life = 0;
 		}
 	});
@@ -1060,6 +1060,10 @@ function mainControlFunction(){
 function progressControlFunction(){
 	if (savedGame.player.scenary1Progress > 90 && savedGame.player.scenary1Progress < 100){
 		savedGame.player.scenary1Progress = 90;
+	}
+	if (savedGame.player.scenary1Progress > 90 && fighting === false){
+		savedGame.player.scenary1Progress = 100;
+		alert("Fim do cenário");
 	}
 }
 
