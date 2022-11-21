@@ -467,6 +467,7 @@ function searchItems(){
 //Funções de ativar os inimigos
 function activateEnemy1(){
 	enemiesList[0].classList.remove("opacity-0");
+	enemiesList[0].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[0].src = zombie1Image;
 		enemy1.life = 100;
@@ -503,6 +504,7 @@ function activateEnemy1(){
 
 function activateEnemy2(){
 	enemiesList[1].classList.remove("opacity-0");
+	enemiesList[1].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[1].src = zombie2Image;
 		enemy2.life = 100;
@@ -538,6 +540,7 @@ function activateEnemy2(){
 
 function activateEnemy3(){
 	enemiesList[2].classList.remove("opacity-0");
+	enemiesList[2].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[2].src = zombie3Image;
 		enemy3.life = 100;
@@ -573,6 +576,7 @@ function activateEnemy3(){
 
 function activateEnemy4(){
 	enemiesList[3].classList.remove("opacity-0");
+	enemiesList[3].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[3].src = zombie4Image;
 		enemy4.life = 100;
@@ -608,6 +612,7 @@ function activateEnemy4(){
 
 function activateEnemy5(){
 	enemiesList[4].classList.remove("opacity-0");
+	enemiesList[4].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[4].src = zombie3Image;
 		enemy5.life = 100;
@@ -643,6 +648,7 @@ function activateEnemy5(){
 
 function activateEnemy6(){
 	enemiesList[5].classList.remove("opacity-0");
+	enemiesList[5].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[5].src = zombie1Image;
 		enemy6.life = 100;
@@ -678,6 +684,7 @@ function activateEnemy6(){
 
 function activateEnemy7(){
 	enemiesList[6].classList.remove("opacity-0");
+	enemiesList[6].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[6].src = zombie1Image;
 		enemy7.life = 100;
@@ -713,6 +720,7 @@ function activateEnemy7(){
 
 function activateEnemy8(){
 	enemiesList[7].classList.remove("opacity-0");
+	enemiesList[7].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[7].src = zombie1Image;
 		enemy8.life = 100;
@@ -936,6 +944,9 @@ attackButton.addEventListener("click", function(){
 	}
 	
 	let enemyPosition = randomRangeNumber(0, 7);
+	while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
+		enemyPosition = randomRangeNumber(0, 7);
+	};
 	//Falta validar os inimigos para o cálculo ser feito apenas nos inimigos que apareceram na tela
 	let enemyReceivedDamage = randomRangeNumber(50, 70);
 	enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
@@ -1035,6 +1046,7 @@ function mainDisplayFunction(){
 	enemiesObjects.forEach(function(object, objectIndex){
 		if (object.life <= 0){
 			enemiesList[objectIndex].classList.add("opacity-0");
+			enemiesList[objectIndex].classList.remove("enemy-active");
 		}
 	});
 }
