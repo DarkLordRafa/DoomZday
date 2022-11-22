@@ -110,7 +110,7 @@ body{
 .enemy-damage-display-critical{
 	animation: enemy-damage-animation 1s linear;
 	opacity: 1!important;
-	color: yellow;
+	color: yellow!important;
 }
 
 .mini-boss-area{

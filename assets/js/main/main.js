@@ -454,7 +454,7 @@ function searchItems(){
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
 	else if (ammo9mmPercentage <= 30){
-		let foundQuantity = randomRangeNumber(5, 15);
+		let foundQuantity = randomRangeNumber(2, 10);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
@@ -761,6 +761,7 @@ function randomFight(){
 	console.log(fightChance);
 	let fightChanceResult = randomPercentage();
 	if (fightChanceResult <= fightChance){
+		enemiesDamageList.forEach(element =>{element.classList.remove("enemy-damage-display", "enemy-damage-display-critical")});
 		let enemy1AppearResult = randomPercentage();
 		let enemy2AppearResult = randomPercentage();
 		let enemy3AppearResult = randomPercentage();
@@ -845,40 +846,6 @@ function gameProgress(){
 
 
 
-
-
-
-
-
-//Ideia para a função de ataque
-/*
-function attack(){
-  let pistolHitChance = randomPercentage();
-  let doubleHitChance = randomPercentage();
-  if (doubleHitChance <= 20){
-  	console.log(doubleHitChance);
-  	alert("double hit");
-  	pistolHitChance = randomPercentage();
-	  if (pistolHitChance <= 40){
-	  	alert("acertou");
-    	console.log(pistolHitChance);
-	  }
-	  pistolHitChance = randomPercentage();
-	  if (pistolHitChance <= 40){
-	  	alert("acertou");
-    	console.log(pistolHitChance);
-	  }
-  }
-  else if (pistolHitChance <= 40){
-  	alert("acertou");
-  	console.log(pistolHitChance);
-  }
-}
-
-attackButton.addEventListener("click", attack);
-*/
-
-
 //Ações dos botões de criar item
 craftBandageButton.addEventListener("click", function(){
 	craftBandage();
@@ -893,7 +860,7 @@ craftMolotovButton.addEventListener("click", function(){
 
 //Ações dos botões de equipar armas e itens
 pistolEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("pistol", 40, 20, 50, 70, 100, 150);
+	changedEquipedWeapon("pistol", 60, 20, 50, 70, 100, 150);
 });
 molotovEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("molotov", 100, 30, 40, 50, 80, 120);
@@ -919,8 +886,29 @@ searchButton.addEventListener("click", function(){
   searchFailOkButton.addEventListener("click", randomFight);
 });
 
+
+
 //Ideia para função de ataque
 attackButton.addEventListener("click", function(){
+	let enemyPosition = randomRangeNumber(0, 7);
+	while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
+		enemyPosition = randomRangeNumber(0, 7);
+	};
+
+	let enemyReceivedDamage;
+	let hits = 1;
+	let hitsDone = 0;
+	
+	let hitChanceResult = randomPercentage();
+	let criticalChanceResult = randomPercentage();
+	if (criticalChanceResult <= criticalChance){
+		enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+	}
+	else{
+		enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+	}
+	
+	
 	//Checando a arma equipada
 	if (equipedWeapon == "pistol"){
 		if (savedGame.player.weapons.pistolAmmo === 0){
@@ -929,7 +917,61 @@ attackButton.addEventListener("click", function(){
 		return;
 		}
 		else{
-			savedGame.player.weapons.pistolAmmo -= 1;
+		  let doubleHitChance = randomPercentage();
+		  if (doubleHitChance <= 50){
+		  	alert("double hit");
+		  	hits = 2;
+		  }
+		  
+		  pistolAttack();
+	//setInterval apenas para armas que dão mais de um tiro ou golpe
+	//Lembrar de mudar o tempo do intervalo aqui em cima e o delay de remover a classe do enemiesDamageList lá embaixo de acordo com a velocidade da arma
+			const attacking = setInterval(pistolAttack, 1200);
+		  
+		  function pistolAttack(){
+				hitsDone ++;
+				if (hitsDone > hits || savedGame.player.weapons.pistolAmmo === 0 || fighting === false){
+					clearInterval(attacking);
+				}
+				else{
+				savedGame.player.weapons.pistolAmmo -= 1;
+				let hitChanceResult = randomPercentage();
+				let criticalChanceResult = randomPercentage();
+				let criticalHit;
+				if (criticalChanceResult <= criticalChance){
+					enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+					criticalHit = true;
+				}
+				else{
+					enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+					criticalHit = false;
+				}
+	
+				enemyPosition = randomRangeNumber(0, 7);
+				while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
+					enemyPosition = randomRangeNumber(0, 7);
+				}
+					
+				if (hitChanceResult <= hitChance){
+					enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
+					enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
+					enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
+					if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
+					}
+					
+					else{
+						enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
+					}
+				}
+				else{
+					enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
+					enemiesDamageList[enemyPosition].innerHTML = "errou";
+					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
+				}
+				
+				setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 800);
+				}
+		  }
 		}
 	}
 	
@@ -943,18 +985,6 @@ attackButton.addEventListener("click", function(){
 		}
 	}
 	
-	let enemyPosition = randomRangeNumber(0, 7);
-	while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
-		enemyPosition = randomRangeNumber(0, 7);
-	};
-	//Falta validar os inimigos para o cálculo ser feito apenas nos inimigos que apareceram na tela
-	let enemyReceivedDamage = randomRangeNumber(50, 70);
-	enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
-	enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
-	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
-	enemiesDamageList[enemyPosition].addEventListener("animationend", function(){
-	  enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display");
-	});
   console.log(enemy1.life, enemy2.life, enemy3.life, enemy4.life, enemy5.life, enemy6.life, enemy7.life, enemy8.life);
   //Condição para quando for preciso chamar um evento logo após uma luta
   /*
