@@ -919,7 +919,7 @@ attackButton.addEventListener("click", function(){
 		else{
 		  let doubleHitChance = randomPercentage();
 		  if (doubleHitChance <= 50){
-		  	alert("double hit");
+		  	alert("Habilidade: 2 tiros");
 		  	hits = 2;
 		  }
 		  
