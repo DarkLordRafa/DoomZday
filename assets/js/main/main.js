@@ -787,6 +787,7 @@ function randomFight(){
 		let enemy7AppearResult = randomPercentage();
 		let enemy8AppearResult = randomPercentage();
 		
+		
 		if (enemy1AppearResult <= enemy1AppearChance){
 			activateEnemy1();
 		}
@@ -1038,11 +1039,14 @@ molotovEquipButton.addEventListener("click", function(){
 searchButton.addEventListener("click", function(){
 	if (savedGame.player.scenary1Progress === 0){
 		savedGame.player.scenary1Progress += 5;
-		gameProgress();
+		//gameProgress();
 	}
 	else{
+	//Aumentar mais as dificuldades, como chance dos inimigos aparecerem e a dificuldade da luta
+		enemy8AppearChance += 10;
+	//Os inimigos não vão aparecer se a chance de luta não for suficiente pra entrar em um luta
 		fightChance += 10;
-		//Aumentar mais as dificuldades, como chance dos inimigos aparecerem e a dificuldade da luta
+		alert(enemy8AppearChance);
 	}
 		searchItems();
 	const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
@@ -1161,7 +1165,6 @@ attackButton.addEventListener("click", function(){
 	  //Função do turno dos zumbis
 		//Chamar a função depois que o som da arma terminar (quando adicionar som ao jogo)
 			enemiesAttackFunction();
-			console.log("this");
 		}
 	}
 	
