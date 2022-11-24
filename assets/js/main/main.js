@@ -258,7 +258,7 @@ savedGame = {
 			alcohol: 0,
 			bottle: 0
 		},
-		scenary1Progress: 80,
+		scenary1Progress: 0,
 	}
 };
 
@@ -668,8 +668,8 @@ function activateEnemy6(){
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[5].src = zombie1Image;
 		enemy6.life = 100;
-		enemy6.hitChance = 0;
-		enemy6.criticalChance = 100;
+		enemy6.hitChance = 50;
+		enemy6.criticalChance = 20;
 		enemy6.minDamage = 10;
 		enemy6.maxDamage = 20;
 		enemy6.minCriticalDamage = 25;
@@ -678,8 +678,8 @@ function activateEnemy6(){
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[5].src = zombie2Image;
 		enemy6.life = 100;
-		enemy6.hitChance = 0;
-		enemy6.criticalChance = 100;
+		enemy6.hitChance = 50;
+		enemy6.criticalChance = 20;
 		enemy6.minDamage = 10;
 		enemy6.maxDamage = 20;
 		enemy6.minCriticalDamage = 25;
@@ -688,8 +688,8 @@ function activateEnemy6(){
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[5].src = zombie3Image;
 		enemy6.life = 100;
-		enemy6.hitChance = 0;
-		enemy6.criticalChance = 100;
+		enemy6.hitChance = 50;
+		enemy6.criticalChance = 20;
 		enemy6.minDamage = 10;
 		enemy6.maxDamage = 20;
 		enemy6.minCriticalDamage = 25;
