@@ -912,10 +912,12 @@ function enemiesAttackFunction(){
 			enemyAttackFunction(counter);
 		}
 		counter --;
-		if (counter < 0){
+		if (counter < 0 || fighting === false){
 			clearInterval(enemyAttacking);
 			document.body.classList.remove("pe-none");
+			return;
 		}
+		console.log("atacando");
 	}
 	
 	const enemyAttacking = setInterval(enemyAttack, 1200);
