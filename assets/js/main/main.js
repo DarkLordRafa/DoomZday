@@ -668,8 +668,8 @@ function activateEnemy6(){
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[5].src = zombie1Image;
 		enemy6.life = 100;
-		enemy6.hitChance = 50;
-		enemy6.criticalChance = 20;
+		enemy6.hitChance = 0;
+		enemy6.criticalChance = 100;
 		enemy6.minDamage = 10;
 		enemy6.maxDamage = 20;
 		enemy6.minCriticalDamage = 25;
@@ -678,8 +678,8 @@ function activateEnemy6(){
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[5].src = zombie2Image;
 		enemy6.life = 100;
-		enemy6.hitChance = 50;
-		enemy6.criticalChance = 20;
+		enemy6.hitChance = 0;
+		enemy6.criticalChance = 100;
 		enemy6.minDamage = 10;
 		enemy6.maxDamage = 20;
 		enemy6.minCriticalDamage = 25;
@@ -688,8 +688,8 @@ function activateEnemy6(){
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[5].src = zombie3Image;
 		enemy6.life = 100;
-		enemy6.hitChance = 50;
-		enemy6.criticalChance = 20;
+		enemy6.hitChance = 0;
+		enemy6.criticalChance = 100;
 		enemy6.minDamage = 10;
 		enemy6.maxDamage = 20;
 		enemy6.minCriticalDamage = 25;
@@ -1093,7 +1093,7 @@ attackButton.addEventListener("click", function(){
 		  pistolAttack();
 	//setInterval apenas para armas que dão mais de um tiro ou golpe
 	//Lembrar de mudar o tempo do intervalo aqui em cima e o delay de remover a classe do enemiesDamageList lá embaixo de acordo com a velocidade da arma
-			const attacking = setInterval(pistolAttack, 1200);
+			const attacking = setInterval(pistolAttack, 1500);
 		  
 		  function pistolAttack(){
 				hitsDone ++;
@@ -1177,11 +1177,18 @@ attackButton.addEventListener("click", function(){
   */
 });
 
+let walking = false;
+
 walkButton.addEventListener("click", function(){
+	walking = true;
+	console.log("botão");
 	savedGame.player.scenary1Progress += 10;
 	progressControlFunction();
 	gameProgress();
 	randomFight();
+	setTimeout(function(){
+		walking = false;
+	}, 1000);
 });
 
 
@@ -1208,6 +1215,14 @@ function mainDisplayFunction(){
 		walkButton.classList.remove("opacity-0", "pe-none");
 		attackButton.classList.add("pe-none");
 		document.body.classList.remove("pe-none");
+	}
+	
+	//Checando se o jogador está andando
+	if (walking === true){
+		walkButton.classList.add("pe-none");
+	}
+	else{
+		walkButton.classList.remove("pe-none");
 	}
 	
 	//Checando a arma equipada
