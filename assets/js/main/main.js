@@ -55,6 +55,8 @@ const gameTextsScreenText = document.querySelector(".game-texts-screen p");
 
 
 
+
+
 //Variáveis das armas e dos atributos
 let equipedWeapon = "none";
 let hitChance = 0;
@@ -905,47 +907,99 @@ function enemyAttackFunction(objectPosition){
 //Função de ataque dos inimigos
 function enemiesAttackFunction(){
 	
-	let enemiesHits = 0;
-	let counter = 7;
-	function enemyAttack(){
-		if (enemiesList[counter].classList.contains("enemy-active")){
-			enemyAttackFunction(counter);
+	let enemy1Attack = false;
+	let enemy2Attack = false;
+	let enemy3Attack = false;
+	let enemy4Attack = false;
+	let enemy5Attack = false;
+	let enemy6Attack = false;
+	let enemy7Attack = false;
+	let enemy8Attack = false;
+	
+	
+	function waitAttack(){
+		if (!enemiesList[7].classList.contains("enemy-active")){
+			enemy8Attack = true;
 		}
-		counter --;
-		if (counter < 0 || fighting === false){
-			clearInterval(enemyAttacking);
-			document.body.classList.remove("pe-none");
-			return;
+		if (!enemiesList[6].classList.contains("enemy-active")){
+			enemy7Attack = true;
 		}
-		console.log("atacando");
+		if (!enemiesList[5].classList.contains("enemy-active")){
+			enemy6Attack = true;
+		}
+		if (!enemiesList[4].classList.contains("enemy-active")){
+			enemy5Attack = true;
+		}
+		if (!enemiesList[3].classList.contains("enemy-active")){
+			enemy4Attack = true;
+		}
+		if (!enemiesList[2].classList.contains("enemy-active")){
+			enemy3Attack = true;
+		}
+		if (!enemiesList[1].classList.contains("enemy-active")){
+			enemy2Attack = true;
+		}
+		if (!enemiesList[0].classList.contains("enemy-active")){
+			enemy1Attack = true;
+		}
+		
+		
+		if (enemy8Attack === false){
+			enemyAttackFunction(7);
+			enemy8Attack = true;
+		}
+		else if (enemy7Attack === false){
+			enemyAttackFunction(6);
+			enemy7Attack = true;
+		}
+		else if (enemy6Attack === false){
+			enemyAttackFunction(5);
+			enemy6Attack = true;
+		}
+		else if (enemy5Attack === false){
+			enemyAttackFunction(4);
+			enemy5Attack = true;
+		}
+		else if (enemy4Attack === false){
+			enemyAttackFunction(3);
+			enemy4Attack = true;
+		}
+		else if (enemy3Attack === false){
+			enemyAttackFunction(2);
+			enemy3Attack = true;
+		}
+		else if (enemy2Attack === false){
+			enemyAttackFunction(1);
+			enemy2Attack = true;
+		}
+		else if (enemy1Attack === false){
+			enemyAttackFunction(0);
+			enemy1Attack = true;
+		}
 	}
 	
-	const enemyAttacking = setInterval(enemyAttack, 1200);
-	
-	
-	/*function waitAttack(previousPosition, nextPosition){
-		if (enemiesList[previousPosition].classList.contains("enemy-active")){
-			enemiesList[previousPosition].addEventListener("animationend", function(){
-				setTimeout(function(){
-					enemyAttackFunction(nextPosition);}, 1000);
-			}
-			)
+	const checkEnemiesTurn = setInterval(function(){
+		if (
+				enemy1Attack === true &&
+				enemy2Attack === true &&
+				enemy3Attack === true &&
+				enemy4Attack === true &&
+				enemy5Attack === true &&
+				enemy6Attack === true &&
+				enemy7Attack === true &&
+				enemy8Attack === true ||
+				savedGame.player.life <= 0 ||
+				fighting === false){
+					clearInterval(enemiesInterval);
+					clearInterval(checkEnemiesTurn);
+
+					setTimeout(function(){
+						document.body.classList.remove("pe-none");
+					}, 1000);
 		}
-		else{
-			enemyAttackFunction(nextPosition);
-		}
-	}
+	}, 100);
 	
-	
-	waitAttack(7, 6);
-	waitAttack(6, 5);
-	waitAttack(5, 4);
-	waitAttack(4, 3);
-	waitAttack(3, 2);
-	waitAttack(2, 1);
-	waitAttack(1, 0);
-	*/
-	
+	const enemiesInterval = setInterval(waitAttack, 2000);
 }
 
 
@@ -1001,7 +1055,7 @@ searchButton.addEventListener("click", function(){
 
 
 
-//Ideia para função de ataque
+//Função de ataque do jogador
 attackButton.addEventListener("click", function(){
 	document.body.classList.add("pe-none");
 	let enemyPosition = randomRangeNumber(0, 7);
@@ -1106,7 +1160,8 @@ attackButton.addEventListener("click", function(){
 			}
 	  //Função do turno dos zumbis
 		//Chamar a função depois que o som da arma terminar (quando adicionar som ao jogo)
-				enemiesAttackFunction();
+			enemiesAttackFunction();
+			console.log("this");
 		}
 	}
 	
@@ -1205,13 +1260,19 @@ function mainDisplayFunction(){
 	//Mostrando a vida do jogador
 	playerLifeBar.style.height = `${savedGame.player.life}%`;
 	if (savedGame.player.life >= 60){
-		playerLifeBarImage.src = "assets/images/screen/healt_line_fine.png";
+		playerLifeBar.addEventListener("transitionend", function(){
+			playerLifeBarImage.src = "assets/images/screen/healt_line_fine.png";
+		});
 	}
 	else if (savedGame.player.life < 60 && savedGame.player.life > 30){
-		playerLifeBarImage.src = "assets/images/screen/healt_line_warning.png";
+		playerLifeBar.addEventListener("transitionend", function(){
+			playerLifeBarImage.src = "assets/images/screen/healt_line_warning.png";
+		});
 	}
 	else if (savedGame.player.life < 30 && savedGame.player.life > 0){
-		playerLifeBarImage.src = "assets/images/screen/healt_line_danger.png";
+		playerLifeBar.addEventListener("transitionend", function(){
+			playerLifeBarImage.src = "assets/images/screen/healt_line_danger.png";
+		});
 	}
 }
 
