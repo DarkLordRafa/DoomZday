@@ -38,6 +38,20 @@ const attackButton = document.querySelector(".actions-area__attack-button");
 const searchButton = document.querySelector(".actions-area__search-button");
 const walkButton = document.querySelector(".actions-area__walk-button");
 
+//Variáveis da barra de vida do jogador
+const playerLifeBar = document.querySelector(".player-menu-area__life-bar");
+
+const playerLifeBarImage = document.querySelector(".player-menu-area__life-bar img");
+
+//Variáveis da tela de dano do jogador e do sangue
+const screenDamageArea = document.querySelector(".screen-damage-area");
+const screenBloodArea = document.querySelector(".screen-blood-area");
+
+
+//Variáveis da tela de texto do jogo
+const gameTextsScreen = document.querySelector(".game-texts-screen");
+const gameTextsScreenText = document.querySelector(".game-texts-screen p");
+
 
 
 
@@ -242,7 +256,7 @@ savedGame = {
 			alcohol: 0,
 			bottle: 0
 		},
-		scenary1Progress: 0,
+		scenary1Progress: 80,
 	}
 };
 
@@ -844,6 +858,103 @@ function gameProgress(){
 }
 
 
+//Função de ataque individual dos inimigos
+function enemyAttackFunction(objectPosition){
+	if (enemiesList[objectPosition].classList.contains("enemy-active")){
+		enemiesList[objectPosition].classList.add("enemy-attacking");
+		enemiesList[objectPosition].style.zIndex = 90;
+		enemiesList[objectPosition].addEventListener("animationend", function(){
+			enemiesList[objectPosition].classList.remove("enemy-attacking");
+		enemiesList[objectPosition].style.zIndex = 1;
+			screenDamageArea.classList.add("d-none");
+			screenBloodArea.classList.add("d-none");
+		});
+		
+		
+		let enemyHitChanceResult = randomPercentage();
+		let enemyCriticalChanceResult = randomPercentage();
+		let playerReceivedDamage;
+		
+		if (enemyHitChanceResult <= enemiesObjects[objectPosition].hitChance){
+			playerReceivedDamage = randomRangeNumber(
+				enemiesObjects[objectPosition].minDamage, enemiesObjects[objectPosition].maxDamage
+				);
+				//alert("dano normal");
+				savedGame.player.life -= playerReceivedDamage;
+				screenDamageArea.classList.remove("d-none");
+		}
+		
+		else if (enemyCriticalChanceResult <= enemiesObjects[objectPosition].criticalChance){
+			playerReceivedDamage = randomRangeNumber(
+				enemiesObjects[objectPosition].minCriticalDamage, enemiesObjects[objectPosition].maxCriticalDamage
+				);
+			//alert("dano crítico");
+			savedGame.player.life -= playerReceivedDamage;
+			screenDamageArea.classList.remove("d-none");
+			screenBloodArea.classList.remove("d-none");
+		}
+		else{
+			//alert("O inimigo errou");
+		}
+	}
+}
+
+
+
+
+//Função de ataque dos inimigos
+function enemiesAttackFunction(){
+	
+	let enemiesHits = 0;
+	let counter = 7;
+	function enemyAttack(){
+		if (enemiesList[counter].classList.contains("enemy-active")){
+			enemyAttackFunction(counter);
+		}
+		counter --;
+		if (counter < 0){
+			clearInterval(enemyAttacking);
+			document.body.classList.remove("pe-none");
+		}
+	}
+	
+	const enemyAttacking = setInterval(enemyAttack, 1200);
+	
+	
+	/*function waitAttack(previousPosition, nextPosition){
+		if (enemiesList[previousPosition].classList.contains("enemy-active")){
+			enemiesList[previousPosition].addEventListener("animationend", function(){
+				setTimeout(function(){
+					enemyAttackFunction(nextPosition);}, 1000);
+			}
+			)
+		}
+		else{
+			enemyAttackFunction(nextPosition);
+		}
+	}
+	
+	
+	waitAttack(7, 6);
+	waitAttack(6, 5);
+	waitAttack(5, 4);
+	waitAttack(4, 3);
+	waitAttack(3, 2);
+	waitAttack(2, 1);
+	waitAttack(1, 0);
+	*/
+	
+}
+
+
+//Função que abre a tela de texto do jogo e atribui algo à ela
+//Função que abre uma tela baseada no argumento passado
+function displayGameTextsScreen(text){
+	gameTextsScreen.classList.remove("d-none");
+	gameTextsScreenText.innerHTML = text;
+}
+
+
 
 
 //Ações dos botões de criar item
@@ -890,6 +1001,7 @@ searchButton.addEventListener("click", function(){
 
 //Ideia para função de ataque
 attackButton.addEventListener("click", function(){
+	document.body.classList.add("pe-none");
 	let enemyPosition = randomRangeNumber(0, 7);
 	while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
 		enemyPosition = randomRangeNumber(0, 7);
@@ -912,8 +1024,7 @@ attackButton.addEventListener("click", function(){
 	//Checando a arma equipada
 	if (equipedWeapon == "pistol"){
 		if (savedGame.player.weapons.pistolAmmo === 0){
-		alert("Sem munição, tome um pouco");
-		savedGame.player.weapons.pistolAmmo += 10;
+			enemiesAttackFunction();
 		return;
 		}
 		else{
@@ -969,7 +1080,7 @@ attackButton.addEventListener("click", function(){
 					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
 				}
 				
-				setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 800);
+				setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 900);
 				}
 		  }
 		}
@@ -984,6 +1095,21 @@ attackButton.addEventListener("click", function(){
 			savedGame.player.itemsQuantity.molotov -= 1;
 		}
 	}
+	
+	function checkHitsDone(){
+		if (hitsDone === hits){
+			clearInterval(checkPlayerTurn);
+			if (fighting === false){
+				document.body.classList.remove("pe-none");
+			}
+	  //Função do turno dos zumbis
+		//Chamar a função depois que o som da arma terminar (quando adicionar som ao jogo)
+				enemiesAttackFunction();
+		}
+	}
+	
+	const checkPlayerTurn = setInterval(checkHitsDone, 100);
+	
 	
   console.log(enemy1.life, enemy2.life, enemy3.life, enemy4.life, enemy5.life, enemy6.life, enemy7.life, enemy8.life);
   //Condição para quando for preciso chamar um evento logo após uma luta
@@ -1024,6 +1150,7 @@ function mainDisplayFunction(){
 		searchButton.classList.remove("opacity-0", "pe-none");
 		walkButton.classList.remove("opacity-0", "pe-none");
 		attackButton.classList.add("pe-none");
+		document.body.classList.remove("pe-none");
 	}
 	
 	//Checando a arma equipada
@@ -1062,16 +1189,10 @@ function mainDisplayFunction(){
 		if (savedGame.player.scenary1Progress === 0){
 			walkButton.classList.add("opacity-0", "pe-none");
 		}
-		/*else{
-			walkButton.classList.remove("opacity-0", "pe-none");
-		}*/
 		//Checando se pegou a pistola na busca no tutorial
 		if (savedGame.player.scenary1Progress === 5){
 			searchButton.classList.add("opacity-0", "pe-none");
 		}
-		/*else{
-			searchButton.classList.remove("opacity-0", "pe-none");
-		}*/
 	//Checando a vida dos inimigos e fazendo eles sumirem caso a vida seja 0
 	enemiesObjects.forEach(function(object, objectIndex){
 		if (object.life <= 0){
@@ -1079,6 +1200,17 @@ function mainDisplayFunction(){
 			enemiesList[objectIndex].classList.remove("enemy-active");
 		}
 	});
+	//Mostrando a vida do jogador
+	playerLifeBar.style.height = `${savedGame.player.life}%`;
+	if (savedGame.player.life >= 60){
+		playerLifeBarImage.src = "assets/images/screen/healt_line_fine.png";
+	}
+	else if (savedGame.player.life < 60 && savedGame.player.life > 30){
+		playerLifeBarImage.src = "assets/images/screen/healt_line_warning.png";
+	}
+	else if (savedGame.player.life < 30 && savedGame.player.life > 0){
+		playerLifeBarImage.src = "assets/images/screen/healt_line_danger.png";
+	}
 }
 
 
@@ -1100,6 +1232,17 @@ function mainControlFunction(){
 	}
 	else{
 		fighting = true;
+	}
+	//Prevenindo que a vida do jogador fique abaixo de 0 ou acima de 100
+	if (savedGame.player.life > 100){
+		savedGame.player.life = 100;
+	}
+	else if (savedGame.player.life < 0){
+		savedGame.player.life = 0;
+	}
+	//Ação caso o jogador morra
+	if (savedGame.player.life === 0){
+		displayGameTextsScreen("Você morreu");
 	}
 }
 

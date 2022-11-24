@@ -212,7 +212,7 @@
 			
 			<!-- Tela de dano sofrido pelo jogador -->
 			<div class="screen-damage-area position-absolute h-100 w-100 d-none">
-				<div class="screen-blood-area d-flex justify-content-center">
+				<div class="screen-blood-area d-flex justify-content-center d-none">
 					<img src="assets/images/screen/screen_blood.png" />
 				</div>
 			</div>
@@ -338,7 +338,7 @@
 						</ul>
 					</nav>
 					<!-- Telas dos itens do menu do jogador -->
-					<div class="player-menu-area__display">
+					<div class="player-menu-area__display h-100">
 						<div class="player-menu-area-display__screen player-menu-area-display__weapons">
 							<ul class="ps-0 ms-0">
 								<li>
@@ -373,8 +373,10 @@
 							</ul>
 						</div>
 					</div>
-					<div class="player-menu-area__life-bar">
-						<img src="assets/images/screen/healt_line_fine.png" />
+					<div class="player-menu-area__life-bar-background">
+						<div class="player-menu-area__life-bar">
+							<img src="assets/images/screen/healt_line_fine.png" />
+						</div>
 					</div>
 				</div>
 				<!-- Telas de confirmação dos itens do menu do jogador -->
