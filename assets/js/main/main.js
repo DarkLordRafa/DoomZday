@@ -471,7 +471,7 @@ function searchItems(){
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
-	else if (ammo9mmPercentage <= 45){
+	else if (ammo9mmPercentage <= 50){
 		let foundQuantity = randomRangeNumber(1, 20);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
