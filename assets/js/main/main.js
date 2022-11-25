@@ -461,7 +461,7 @@ function searchItems(){
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 28){
+	else if (alcoholPercentage <= 25){
 		let foundQuantity = randomRangeNumber(1, 3);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
@@ -472,7 +472,7 @@ function searchItems(){
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
 	else if (ammo9mmPercentage <= 65){
-		let foundQuantity = randomRangeNumber(10, 25);
+		let foundQuantity = randomRangeNumber(7, 20);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
