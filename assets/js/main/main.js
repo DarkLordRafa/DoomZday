@@ -456,12 +456,12 @@ function searchItems(){
 		displayReceivedWeaponScreen(pistolImage, "Pistola 9mm");
 		savedGame.player.weapons.pistol = true;
 	}
-	else if (clothPercentage <= 25){
+	else if (clothPercentage <= 23){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 22){
+	else if (alcoholPercentage <= 20){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
@@ -486,8 +486,8 @@ function searchItems(){
 		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;
 	}
-	else if (medikitPercentage <= 10){
-		let foundQuantity = randomRangeNumber(1, 1);
+	else if (medikitPercentage <= 30){
+		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(medikitImage, foundQuantity, "Kit médico");
 		savedGame.player.itemsQuantity.medikit += foundQuantity;
 	}
