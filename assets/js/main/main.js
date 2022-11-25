@@ -456,13 +456,13 @@ function searchItems(){
 		displayReceivedWeaponScreen(pistolImage, "Pistola 9mm");
 		savedGame.player.weapons.pistol = true;
 	}
-	else if (clothPercentage <= 40){
+	else if (clothPercentage <= 22){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 40){
-		let foundQuantity = randomRangeNumber(1, 2);
+	else if (alcoholPercentage <= 32){
+		let foundQuantity = randomRangeNumber(1, 3);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
@@ -471,8 +471,8 @@ function searchItems(){
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
-	else if (ammo9mmPercentage <= 50){
-		let foundQuantity = randomRangeNumber(1, 20);
+	else if (ammo9mmPercentage <= 65){
+		let foundQuantity = randomRangeNumber(5, 10);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
@@ -847,8 +847,8 @@ function gameProgress(){
 		enemy3AppearChance = 0;
 		enemy4AppearChance = 0;
 		enemy5AppearChance = 0;
-		enemy6AppearChance = 30;
-		enemy7AppearChance = 30;
+		enemy6AppearChance = 20;
+		enemy7AppearChance = 20;
 		enemy8AppearChance = 50;
 	}
 	else if (savedGame.player.scenary1Progress > 50 && savedGame.player.scenary1Progress < 90){
@@ -859,18 +859,18 @@ function gameProgress(){
 		enemy3AppearChance = 0;
 		enemy4AppearChance = 0;
 		enemy5AppearChance = 0;
-		enemy6AppearChance = 50;
-		enemy7AppearChance = 50;
+		enemy6AppearChance = 40;
+		enemy7AppearChance = 40;
 		enemy8AppearChance = 50;
 	}
 	else if (savedGame.player.scenary1Progress > 0 && savedGame.player.scenary1Progress === 90){
 		fightChance = 100;
 		fightDifficult = 3;
-		enemy1AppearChance = 50;
-		enemy2AppearChance = 50;
-		enemy3AppearChance = 50;
-		enemy4AppearChance = 50;
-		enemy5AppearChance = 50;
+		enemy1AppearChance = 40;
+		enemy2AppearChance = 40;
+		enemy3AppearChance = 40;
+		enemy4AppearChance = 40;
+		enemy5AppearChance = 40;
 		enemy6AppearChance = 100;
 		enemy7AppearChance = 100;
 		enemy8AppearChance = 100;
@@ -1042,7 +1042,7 @@ craftMolotovButton.addEventListener("click", function(){
 
 //Ações dos botões de equipar armas e itens
 pistolEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("pistol", 75, 40, 50, 70, 100, 150);
+	changedEquipedWeapon("pistol", 80, 40, 50, 70, 100, 150);
 });
 molotovEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("molotov", 100, 30, 40, 50, 80, 120);
@@ -1112,9 +1112,9 @@ attackButton.addEventListener("click", function(){
 		return;
 		}
 		else{
-		  let doubleHitChance = randomPercentage();
-		  if (doubleHitChance <= 50){
-		  	hits = 2;
+		  let multipleHitChance = randomPercentage();
+		  if (multipleHitChance <= 60){
+		  	hits = randomRangeNumber(2, 3);
 		  }
 		  
 		  pistolAttack();
@@ -1357,6 +1357,10 @@ function mainControlFunction(){
 	if (savedGame.player.life === 0){
 		displayGameTextsScreen("Você morreu");
 	}
+	if (savedGame.player.scenary1Progress === 90 && fighting === false){
+		searchButton.style.opacity = 0;
+		searchButton.style.pointerEvents = "none";
+	}[]
 }
 
 
@@ -1367,7 +1371,7 @@ function progressControlFunction(){
 	}
 	if (savedGame.player.scenary1Progress > 90 && fighting === false){
 		savedGame.player.scenary1Progress = 100;
-		alert("Evento após acabar a última luta e clicar em andar");
+		displayGameTextsScreen("Você finalizou o cenário. Parabéns");
 	}
 }
 
