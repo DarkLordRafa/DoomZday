@@ -33,6 +33,12 @@ const playerMenuWeaponsList = document.querySelectorAll(".player-menu-area-displ
 const pistolEquipButton = document.querySelector("#pistol-equip-button");
 const molotovEquipButton = document.querySelector("#molotov-equip-button");
 
+
+//Botões de usar itens
+const bandageUseButton = document.querySelector("#bandage-use-button");
+const medikitUseButton = document.querySelector("#medikit-use-button");
+
+
 //Botões de ação do jogador
 const attackButton = document.querySelector(".actions-area__attack-button");
 const searchButton = document.querySelector(".actions-area__search-button");
@@ -383,6 +389,17 @@ function changedEquipedWeapon(
 		);
 }
 
+//Função de usar item de cura
+function useHealtItem(recoveredHealt, itemName){
+	playerLifeBar.classList.add("life-recovery");
+	playerLifeBar.addEventListener("transitionend", function(){
+		playerLifeBar.classList.remove("life-recovery");
+	});
+	savedGame.player.life += recoveredHealt;
+	savedGame.player.itemsQuantity[itemName] --;
+}
+
+
 
 //Função da porcentagem que retorna um número entre 1 e 100
 function randomPercentage(){
@@ -439,27 +456,12 @@ function searchItems(){
 		displayReceivedWeaponScreen(pistolImage, "Pistola 9mm");
 		savedGame.player.weapons.pistol = true;
 	}
-	else if (bandagePercentage <= 10){
-		let foundQuantity = randomRangeNumber(1, 2);
-		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
-		savedGame.player.itemsQuantity.bandage += foundQuantity;
-	}
-	else if (medikitPercentage <= 5){
-		let foundQuantity = randomRangeNumber(1, 1);
-		displayReceivedItemScreen(medikitImage, foundQuantity, "Kit médico");
-		savedGame.player.itemsQuantity.medikit += foundQuantity;
-	}
-	else if (molotovPercentage <= 3){
-		let foundQuantity = randomRangeNumber(1, 1);
-		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
-		savedGame.player.itemsQuantity.molotov += foundQuantity;
-	}
-	else if (clothPercentage <= 25){
+	else if (clothPercentage <= 40){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 25){
+	else if (alcoholPercentage <= 40){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
@@ -469,10 +471,25 @@ function searchItems(){
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
-	else if (ammo9mmPercentage <= 30){
-		let foundQuantity = randomRangeNumber(2, 10);
+	else if (ammo9mmPercentage <= 45){
+		let foundQuantity = randomRangeNumber(1, 20);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
+	}
+	else if (molotovPercentage <= 3){
+		let foundQuantity = randomRangeNumber(1, 1);
+		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
+		savedGame.player.itemsQuantity.molotov += foundQuantity;
+	}
+	else if (bandagePercentage <= 30){
+		let foundQuantity = randomRangeNumber(1, 2);
+		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
+		savedGame.player.itemsQuantity.bandage += foundQuantity;
+	}
+	else if (medikitPercentage <= 10){
+		let foundQuantity = randomRangeNumber(1, 1);
+		displayReceivedItemScreen(medikitImage, foundQuantity, "Kit médico");
+		savedGame.player.itemsQuantity.medikit += foundQuantity;
 	}
 	else{
 		searchFailScreen.classList.remove("d-none");
@@ -526,30 +543,30 @@ function activateEnemy2(){
 		enemy2.life = 100;
 		enemy2.hitChance = 50;
 		enemy2.criticalChance = 20;
-		enemy2.minDamage = 10;
-		enemy2.maxDamage = 20;
-		enemy2.minCriticalDamage = 25;
-		enemy2.maxCriticalDamage = 35;
+		enemy2.minDamage = 5;
+		enemy2.maxDamage = 15;
+		enemy2.minCriticalDamage = 20;
+		enemy2.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[1].src = zombie2Image;
 		enemy2.life = 100;
 		enemy2.hitChance = 50;
 		enemy2.criticalChance = 20;
-		enemy2.minDamage = 10;
-		enemy2.maxDamage = 20;
-		enemy2.minCriticalDamage = 25;
-		enemy2.maxCriticalDamage = 35;
+		enemy2.minDamage = 5;
+		enemy2.maxDamage = 15;
+		enemy2.minCriticalDamage = 20;
+		enemy2.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[1].src = zombie2Image;
 		enemy2.life = 100;
 		enemy2.hitChance = 50;
 		enemy2.criticalChance = 20;
-		enemy2.minDamage = 10;
-		enemy2.maxDamage = 20;
-		enemy2.minCriticalDamage = 25;
-		enemy2.maxCriticalDamage = 35;
+		enemy2.minDamage = 5;
+		enemy2.maxDamage = 15;
+		enemy2.minCriticalDamage = 20;
+		enemy2.maxCriticalDamage = 27;
 	}
 }
 
@@ -562,30 +579,30 @@ function activateEnemy3(){
 		enemy3.life = 100;
 		enemy3.hitChance = 50;
 		enemy3.criticalChance = 20;
-		enemy3.minDamage = 10;
-		enemy3.maxDamage = 20;
-		enemy3.minCriticalDamage = 25;
-		enemy3.maxCriticalDamage = 35;
+		enemy2.minDamage = 5;
+		enemy2.maxDamage = 15;
+		enemy2.minCriticalDamage = 20;
+		enemy2.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[2].src = zombie3Image;
 		enemy3.life = 100;
 		enemy3.hitChance = 50;
 		enemy3.criticalChance = 20;
-		enemy3.minDamage = 10;
-		enemy3.maxDamage = 20;
-		enemy3.minCriticalDamage = 25;
-		enemy3.maxCriticalDamage = 35;
+		enemy3.minDamage = 5;
+		enemy3.maxDamage = 15;
+		enemy3.minCriticalDamage = 20;
+		enemy3.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[2].src = zombie3Image;
 		enemy3.life = 100;
 		enemy3.hitChance = 50;
 		enemy3.criticalChance = 20;
-		enemy3.minDamage = 10;
-		enemy3.maxDamage = 20;
-		enemy3.minCriticalDamage = 25;
-		enemy3.maxCriticalDamage = 35;
+		enemy3.minDamage = 5;
+		enemy3.maxDamage = 15;
+		enemy3.minCriticalDamage = 20;
+		enemy3.maxCriticalDamage = 27;
 	}
 }
 
@@ -598,30 +615,30 @@ function activateEnemy4(){
 		enemy4.life = 100;
 		enemy4.hitChance = 50;
 		enemy4.criticalChance = 20;
-		enemy4.minDamage = 10;
-		enemy4.maxDamage = 20;
-		enemy4.minCriticalDamage = 25;
-		enemy4.maxCriticalDamage = 35;
+		enemy4.minDamage = 5;
+		enemy4.maxDamage = 15;
+		enemy4.minCriticalDamage = 20;
+		enemy4.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[3].src = zombie4Image;
 		enemy4.life = 100;
 		enemy4.hitChance = 50;
 		enemy4.criticalChance = 20;
-		enemy4.minDamage = 10;
-		enemy4.maxDamage = 20;
-		enemy4.minCriticalDamage = 25;
-		enemy4.maxCriticalDamage = 35;
+		enemy4.minDamage = 5;
+		enemy4.maxDamage = 15;
+		enemy4.minCriticalDamage = 20;
+		enemy4.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[3].src = zombie4Image;
 		enemy4.life = 100;
 		enemy4.hitChance = 50;
 		enemy4.criticalChance = 20;
-		enemy4.minDamage = 10;
-		enemy4.maxDamage = 20;
-		enemy4.minCriticalDamage = 25;
-		enemy4.maxCriticalDamage = 35;
+		enemy4.minDamage = 5;
+		enemy4.maxDamage = 15;
+		enemy4.minCriticalDamage = 20;
+		enemy4.maxCriticalDamage = 27;
 	}
 }
 
@@ -634,30 +651,30 @@ function activateEnemy5(){
 		enemy5.life = 100;
 		enemy5.hitChance = 50;
 		enemy5.criticalChance = 20;
-		enemy5.minDamage = 10;
-		enemy5.maxDamage = 20;
-		enemy5.minCriticalDamage = 25;
-		enemy5.maxCriticalDamage = 35;
+		enemy5.minDamage = 5;
+		enemy5.maxDamage = 15;
+		enemy5.minCriticalDamage = 20;
+		enemy5.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[4].src = zombie3Image;
 		enemy5.life = 100;
 		enemy5.hitChance = 50;
 		enemy5.criticalChance = 20;
-		enemy5.minDamage = 10;
-		enemy5.maxDamage = 20;
-		enemy5.minCriticalDamage = 25;
-		enemy5.maxCriticalDamage = 35;
+		enemy5.minDamage = 5;
+		enemy5.maxDamage = 15;
+		enemy5.minCriticalDamage = 20;
+		enemy5.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[4].src = zombie3Image;
 		enemy5.life = 100;
 		enemy5.hitChance = 50;
 		enemy5.criticalChance = 20;
-		enemy5.minDamage = 10;
-		enemy5.maxDamage = 20;
-		enemy5.minCriticalDamage = 25;
-		enemy5.maxCriticalDamage = 35;
+		enemy5.minDamage = 5;
+		enemy5.maxDamage = 15;
+		enemy5.minCriticalDamage = 20;
+		enemy5.maxCriticalDamage = 27;
 	}
 }
 
@@ -670,30 +687,30 @@ function activateEnemy6(){
 		enemy6.life = 100;
 		enemy6.hitChance = 50;
 		enemy6.criticalChance = 20;
-		enemy6.minDamage = 10;
-		enemy6.maxDamage = 20;
-		enemy6.minCriticalDamage = 25;
-		enemy6.maxCriticalDamage = 35;
+		enemy6.minDamage = 5;
+		enemy6.maxDamage = 15;
+		enemy6.minCriticalDamage = 20;
+		enemy6.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[5].src = zombie2Image;
 		enemy6.life = 100;
 		enemy6.hitChance = 50;
 		enemy6.criticalChance = 20;
-		enemy6.minDamage = 10;
-		enemy6.maxDamage = 20;
-		enemy6.minCriticalDamage = 25;
-		enemy6.maxCriticalDamage = 35;
+		enemy6.minDamage = 5;
+		enemy6.maxDamage = 15;
+		enemy6.minCriticalDamage = 20;
+		enemy6.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[5].src = zombie3Image;
 		enemy6.life = 100;
 		enemy6.hitChance = 50;
 		enemy6.criticalChance = 20;
-		enemy6.minDamage = 10;
-		enemy6.maxDamage = 20;
-		enemy6.minCriticalDamage = 25;
-		enemy6.maxCriticalDamage = 35;
+		enemy6.minDamage = 5;
+		enemy6.maxDamage = 15;
+		enemy6.minCriticalDamage = 20;
+		enemy6.maxCriticalDamage = 27;
 	}
 }
 
@@ -706,30 +723,30 @@ function activateEnemy7(){
 		enemy7.life = 100;
 		enemy7.hitChance = 50;
 		enemy7.criticalChance = 20;
-		enemy7.minDamage = 10;
-		enemy7.maxDamage = 20;
-		enemy7.minCriticalDamage = 25;
-		enemy7.maxCriticalDamage = 35;
+		enemy7.minDamage = 5;
+		enemy7.maxDamage = 15;
+		enemy7.minCriticalDamage = 20;
+		enemy7.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[6].src = zombie3Image;
 		enemy7.life = 100;
 		enemy7.hitChance = 50;
 		enemy7.criticalChance = 20;
-		enemy7.minDamage = 10;
-		enemy7.maxDamage = 20;
-		enemy7.minCriticalDamage = 25;
-		enemy7.maxCriticalDamage = 35;
+		enemy7.minDamage = 5;
+		enemy7.maxDamage = 15;
+		enemy7.minCriticalDamage = 20;
+		enemy7.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemy7.life = 100;
 		enemiesImageList[6].src = zombie4Image;
 		enemy7.hitChance = 50;
 		enemy7.criticalChance = 20;
-		enemy7.minDamage = 10;
-		enemy7.maxDamage = 20;
-		enemy7.minCriticalDamage = 25;
-		enemy7.maxCriticalDamage = 35;
+		enemy7.minDamage = 5;
+		enemy7.maxDamage = 15;
+		enemy7.minCriticalDamage = 20;
+		enemy7.maxCriticalDamage = 27;
 	}
 }
 
@@ -742,30 +759,30 @@ function activateEnemy8(){
 		enemy8.life = 100;
 		enemy8.hitChance = 50;
 		enemy8.criticalChance = 20;
-		enemy8.minDamage = 10;
-		enemy8.maxDamage = 20;
-		enemy8.minCriticalDamage = 25;
-		enemy8.maxCriticalDamage = 35;
+		enemy8.minDamage = 5;
+		enemy8.maxDamage = 15;
+		enemy8.minCriticalDamage = 20;
+		enemy8.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[7].src = zombie1Image;
 		enemy8.life = 100;
 		enemy8.hitChance = 50;
 		enemy8.criticalChance = 20;
-		enemy8.minDamage = 10;
-		enemy8.maxDamage = 20;
-		enemy8.minCriticalDamage = 25;
-		enemy8.maxCriticalDamage = 35;
+		enemy8.minDamage = 5;
+		enemy8.maxDamage = 15;
+		enemy8.minCriticalDamage = 20;
+		enemy8.maxCriticalDamage = 27;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[7].src = zombie1Image;
 		enemy8.life = 100;
 		enemy8.hitChance = 50;
 		enemy8.criticalChance = 20;
-		enemy8.minDamage = 10;
-		enemy8.maxDamage = 20;
-		enemy8.minCriticalDamage = 25;
-		enemy8.maxCriticalDamage = 35;
+		enemy8.minDamage = 5;
+		enemy8.maxDamage = 15;
+		enemy8.minCriticalDamage = 20;
+		enemy8.maxCriticalDamage = 27;
 	}
 }
 
@@ -896,9 +913,6 @@ function enemyAttackFunction(objectPosition){
 			screenDamageArea.classList.remove("d-none");
 			screenBloodArea.classList.remove("d-none");
 		}
-		else{
-			//alert("O inimigo errou");
-		}
 	}
 }
 
@@ -1000,7 +1014,7 @@ function enemiesAttackFunction(){
 		}
 	}, 100);
 	
-	const enemiesInterval = setInterval(waitAttack, 2000);
+	const enemiesInterval = setInterval(waitAttack, 1500);
 }
 
 
@@ -1028,11 +1042,22 @@ craftMolotovButton.addEventListener("click", function(){
 
 //Ações dos botões de equipar armas e itens
 pistolEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("pistol", 60, 20, 50, 70, 100, 150);
+	changedEquipedWeapon("pistol", 75, 40, 50, 70, 100, 150);
 });
 molotovEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("molotov", 100, 30, 40, 50, 80, 120);
 });
+
+
+//Ações dos botões de usar itens
+bandageUseButton.addEventListener("click", function(){
+	useHealtItem(30, "bandage");
+});
+
+medikitUseButton.addEventListener("click", function(){
+	useHealtItem(70, "medikit");
+});
+
 
 
 //Ações dos botões de ações
@@ -1046,7 +1071,6 @@ searchButton.addEventListener("click", function(){
 		enemy8AppearChance += 10;
 	//Os inimigos não vão aparecer se a chance de luta não for suficiente pra entrar em um luta
 		fightChance += 10;
-		alert(enemy8AppearChance);
 	}
 		searchItems();
 	const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
@@ -1090,14 +1114,13 @@ attackButton.addEventListener("click", function(){
 		else{
 		  let doubleHitChance = randomPercentage();
 		  if (doubleHitChance <= 50){
-		  	alert("Habilidade: 2 tiros");
 		  	hits = 2;
 		  }
 		  
 		  pistolAttack();
 	//setInterval apenas para armas que dão mais de um tiro ou golpe
 	//Lembrar de mudar o tempo do intervalo aqui em cima e o delay de remover a classe do enemiesDamageList lá embaixo de acordo com a velocidade da arma
-			const attacking = setInterval(pistolAttack, 1500);
+			const attacking = setInterval(pistolAttack, 1200);
 		  
 		  function pistolAttack(){
 				hitsDone ++;
@@ -1278,19 +1301,28 @@ function mainDisplayFunction(){
 	//Mostrando a vida do jogador
 	playerLifeBar.style.height = `${savedGame.player.life}%`;
 	if (savedGame.player.life >= 60){
+		playerLifeBarImage.src = "assets/images/screen/healt_line_fine.png";
+		/*
 		playerLifeBar.addEventListener("transitionend", function(){
 			playerLifeBarImage.src = "assets/images/screen/healt_line_fine.png";
 		});
+		*/
 	}
 	else if (savedGame.player.life < 60 && savedGame.player.life > 30){
+		playerLifeBarImage.src = "assets/images/screen/healt_line_warning.png";
+		/*
 		playerLifeBar.addEventListener("transitionend", function(){
 			playerLifeBarImage.src = "assets/images/screen/healt_line_warning.png";
 		});
+		*/
 	}
 	else if (savedGame.player.life < 30 && savedGame.player.life > 0){
+		playerLifeBarImage.src = "assets/images/screen/healt_line_danger.png";
+		/*
 		playerLifeBar.addEventListener("transitionend", function(){
 			playerLifeBarImage.src = "assets/images/screen/healt_line_danger.png";
 		});
+		*/
 	}
 }
 
