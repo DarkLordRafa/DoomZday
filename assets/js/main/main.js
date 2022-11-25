@@ -461,22 +461,22 @@ function searchItems(){
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 25){
-		let foundQuantity = randomRangeNumber(1, 3);
+	else if (alcoholPercentage <= 22){
+		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
-	else if (bottlePercentage <= 10){
+	else if (bottlePercentage <= 5){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
-	else if (ammo9mmPercentage <= 65){
-		let foundQuantity = randomRangeNumber(7, 20);
+	else if (ammo9mmPercentage <= 60){
+		let foundQuantity = randomRangeNumber(5, 10);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
-	else if (molotovPercentage <= 3){
+	else if (molotovPercentage <= 10){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
@@ -1042,7 +1042,7 @@ craftMolotovButton.addEventListener("click", function(){
 
 //Ações dos botões de equipar armas e itens
 pistolEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("pistol", 80, 40, 50, 70, 100, 150);
+	changedEquipedWeapon("pistol", 80, 30, 50, 70, 100, 150);
 });
 molotovEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("molotov", 100, 30, 40, 50, 80, 120);
