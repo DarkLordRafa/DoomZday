@@ -471,12 +471,12 @@ function searchItems(){
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
-	else if (ammo9mmPercentage <= 60){
-		let foundQuantity = randomRangeNumber(5, 10);
+	else if (ammo9mmPercentage <= 55){
+		let foundQuantity = randomRangeNumber(1, 10);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
-	else if (molotovPercentage <= 10){
+	else if (molotovPercentage <= 8){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
@@ -486,8 +486,8 @@ function searchItems(){
 		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;
 	}
-	else if (medikitPercentage <= 30){
-		let foundQuantity = randomRangeNumber(1, 2);
+	else if (medikitPercentage <= 40){
+		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(medikitImage, foundQuantity, "Kit médico");
 		savedGame.player.itemsQuantity.medikit += foundQuantity;
 	}
@@ -1121,50 +1121,53 @@ attackButton.addEventListener("click", function(){
 	//setInterval apenas para armas que dão mais de um tiro ou golpe
 	//Lembrar de mudar o tempo do intervalo aqui em cima e o delay de remover a classe do enemiesDamageList lá embaixo de acordo com a velocidade da arma
 			const attacking = setInterval(pistolAttack, 1200);
-		  
-		  function pistolAttack(){
-				hitsDone ++;
-				if (hitsDone > hits || savedGame.player.weapons.pistolAmmo === 0 || fighting === false){
+			const checkPistolAttack = setInterval(checPistolHits, 100);
+			
+			function checPistolHits(){
+				if (hitsDone >= hits || savedGame.player.weapons.pistolAmmo === 0 || fighting === false){
 					clearInterval(attacking);
 				}
-				else{
-				savedGame.player.weapons.pistolAmmo -= 1;
-				let hitChanceResult = randomPercentage();
-				let criticalChanceResult = randomPercentage();
-				let criticalHit;
-				if (criticalChanceResult <= criticalChance){
-					enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
-					criticalHit = true;
-				}
-				else{
-					enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
-					criticalHit = false;
-				}
-	
+			}
+			
+		  
+	  function pistolAttack(){
+			hitsDone ++;
+			savedGame.player.weapons.pistolAmmo -= 1;
+			let hitChanceResult = randomPercentage();
+			let criticalChanceResult = randomPercentage();
+			let criticalHit;
+			if (criticalChanceResult <= criticalChance){
+				enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+				criticalHit = true;
+			}
+			else{
+				enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+				criticalHit = false;
+			}
+
+			enemyPosition = randomRangeNumber(0, 7);
+			while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
 				enemyPosition = randomRangeNumber(0, 7);
-				while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
-					enemyPosition = randomRangeNumber(0, 7);
-				}
-					
-				if (hitChanceResult <= hitChance){
-					enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
-					enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
-					enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
-					if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
-					}
-					
-					else{
-						enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
-					}
-				}
-				else{
-					enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
-					enemiesDamageList[enemyPosition].innerHTML = "errou";
-					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
+			}
+				
+			if (hitChanceResult <= hitChance){
+				enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
+				enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
+				enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
+				if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
 				}
 				
-				setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 900);
+				else{
+					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
 				}
+			}
+			else{
+				enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
+				enemiesDamageList[enemyPosition].innerHTML = "errou";
+				enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
+			}
+			
+			setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 900);
 		  }
 		}
 	}
