@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DoomZday - Survival Zombie Apocalipse Game (Demo)</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable='no'">
+		<meta http-equiv="X-UA-compatible" content="IE=Edge" />
+		<meta name="description" content="Zombies, Game, Apocalipse, Survival, DoomZday, Online Game, Browser Game, Zumbis, Jogo, Jogo Online, Sobrevivência, Jogo de zumbi" />
+		<meta name="theme-color" content="black" />
+		<link rel="stylesheet" href="assets/bootstrap5/css/bootstrap.min.css" type="text/css"/>
+		<link rel="stylesheet" href="assets/css/main_screen/main_screen.css" type="text/css"/>
+		<link rel="stylesheet" href="assets/css/player_hud/player_hud.css" type="text/css"/>
+		<link rel="stylesheet" href="assets/css/reset/reset.css" type="text/css"/>
+	</head>
+	
+	<body class="bg-black d-flex flex-column align-items-start">
+		
+		<!-- Tela principal do jogo -->
+		<main class="main-screen w-100 h-100 position-relative d-flex flex-column align-items-center">
+			
+			<!-- Área dos inimigos comuns da batalha (parte de trás) -->
+			<div class="enemies-area d-flex justify-content-center">
+				<div class="enemy d-flex flex-column align-items-center opacity-0" id="enemy1">
+					<div class="enemy__damage opacity-0">
+						0
+					</div>
+					<img class="enemy__image" />
+				</div>
+				<div class="enemy d-flex flex-column align-items-center opacity-0" id="enemy2">
+					<div class="enemy__damage opacity-0">
+						0
+					</div>
+					<img class="enemy__image" />
+				</div>
+				<div class="enemy d-flex flex-column align-items-center opacity-0" id="enemy3">
+					<div class="enemy__damage opacity-0">
+						0
+					</div>
+					<img class="enemy__image" />
+				</div>
+				<div class="enemy d-flex flex-column align-items-center opacity-0" id="enemy4">
+					<div class="enemy__damage opacity-0">
+						0
+					</div>
+					<img class="enemy__image" />
+				</div>
+				<div class="enemy d-flex flex-column align-items-center opacity-0" id="enemy5">
+					<div class="enemy__damage opacity-0">
+						0
+					</div>
+					<img class="enemy__image" />
+				</div>
+			</div>
+			
+			<!-- Área dos inimigos fortes da batalha (parte do meio) -->
+			<div class="mini-boss-area d-flex justify-content-center">
+				<div class="enemy d-flex flex-column align-items-center opacity-0" id="mini-boss-1">
+					<div class="enemy__damage opacity-0">
+						0
+					</div>
+					<img class="enemy__image" />
+				</div>
+				<div class="enemy d-flex flex-column align-items-center opacity-0" id="mini-boss-2">
+					<div class="enemy__damage opacity-0">
+						0
+					</div>
+					<img class="enemy__image" />
+				</div>
+			</div>
+			
+			<!-- Área do chefe da batalha (parte da frente) -->
+			<div class="boss-area d-flex justify-content-center">
+				<div class="enemy d-flex flex-column align-items-center opacity-0" id="boss">
+					<div class="enemy__damage opacity-0">
+						0
+					</div>
+					<img class="enemy__image" />
+				</div>
+			</div>
+			
+			<!-- Tela de textos do jogo -->
+			<div class="game-texts-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="game-texts text-center d-flex flex-column align-items-center justify-content-between bg-black">
+					<div class="game-texts__text-area d-flex align-items-center">
+						<p>Você está controlando David, um dos poucos sobreviventes de um vírus mortal que assolou o mundo e transformou quase todos em seres irracionais famintos. O mundo que você conhecia não existe mais. Este não é um lugar para os fracos.</p>
+					</div>
+					<span class="game-texts__next-button align-self-end next-button">Avançar</span>
+				</div>
+			</div>
+			
+			<!-- Tela de textos dos personagens -->
+			<div class="characters-dialogues-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="characters-dialogues d-flex flex-column align-items-center justify-content-between bg-black">
+					<div class="characters-dialogues__text-area">
+						<p>David - Oi</p>
+					</div>
+					<span class="characters-dialogues__next-button align-self-end next-button">Avançar</span>
+				</div>
+			</div>
+			
+			<!-- Tela de item recebido -->
+			<div class="received-items-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="received-items d-flex flex-column align-items-center">
+					<div class="received-items__content d-flex flex-column align-items-center text-center justify-content-center h-100 w-100">
+						<span class="received-items__title">Obteve</span>
+						<img class="received-items__image" src="assets/images/items/medikit.png" />
+						<span class="legendary-badge mt-2 d-none">Lendário</span>
+						<span class="received-items__quantity">5</span>
+						<p class="received-items__name">Kit médico</p>
+					</div>
+					<span class="received-items__ok-button align-self-end mt-2 me-3">Ok</span>
+				</div>
+			</div>
+			
+			<!-- Tela de arma recebida -->
+			<div class="received-weapon-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="received-weapon d-flex flex-column align-items-center">
+					<div class="received-weapon__content d-flex flex-column align-items-center text-center justify-content-start h-100 w-100">
+						<span class="received-weapon__title">Obteve</span>
+						<img class="received-weapon__image" src="assets/images/items/handgun.png" />
+						<span class="legendary-badge mt-2 d-none">Lendário</span>
+						<p class="received-weapon__name mt-1">Pistola 9mm</p>
+					</div>
+					<span class="received-weapon__ok-button align-self-end mt-2 me-3">Ok</span>
+				</div>
+			</div>
+			
+			<!-- Tela de busca malsucecida -->
+			<div class="search-fail-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="search-fail d-flex flex-column align-items-center">
+						<p class="search-fail__text mb-0 pt-4">Você não achou nada</p>
+					<span class="search-fail__ok-button align-self-end mt-4 me-3">Ok</span>
+				</div>
+			</div>
+			
+			
+			<!-- Imagem bonita de fundo com tema de zumbis (anotação pessoal) -->
+			<!-- Menu principal -->
+			<div class="menu-screen position-absolute w-100 h-100 bg-black d-flex flex-column align-items-center d-none">
+				<nav>
+					<div class="menu-screen__new-game p-2 mb-3">
+						Novo jogo
+					</div>
+					<div class="menu-screen__load-game p-2 mb-3">
+						Carregar
+					</div>
+					<div class="menu-screen__save-game p-2 mb-3">
+						Salvar
+					</div>
+					<div class="menu-screen__feedback p-2 d-none">
+						Feedback
+					</div>
+					<div class="menu-screen__return p-2 d-none">
+						Voltar
+					</div>
+				</nav>
+				
+				<!-- Telas de confirmação das opções do menu principal -->
+				<div class="new-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
+					<p>
+						Tem certeza que quer começar um NOVO JOGO?<br>Todo seu progresso atual será APAGADO
+					</p>
+					<div class="confirmation-button-area d-flex justify-content-between w-100">
+						<div class="button" id="new-game-cancel-button">
+							Não
+						</div>
+						<div class="button" id="new-game-confirm-button">
+							Sim
+						</div>
+					</div>
+				</div>
+				
+				<div class="load-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
+					<p>
+						Quer carregar o jogo?
+					</p>
+					<div class="confirmation-button-area d-flex justify-content-between w-100">
+						<div class="button" id="load-game-cancel-button">
+							Não
+						</div>
+						<div class="button" id="load-game-confirm-button">
+							Sim
+						</div>
+					</div>
+				</div>
+				
+				<div class="save-game-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
+					<p>
+						Quer salvar o jogo?
+					</p>
+					<div class="confirmation-button-area d-flex justify-content-between w-100">
+						<div class="button" id="save-game-cancel-button">
+							Não
+						</div>
+						<div class="button" id="save-game-confirm-button">
+							Sim
+						</div>
+					</div>
+				</div>
+				
+				<!-- Tela da mensagem de feedback -->
+				<div class="feedback-screen d-none">
+					
+				</div>
+			</div>
+			
+			<!-- Área de eventos do jogo (fogo, explosóes, etc). -->
+			<div class="event-area">
+				<img class="event-area__fire" src="assets/images/screen/molotov_fire2.png" />
+				<img class="event-area__explosion" />
+			</div>
+			
+			<!-- Tela de dano sofrido pelo jogador -->
+			<div class="screen-damage-area position-absolute h-100 w-100 d-none">
+				<div class="screen-blood-area d-flex justify-content-center d-none">
+					<img src="assets/images/screen/screen_blood.png" />
+				</div>
+			</div>
+			
+			<!-- Telas de info do item selecionado -->
+			<div class="player-item-info-screen position-absolute offset-screen h-100 w-100 d-flex justify-content-center align-items-start d-none" id="player-item-info-screen">
+				<div class="player-item-info d-flex flex-column align-items-center">
+					<span class="item-info-name mb-3"></span>
+					<img class="item-info-image mb-2" />
+					<span class="legendary-badge mb-2 d-none">Lendário</span>
+					<p class="item-info-description me-2">
+					</p>
+					<span class="item-info-ok-button align-self-end mt-2 me-2">Ok</span>
+				</div>
+			</div>
+			
+			<div class="player-weapon-info-screen position-absolute offset-screen h-100 w-100 d-flex justify-content-center align-items-start d-none" id="player-weapon-info-screen">
+				<div class="player-weapon-info d-flex flex-column align-items-center">
+					<span class="weapon-info-name mb-3"></span>
+					<img class="weapon-info-image mb-2" />
+					<span class="legendary-badge mb-2 d-none">Lendário</span>
+					<div class="weapon-info-content pe-2">
+						<p class="weapon-info-description">
+						</p>
+						<ul class="weapon-info-attributes p-0 text-start">
+							<li>Dano: <span class="weapon-info-damage"></span></li>
+							<li>Chance de acerto: <span class="weapon-info-hit-chance"></span></li>
+							<li>Chance de crítico: <span class="weapon-info-critical-chance"></span></li>
+						</ul>
+						<p class="weapon-info-text">
+						</p>
+					</div>
+					<span class="weapon-info-ok-button align-self-end mt-2 me-2">Ok</span>
+				</div>
+			</div>
+			
+			<!-- Telas de criação de itens -->
+			<div class="offset-screen position-absolute d-flex align-items-start h-100 w-100 d-none" id="craft-item-screen">
+				<div class="craft-item-screen__content d-flex align-items-center">
+					<ul class="craft-item__item-list ps-0 ms-0 mb-0">
+						<li><img src="assets/images/items/bandage.png" /></li>
+						<li><img src="assets/images/items/molotov.png" /></li>
+					</ul>
+					<div class="craft-item-area d-flex flex-column justify-content-end align-items-center" id="craft-item-area__default">
+						<div class="craft-item-area__button craft-item-area__return-button">
+							Voltar
+						</div>
+					</div>
+					<div class="craft-item-area d-flex flex-column justify-content-end align-items-center d-none" id="craft-item-area__bandage">
+						<div class="craft-item-area__content d-flex align-items-center justify-content-between">
+							<ul class="craft-item__materials-list ms-0 ps-0">
+								<li>
+									<img src="assets/images/crafting_items/cloth.png" />
+									<div class="displayed-craft-item-quantity displayed-cloth-quantity">
+										0
+							  	</div>
+								</li>
+								<li>
+									<img src="assets/images/crafting_items/alcohol.png" />
+									<div class="displayed-craft-item-quantity displayed-alcohol-quantity">
+										0
+							  	</div>
+								</li>
+							</ul>
+							<img class="craft-item__arrow-icon" src="assets/images/icons/arrow_right.png" />
+							<div class="craft-item__result">
+								<img src="assets/images/items/bandage.png" />
+							</div>
+						</div>
+						<div class="craft-item-area__button mb-3" id="craft-bandage-button">
+							Criar
+						</div>
+						<div class="craft-item-area__button craft-item-area__return-button">
+							Voltar
+						</div>
+					</div>
+					<div class="craft-item-area d-flex flex-column justify-content-end align-items-center d-none" id="craft-item-area__molotov">
+						<div class="craft-item-area__content d-flex align-items-center justify-content-between">
+							<ul class="craft-item__materials-list ms-0 ps-0">
+								<li>
+									<img src="assets/images/crafting_items/bottle.png" />
+									<div class="displayed-craft-item-quantity displayed-bottle-quantity">
+										0
+							  	</div>
+								</li>
+								<li>
+									<img src="assets/images/crafting_items/cloth.png" />
+									<div class="displayed-craft-item-quantity displayed-cloth-quantity">
+										0
+							  	</div>
+								</li>
+							</ul>
+							<img class="craft-item__arrow-icon" src="assets/images/icons/arrow_right.png" />
+							<div class="craft-item__result">
+								<img src="assets/images/items/molotov.png" />
+							</div>
+						</div>
+						<div class="craft-item-area__button mb-3" id="craft-molotov-button">
+							Criar
+						</div>
+						<div class="craft-item-area__button craft-item-area__return-button">
+							Voltar
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!-- Área do HUD do jogador -->
+			<div class="player-hud position-absolute bottom-0 d-flex justify-content-between">
+				<!-- Área do menu do jogador -->
+				<div class="player-menu-area d-flex">
+					<!-- Botões de opções do menu do jogador -->
+					<nav class="player-menu-area__options">
+						<ul class="ps-0 ms-0">
+							<li><img src="assets/images/icons/weapons_icon.png" /></li>
+							<li><img src="assets/images/icons/consumables_icon.png" /></li>
+							<li><img src="assets/images/icons/others_icon.png" /></li>
+							<li><img src="assets/images/icons/craft_icon.png" /></li>
+							<li class="d-none"><img src="assets/images/icons/chest_icon.png" /></li>
+							<li class="d-none"><img src="assets/images/icons/characters_icon4.png" /></li>
+							<li><img src="assets/images/icons/menu_icon.png" /></li>
+						</ul>
+					</nav>
+					<!-- Telas dos itens do menu do jogador -->
+					<div class="player-menu-area__display h-100">
+						<div class="player-menu-area-display__screen player-menu-area-display__weapons">
+							<ul class="ps-0 ms-0">
+								<li>
+									<img src="assets/images/items/handgun.png" />
+								</li>
+							</ul>
+						</div>
+						<div class="player-menu-area-display__screen player-menu-area-display__consumables d-none">
+							<ul class="ps-0 ms-0">
+								<li>
+									<img src="assets/images/items/bandage.png" />
+									<div class="displayed-item-quantity displayed-bandage-quantity">
+										0
+							  	</div>
+							  </li>
+								<li>
+									<img src="assets/images/items/medikit.png" />
+									<div class="displayed-item-quantity displayed-medikit-quantity">
+										0
+							  	</div>
+								</li>
+							</ul>
+						</div>
+						<div class="player-menu-area-display__screen player-menu-area-display__others d-none">
+							<ul class="ps-0 ms-0">
+								<li>
+									<img src="assets/images/items/molotov.png" />
+									<div class="displayed-item-quantity displayed-molotov-quantity">
+										0
+							  	</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="player-menu-area__life-bar-background">
+						<div class="player-menu-area__life-bar">
+							<img src="assets/images/screen/healt_line_fine.png" />
+						</div>
+					</div>
+				</div>
+				<!-- Telas de confirmação dos itens do menu do jogador -->
+				<div class="offset-screen position-absolute w-100 h-100 d-flex align-items-end d-none" id="pistol-confirm-screen">
+					<div class="player-item-confirm d-flex flex-column align-items-center justify-content-center">
+						<div class="equip-weapon-button mb-3" id="pistol-equip-button">
+							Equipar
+						</div>
+						<div class="mb-3" id="pistol-info-button">
+							Info
+						</div>
+						<div id="pistol-return-button">
+							Voltar
+						</div>
+					</div>
+				</div>
+				
+				<div class="offset-screen position-absolute w-100 h-100 d-flex align-items-end d-none" id="bandage-confirm-screen">
+					<div class="player-item-confirm d-flex flex-column align-items-center justify-content-center">
+						<div class="mb-3" id="bandage-use-button">
+							Usar
+						</div>
+						<div class="mb-3" id="bandage-info-button">
+							Info
+						</div>
+						<div id="bandage-return-button">
+							Voltar
+						</div>
+					</div>
+				</div>
+				
+				<div class="offset-screen position-absolute w-100 h-100 d-flex align-items-end d-none" id="medikit-confirm-screen">
+					<div class="player-item-confirm d-flex flex-column align-items-center justify-content-center">
+						<div class="mb-3" id="medikit-use-button">
+							Usar
+						</div>
+						<div class="mb-3" id="medikit-info-button">
+							Info
+						</div>
+						<div id="medikit-return-button">
+							Voltar
+						</div>
+					</div>
+				</div>
+				
+				<div class="offset-screen position-absolute w-100 h-100 d-flex align-items-end d-none" id="molotov-confirm-screen">
+					<div class="player-item-confirm d-flex flex-column align-items-center justify-content-center">
+						<div class="mb-3" id="molotov-equip-button">
+							Equipar
+						</div>
+						<div class="mb-3" id="molotov-info-button">
+							Info
+						</div>
+						<div id="molotov-return-button">
+							Voltar
+						</div>
+					</div>
+				</div>
+				
+				<!-- Botões de ações do jogador -->
+				<div class="actions-area d-flex flex-column align-items-center">
+					<div class="actions-area__button actions-area__search-button d-flex justify-content-center align-items-center">
+						<img src="assets/images/icons/search_icon.png" />
+					</div>
+					<div class="actions-area__button actions-area__attack-button d-flex flex-column justify-content-start align-items-center position-relative">
+						<img src="assets/images/items/handgun.png" />
+						<div class="actions-area-weapon-ammo position-absolute">
+							15
+						</div>
+					</div>
+					<div class="actions-area__button actions-area__walk-button d-flex justify-content-center align-items-center">
+						<img src="assets/images/icons/walk_icon.png" />
+					</div>
+				</div>
+			</div>
+		</main>
+		
+		<script src="assets/bootstrap5/js/bootstrap.bundle.min.js" type="text/javascript">
+		</script>
+		<script src="assets/js/main/main.js" type="module">
+		</script>
+		<script src="assets/js/menu/menu.js" type="module">
+		</script>
+		<script src="assets/js/player_menu/player_menu.js" type="module">
+		</script>
+		<script type="text/javascript">
+			var images = new Array()
+			function preload() {
+				for (i = 0; i < preload.arguments.length; i++) {
+					images[i] = new Image()
+					images[i].src = preload.arguments[i]
+				}
+			}
+			preload(
+				"assets/images/enemies/zombie1.png",
+				"assets/images/enemies/zombie2.png",
+				"assets/images/enemies/zombie3.png",
+				"assets/images/enemies/zombie4.png",
+				"assets/images/ammo/9mm_ammo.png"
+			)
+		</script>
+	</body>
+</html>
