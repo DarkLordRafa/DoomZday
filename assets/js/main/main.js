@@ -1217,7 +1217,7 @@ walkButton.addEventListener("click", function(){
 	randomFight();
 	setTimeout(function(){
 		walking = false;
-	}, 1000);
+	}, 500);
 });
 
 
