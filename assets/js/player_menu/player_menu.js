@@ -11,12 +11,16 @@ const attackButtonWeaponImage = document.querySelector(".actions-area__attack-bu
 const menuScreen = document.querySelector(".menu-screen");
 const menuScreenReturnButton = document.querySelector(".menu-screen__return");
 const pistolConfirmScreen = document.querySelector("#pistol-confirm-screen");
+const shotgunConfirmScreen = document.querySelector("#shotgun-confirm-screen");
 const bandageConfirmScreen = document.querySelector("#bandage-confirm-screen");
 const medikitConfirmScreen = document.querySelector("#medikit-confirm-screen");
 const molotovConfirmScreen = document.querySelector("#molotov-confirm-screen");
 const pistolEquipButton = document.querySelector("#pistol-equip-button");
 const pistolInfoButton = document.querySelector("#pistol-info-button");
 const pistolReturnButton = document.querySelector("#pistol-return-button");
+const shotgunEquipButton = document.querySelector("#shotgun-equip-button");
+const shotgunInfoButton = document.querySelector("#shotgun-info-button");
+const shotgunReturnButton = document.querySelector("#shotgun-return-button");
 const bandageUseButton = document.querySelector("#bandage-use-button");
 const bandageInfoButton = document.querySelector("#bandage-info-button");
 const bandageReturnButton = document.querySelector("#bandage-return-button");
@@ -85,6 +89,17 @@ const pistolInfo = {
 	legendary: false
 };
 
+const shotgunInfo = {
+	name: "Escopeta",
+	image: "assets/images/items/shotgun.webp",
+	description: "Uma arma de curto alcance com poder de fogo considerável. Capaz de atingir dois inimigos ou concentrar todo o dano em apenas um. Porém não possui ataque crítico.",
+	damage: "Moderado",
+	hitChance: "Moderada",
+	criticalChance: "Não possui",
+	text: '"Na cara não chefe".',
+	legendary: false
+};
+
 const molotovlInfo = {
 	name: "Molotov",
 	image: "assets/images/items/molotov.png",
@@ -99,6 +114,7 @@ const molotovlInfo = {
 
 //Variáveis das imagens
 const pistolImage = "assets/images/items/handgun.png";
+const shotgunImage = "assets/images/items/shotgun.webp";
 const molotovImage = "assets/images/items/molotov.png";
 
 
@@ -213,6 +229,10 @@ playerMenuWeaponsList[0].addEventListener("click", function(){
 	displayScreen(pistolConfirmScreen);
 });
 
+playerMenuWeaponsList[1].addEventListener("click", function(){
+	displayScreen(shotgunConfirmScreen);
+});
+
 playerMenuConsumablesList[0].addEventListener("click", function(){
 	displayScreen(bandageConfirmScreen);
 });
@@ -226,8 +246,12 @@ playerMenuOthersList[0].addEventListener("click", function(){
 });
 
 //Botões que fecham a tela de confirmação do item
-pistolReturnButton.addEventListener("click" , function(){
+pistolReturnButton.addEventListener("click", function(){
 	closeScreen(pistolConfirmScreen);
+});
+
+shotgunReturnButton.addEventListener("click", function(){
+	closeScreen(shotgunConfirmScreen);
 });
 
 bandageReturnButton.addEventListener("click" , function(){
@@ -260,6 +284,16 @@ pistolEquipButton.addEventListener("click", function(){
 pistolInfoButton.addEventListener("click", function(){
 	displayScreen(playerWeaponInfoScreen);
 	changeWeaponInfoScreenInfo(pistolInfo);
+});
+
+shotgunEquipButton.addEventListener("click", function(){
+	changeEquipedItem(shotgunImage, playerMenuWeaponsList, 1);
+	closeScreen(shotgunConfirmScreen);
+});
+
+shotgunInfoButton.addEventListener("click", function(){
+	displayScreen(playerWeaponInfoScreen);
+	changeWeaponInfoScreenInfo(shotgunInfo);
 });
 
 bandageInfoButton.addEventListener("click", function(){

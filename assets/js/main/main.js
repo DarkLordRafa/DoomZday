@@ -31,6 +31,7 @@ const playerMenuWeaponsList = document.querySelectorAll(".player-menu-area-displ
 
 //Botões de equipar armas e itens
 const pistolEquipButton = document.querySelector("#pistol-equip-button");
+const shotgunEquipButton = document.querySelector("#shotgun-equip-button");
 const molotovEquipButton = document.querySelector("#molotov-equip-button");
 
 
@@ -88,11 +89,12 @@ const bottleImage = "assets/images/crafting_items/bottle.png";
 
 //Variáveis das imagens das armas
 const pistolImage = "assets/images/items/handgun.png";
+const shotgunImage = "assets/images/items/shotgun.webp";
 
 
 //Variáveis das imagens das munições
 const ammoImage9mm = "assets/images/ammo/9mm_ammo.png";
-
+const ammoImageShotgun = "assets/images/ammo/shotgun_shells.png";
 
 
 
@@ -252,7 +254,9 @@ savedGame = {
 		weapons: {
 			pistol: false,
 //Quando a munição for infinita, trocar por "---"
-			pistolAmmo: 10
+			pistolAmmo: 10,
+			shotgun: false,
+			shotgunAmmo: 5
 		},
 		itemsQuantity: {
 			bandage: 0,
@@ -445,6 +449,7 @@ function displayReceivedWeaponScreen(image, name, legendary){
 //Função de fazer busca
 function searchItems(){
 	let pistolPercentage = randomPercentage();
+	let shotgunPercentage = randomPercentage();
 	let bandagePercentage = randomPercentage();
 	let medikitPercentage = randomPercentage();
 	let molotovPercentage = randomPercentage();
@@ -455,6 +460,10 @@ function searchItems(){
 	if (pistolPercentage <= 100 && savedGame.player.weapons.pistol === false){
 		displayReceivedWeaponScreen(pistolImage, "Pistola 9mm");
 		savedGame.player.weapons.pistol = true;
+	}
+	else if (shotgunPercentage <= 100 && savedGame.player.weapons.shotgun === false && savedGame.player.scenary1Progress >= 50){
+		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
+		savedGame.player.weapons.shotgun = true;
 	}
 	else if (clothPercentage <= 23){
 		let foundQuantity = randomRangeNumber(1, 2);
@@ -475,6 +484,11 @@ function searchItems(){
 		let foundQuantity = randomRangeNumber(1, 15);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
+	}
+	else if (ammo9mmPercentage <= 60){
+		let foundQuantity = randomRangeNumber(2, 5);
+		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
+		savedGame.player.weapons.shotgunAmmo += foundQuantity;
 	}
 	else if (molotovPercentage <= 8){
 		let foundQuantity = randomRangeNumber(1, 1);
@@ -1044,6 +1058,9 @@ craftMolotovButton.addEventListener("click", function(){
 pistolEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("pistol", 80, 30, 50, 70, 100, 150);
 });
+shotgunEquipButton.addEventListener("click", function(){
+	changedEquipedWeapon("shotgun", 70, 0, 100, 200);
+});
 molotovEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("molotov", 100, 30, 40, 50, 80, 120);
 });
@@ -1265,6 +1282,9 @@ function mainDisplayFunction(){
   if (equipedWeapon === "pistol"){
 		displayedAmmoQuantity.innerHTML = savedGame.player.weapons.pistolAmmo;
 	}
+  else if (equipedWeapon === "shotgun"){
+		displayedAmmoQuantity.innerHTML = savedGame.player.weapons.shotgunAmmo;
+	}
   else if (equipedWeapon === "molotov"){
 		displayedAmmoQuantity.innerHTML = savedGame.player.itemsQuantity.molotov;
   }
@@ -1286,6 +1306,7 @@ function mainDisplayFunction(){
 		menuItemCheck("molotov", playerMenuOthersList, 0);
 		//Checando se o jogador possui as armas no menu do jogador
 		menuWeaponCheck("pistol", playerMenuWeaponsList, 0);
+		menuWeaponCheck("shotgun", playerMenuWeaponsList, 1);
 		//Checando se é o início do jogo
 		if (savedGame.player.scenary1Progress === 0){
 			walkButton.classList.add("opacity-0", "pe-none");
