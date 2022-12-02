@@ -255,8 +255,8 @@ savedGame = {
 			pistol: false,
 //Quando a munição for infinita, trocar por "---"
 			pistolAmmo: 10,
-			shotgun: false,
-			shotgunAmmo: 5
+			shotgun: true,
+			shotgunAmmo: 10
 		},
 		itemsQuantity: {
 			bandage: 0,
@@ -457,6 +457,7 @@ function searchItems(){
 	let alcoholPercentage = randomPercentage();
 	let bottlePercentage = randomPercentage();
 	let ammo9mmPercentage = randomPercentage();
+	let ammoShotgunPercentage = randomPercentage();
 	if (pistolPercentage <= 100 && savedGame.player.weapons.pistol === false){
 		displayReceivedWeaponScreen(pistolImage, "Pistola 9mm");
 		savedGame.player.weapons.pistol = true;
@@ -485,7 +486,7 @@ function searchItems(){
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
-	else if (ammo9mmPercentage <= 60){
+	else if (ammoShotgunPercentage <= 60 && savedGame.player.scenary1Progress>= 50){
 		let foundQuantity = randomRangeNumber(2, 5);
 		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
 		savedGame.player.weapons.shotgunAmmo += foundQuantity;
@@ -1123,7 +1124,7 @@ attackButton.addEventListener("click", function(){
 	
 	
 	//Checando a arma equipada
-	if (equipedWeapon == "pistol"){
+	if (equipedWeapon === "pistol"){
 		if (savedGame.player.weapons.pistolAmmo === 0){
 			enemiesAttackFunction();
 		return;
@@ -1138,9 +1139,9 @@ attackButton.addEventListener("click", function(){
 	//setInterval apenas para armas que dão mais de um tiro ou golpe
 	//Lembrar de mudar o tempo do intervalo aqui em cima e o delay de remover a classe do enemiesDamageList lá embaixo de acordo com a velocidade da arma
 			const attacking = setInterval(pistolAttack, 1200);
-			const checkPistolAttack = setInterval(checPistolHits, 100);
+			const checkPistolAttack = setInterval(checkPistolHits, 100);
 			
-			function checPistolHits(){
+			function checkPistolHits(){
 				if (hitsDone >= hits || savedGame.player.weapons.pistolAmmo === 0 || fighting === false){
 					clearInterval(attacking);
 				}
@@ -1184,12 +1185,79 @@ attackButton.addEventListener("click", function(){
 				enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
 			}
 			
-			setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 900);
+			/*setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 900);*/
 		  }
 		}
 	}
 	
-	if (equipedWeapon == "molotov"){
+	
+	
+	else if (equipedWeapon === "shotgun"){
+		if (savedGame.player.weapons.shotgunAmmo === 0){
+			enemiesAttackFunction();
+		return;
+		}
+		else{
+			hits = 1;
+			savedGame.player.weapons.shotgunAmmo -= 1;
+			
+			for (let targets = 0; targets < 2; targets ++){
+				shotgunAttack();
+			}
+			hitsDone ++;
+		  
+		  
+	  function shotgunAttack(){
+			let hitChanceResult = randomPercentage();
+			let criticalChanceResult = randomPercentage();
+			let criticalHit;
+			if (criticalChanceResult <= criticalChance){
+				enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+				criticalHit = true;
+			}
+			else{
+				enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+				criticalHit = false;
+			}
+
+			enemyPosition = randomRangeNumber(0, 7);
+			while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
+				enemyPosition = randomRangeNumber(0, 7);
+			}
+				
+			if (hitChanceResult <= hitChance){
+				enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
+				enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
+				enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
+				if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
+				}
+				
+				else{
+					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
+				}
+			}
+			else{
+				alert("errou");
+				if (enemiesObjects[enemyPosition].life > 0){
+					enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
+					enemiesDamageList[enemyPosition].innerHTML = "errou";
+					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
+				}
+			}
+			/*
+			setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 1000);
+			*/
+			
+			enemiesDamageList[enemyPosition].addEventListener("animationend", function(){
+				enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
+			});
+		  }
+		}
+	}
+	
+	
+	
+	else if (equipedWeapon == "molotov"){
 		if (savedGame.player.itemsQuantity.molotov === 0){
 		alert("Sem munição");
 		return;
@@ -1210,6 +1278,12 @@ attackButton.addEventListener("click", function(){
 			enemiesAttackFunction();
 		}
 	}
+	
+	enemiesDamageList.forEach(element =>{
+		element.addEventListener("animationend", function(){
+			element.classList.remove("enemy-damage-display", "enemy-damage-display-critical");
+		});
+	});
 	
 	const checkPlayerTurn = setInterval(checkHitsDone, 100);
 	
