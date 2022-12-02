@@ -255,8 +255,8 @@ savedGame = {
 			pistol: false,
 //Quando a munição for infinita, trocar por "---"
 			pistolAmmo: 10,
-			shotgun: true,
-			shotgunAmmo: 10
+			shotgun: false,
+			shotgunAmmo: 5
 		},
 		itemsQuantity: {
 			bandage: 0,
