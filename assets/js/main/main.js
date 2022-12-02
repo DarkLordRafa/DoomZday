@@ -1237,7 +1237,6 @@ attackButton.addEventListener("click", function(){
 				}
 			}
 			else{
-				alert("errou");
 				if (enemiesObjects[enemyPosition].life > 0){
 					enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
 					enemiesDamageList[enemyPosition].innerHTML = "errou";
