@@ -466,28 +466,28 @@ function searchItems(){
 		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
 		savedGame.player.weapons.shotgun = true;
 	}
-	else if (clothPercentage <= 23){
+	else if (clothPercentage <= 18){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 20){
+	else if (alcoholPercentage <= 25){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
-	else if (bottlePercentage <= 5){
+	else if (bottlePercentage <= 10){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
 	else if (ammo9mmPercentage <= 55){
-		let foundQuantity = randomRangeNumber(1, 15);
+		let foundQuantity = randomRangeNumber(1, 10);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
-	else if (ammoShotgunPercentage <= 60 && savedGame.player.scenary1Progress>= 50){
-		let foundQuantity = randomRangeNumber(2, 5);
+	else if (ammoShotgunPercentage <= 55 && savedGame.player.scenary1Progress>= 50){
+		let foundQuantity = randomRangeNumber(1, 5);
 		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
 		savedGame.player.weapons.shotgunAmmo += foundQuantity;
 	}
@@ -496,12 +496,12 @@ function searchItems(){
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
 	}
-	else if (bandagePercentage <= 40){
+	else if (bandagePercentage <= 30){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;
 	}
-	else if (medikitPercentage <= 40){
+	else if (medikitPercentage <= 30){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(medikitImage, foundQuantity, "Kit médico");
 		savedGame.player.itemsQuantity.medikit += foundQuantity;
