@@ -1333,6 +1333,7 @@ attackButton.addEventListener("click", function(){
 			molotovAttack();
 		  
 		  function molotovAttack(){
+		  	burningCounter = 0
 		  	burning = true;
 		  	hitsDone ++;
 				burningCriticalChance = 10;
