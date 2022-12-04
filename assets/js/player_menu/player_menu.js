@@ -92,7 +92,7 @@ const pistolInfo = {
 const shotgunInfo = {
 	name: "Escopeta",
 	image: "assets/images/items/shotgun.webp",
-	description: "Uma arma de curto alcance com poder de fogo considerável. Capaz de atingir dois inimigos ou concentrar todo o dano em apenas um. Porém não possui ataque crítico.",
+	description: "Uma arma de curto alcance com poder de fogo considerável. Capaz de atingir dois inimigos. Porém não possui ataque crítico.",
 	damage: "Moderado",
 	hitChance: "Moderada",
 	criticalChance: "Não possui",
