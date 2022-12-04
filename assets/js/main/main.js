@@ -481,12 +481,12 @@ function searchItems(){
 		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
 		savedGame.player.weapons.shotgun = true;
 	}
-	else if (clothPercentage <= 18){
+	else if (clothPercentage <= 16){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 23){
+	else if (alcoholPercentage <= 20){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
@@ -501,7 +501,7 @@ function searchItems(){
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
-	else if (ammoShotgunPercentage <= 55 && savedGame.player.scenary1Progress>= 50){
+	else if (ammoShotgunPercentage <= 50 && savedGame.player.scenary1Progress>= 50){
 		let foundQuantity = randomRangeNumber(1, 3);
 		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
 		savedGame.player.weapons.shotgunAmmo += foundQuantity;
@@ -511,12 +511,12 @@ function searchItems(){
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
 	}
-	else if (bandagePercentage <= 25){
+	else if (bandagePercentage <= 18){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;
 	}
-	else if (medikitPercentage <= 30){
+	else if (medikitPercentage <= 20){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(medikitImage, foundQuantity, "Kit médico");
 		savedGame.player.itemsQuantity.medikit += foundQuantity;
