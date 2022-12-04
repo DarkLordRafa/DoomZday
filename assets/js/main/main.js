@@ -269,7 +269,7 @@ savedGame = {
 		weapons: {
 			pistol: false,
 //Quando a munição for infinita, trocar por "---"
-			pistolAmmo: 10,
+			pistolAmmo: 1,
 			shotgun: false,
 			shotgunAmmo: 5
 		},
@@ -1184,8 +1184,8 @@ attackButton.addEventListener("click", function(){
 		}
 		else{
 		  let multipleHitChance = randomPercentage();
-		  if (multipleHitChance <= 60){
-		  	hits = randomRangeNumber(2, 3);
+		  if (multipleHitChance <= 100){
+		  	hits = randomRangeNumber(3, 3);
 		  }
 		  
 		  pistolAttack();
@@ -1195,8 +1195,9 @@ attackButton.addEventListener("click", function(){
 			const checkPistolAttack = setInterval(checkPistolHits, 100);
 			
 			function checkPistolHits(){
-				if (hitsDone >= hits || savedGame.player.weapons.pistolAmmo === 0 || fighting === false){
+				if (hitsDone === hits || savedGame.player.weapons.pistolAmmo === 0 || fighting === false){
 					clearInterval(attacking);
+					clearInterval(checkPistolAttack);
 				}
 			}
 			
@@ -1376,7 +1377,7 @@ attackButton.addEventListener("click", function(){
 	}
 	
 	function checkHitsDone(){
-		if (hitsDone === hits){
+		if (hitsDone === hits || savedGame.player.weapons.pistolAmmo === 0){
 			clearInterval(checkPlayerTurn);
 			if (fighting === false){
 				document.body.classList.remove("pe-none");
