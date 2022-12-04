@@ -269,7 +269,7 @@ savedGame = {
 		weapons: {
 			pistol: false,
 //Quando a munição for infinita, trocar por "---"
-			pistolAmmo: 1,
+			pistolAmmo: 10,
 			shotgun: false,
 			shotgunAmmo: 5
 		},
@@ -1185,7 +1185,7 @@ attackButton.addEventListener("click", function(){
 		else{
 		  let multipleHitChance = randomPercentage();
 		  if (multipleHitChance <= 100){
-		  	hits = randomRangeNumber(3, 3);
+		  	hits = randomRangeNumber(1, 3);
 		  }
 		  
 		  pistolAttack();
@@ -1254,7 +1254,7 @@ attackButton.addEventListener("click", function(){
 			savedGame.player.weapons.shotgunAmmo -= 1;
 			hitsDone ++;
 			
-	//Fazendo função sempre atacar inimigos diferentes
+	//Fazendo a função sempre atacar inimigos diferentes
 			
 			let activeEnemies = document.querySelectorAll(".enemy-active").length;
 			
@@ -1281,8 +1281,6 @@ attackButton.addEventListener("click", function(){
 				shotgunAttack(enemyPosition1);
 			}
 			
-			
-		  
 		  function shotgunAttack(position){
 				let hitChanceResult = randomPercentage();
 				let criticalChanceResult = randomPercentage();
