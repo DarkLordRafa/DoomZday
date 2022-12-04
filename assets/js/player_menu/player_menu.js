@@ -103,8 +103,8 @@ const shotgunInfo = {
 const molotovlInfo = {
 	name: "Molotov",
 	image: "assets/images/items/molotov.png",
-	description: "Coquetel molotov improvisado feito com uma garrafa de bebida velha e um pano que você encontrou. Atinge todos os inimigos na tela e os deixa queimando, causando dano contínuo por 3 turnos.",
-	damage: "Baixo",
+	description: "Coquetel molotov improvisado feito com uma garrafa de bebida velha e um pano que você encontrou. Atinge todos os inimigos na tela e os deixa queimando, causando dano contínuo por 2 turnos.",
+	damage: "Baixo/Fixo",
 	hitChance: "Garantido",
 	criticalChance: "Baixa",
 	text: "Veja esses malditos zumbis queimarem.",

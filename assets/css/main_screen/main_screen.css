@@ -150,13 +150,8 @@ body{
 	margin-top: -30vh;
 }
 
-.event-area__explosion{
-	display: none;
-}
-
 .event-area__fire{
   width: 100%;
-  display: none;
 }
 
 .screen-blood-area{

@@ -54,6 +54,10 @@ const playerLifeBarImage = document.querySelector(".player-menu-area__life-bar i
 const screenDamageArea = document.querySelector(".screen-damage-area");
 const screenBloodArea = document.querySelector(".screen-blood-area");
 
+//Variáveis da área de evento
+const fireEvent = document.querySelector(".event-area__fire");
+const explosionEvent = document.querySelector(".event-area__explosion");
+
 
 //Variáveis da tela de texto do jogo
 const gameTextsScreen = document.querySelector(".game-texts-screen");
@@ -221,6 +225,17 @@ let fightDifficult = 1;
 
 //Variável com o estado da luta
 let fighting = false;
+
+//Estado do efeito de queimadura dos inimigos
+let burning = false;
+let burningCounter = 0;
+
+//Variáveis do efeito de queimadura
+let burningCriticalChance = 0;
+let burningMinDamage = 0;
+let burningMaxdamage = 0;
+let burningMinCriticalDamage = 0;
+let burningMaxCriticalDamage = 0;
 
 
 
@@ -466,7 +481,7 @@ function searchItems(){
 		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
 		savedGame.player.weapons.shotgun = true;
 	}
-	else if (clothPercentage <= 18){
+	else if (clothPercentage <= 20){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
@@ -476,7 +491,7 @@ function searchItems(){
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
-	else if (bottlePercentage <= 10){
+	else if (bottlePercentage <= 6){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
@@ -496,7 +511,7 @@ function searchItems(){
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
 	}
-	else if (bandagePercentage <= 30){
+	else if (bandagePercentage <= 25){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;
@@ -806,7 +821,6 @@ function activateEnemy8(){
 
 //Função de luta aleatória
 function randomFight(){
-	console.log(fightChance);
 	let fightChanceResult = randomPercentage();
 	if (fightChanceResult <= fightChance){
 		enemiesDamageList.forEach(element =>{element.classList.remove("enemy-damage-display", "enemy-damage-display-critical")});
@@ -936,7 +950,9 @@ function enemyAttackFunction(objectPosition){
 
 //Função de ataque dos inimigos
 function enemiesAttackFunction(){
-	
+	if (burning === true){
+		burningEffect();
+	}
 	let enemy1Attack = false;
 	let enemy2Attack = false;
 	let enemy3Attack = false;
@@ -1032,6 +1048,43 @@ function enemiesAttackFunction(){
 	const enemiesInterval = setInterval(waitAttack, 1500);
 }
 
+//Função de dano de queimadura
+function burningEffect(){
+	enemiesDamageList.forEach(function(element, index){
+		let enemyReceivedDamage;
+		let criticalChanceResult = randomPercentage();
+		let criticalHit;
+		if (criticalChanceResult <= burningCriticalChance){
+			enemyReceivedDamage = randomRangeNumber(burningMinCriticalDamage, burningMaxCriticalDamage);
+			criticalHit = true;
+		}
+		else{
+			enemyReceivedDamage = burningMinDamage;
+			criticalHit = false;
+		}
+		
+		if (enemiesList[index].classList.contains("enemy-active")){
+			element.style.cssText = "font-style: normal; font-weight: bold";
+			enemiesObjects[index].life -= enemyReceivedDamage;
+			enemiesDamageList[index].innerHTML = enemyReceivedDamage;
+			if (criticalHit === true){	enemiesDamageList[index].classList.add("enemy-damage-display-critical");
+			}
+			
+			else{
+				enemiesDamageList[index].classList.add("enemy-damage-display");
+			}
+		}
+	});
+	
+	enemiesDamageList.forEach(element =>{
+		element.addEventListener("animationend", function(){
+			element.classList.remove("enemy-damage-display", "enemy-damage-display-critical");
+		});
+	});
+	burningCounter ++;
+}
+
+
 
 //Função que abre a tela de texto do jogo e atribui algo à ela
 //Função que abre uma tela baseada no argumento passado
@@ -1063,7 +1116,7 @@ shotgunEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("shotgun", 70, 0, 100, 200);
 });
 molotovEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("molotov", 100, 30, 40, 50, 80, 120);
+	changedEquipedWeapon("molotov", 100, 10, 35, 35, 100, 300);
 });
 
 
@@ -1127,7 +1180,7 @@ attackButton.addEventListener("click", function(){
 	if (equipedWeapon === "pistol"){
 		if (savedGame.player.weapons.pistolAmmo === 0){
 			enemiesAttackFunction();
-		return;
+			return;
 		}
 		else{
 		  let multipleHitChance = randomPercentage();
@@ -1148,44 +1201,42 @@ attackButton.addEventListener("click", function(){
 			}
 			
 		  
-	  function pistolAttack(){
-			hitsDone ++;
-			savedGame.player.weapons.pistolAmmo -= 1;
-			let hitChanceResult = randomPercentage();
-			let criticalChanceResult = randomPercentage();
-			let criticalHit;
-			if (criticalChanceResult <= criticalChance){
-				enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
-				criticalHit = true;
-			}
-			else{
-				enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
-				criticalHit = false;
-			}
-
-			enemyPosition = randomRangeNumber(0, 7);
-			while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
-				enemyPosition = randomRangeNumber(0, 7);
-			}
-				
-			if (hitChanceResult <= hitChance){
-				enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
-				enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
-				enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
-				if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
+		  function pistolAttack(){
+				hitsDone ++;
+				savedGame.player.weapons.pistolAmmo -= 1;
+				let hitChanceResult = randomPercentage();
+				let criticalChanceResult = randomPercentage();
+				let criticalHit;
+				if (criticalChanceResult <= criticalChance){
+					enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+					criticalHit = true;
 				}
-				
 				else{
+					enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+					criticalHit = false;
+				}
+	
+				enemyPosition = randomRangeNumber(0, 7);
+				while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
+					enemyPosition = randomRangeNumber(0, 7);
+				}
+					
+				if (hitChanceResult <= hitChance){
+					enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
+					enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
+					enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
+					if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
+					}
+					
+					else{
+						enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
+					}
+				}
+				else{
+					enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
+					enemiesDamageList[enemyPosition].innerHTML = "errou";
 					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
 				}
-			}
-			else{
-				enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
-				enemiesDamageList[enemyPosition].innerHTML = "errou";
-				enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
-			}
-			
-			/*setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 900);*/
 		  }
 		}
 	}
@@ -1195,74 +1246,132 @@ attackButton.addEventListener("click", function(){
 	else if (equipedWeapon === "shotgun"){
 		if (savedGame.player.weapons.shotgunAmmo === 0){
 			enemiesAttackFunction();
-		return;
+			return;
 		}
 		else{
 			hits = 1;
 			savedGame.player.weapons.shotgunAmmo -= 1;
-			
-			for (let targets = 0; targets < 2; targets ++){
-				shotgunAttack();
-			}
 			hitsDone ++;
-		  
-		  
-	  function shotgunAttack(){
-			let hitChanceResult = randomPercentage();
-			let criticalChanceResult = randomPercentage();
-			let criticalHit;
-			if (criticalChanceResult <= criticalChance){
-				enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
-				criticalHit = true;
-			}
-			else{
-				enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
-				criticalHit = false;
-			}
-
-			enemyPosition = randomRangeNumber(0, 7);
-			while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
-				enemyPosition = randomRangeNumber(0, 7);
-			}
-				
-			if (hitChanceResult <= hitChance){
-				enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
-				enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
-				enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
-				if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
-				}
-				
-				else{
-					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
-				}
-			}
-			else{
-				if (enemiesObjects[enemyPosition].life > 0){
-					enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
-					enemiesDamageList[enemyPosition].innerHTML = "errou";
-					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
-				}
-			}
-			/*
-			setTimeout(function() {enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical")}, 1000);
-			*/
 			
-			enemiesDamageList[enemyPosition].addEventListener("animationend", function(){
-				enemiesDamageList[enemyPosition].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
-			});
-		  }
+	//Fazendo função sempre atacar inimigos diferentes
+			
+			let activeEnemies = document.querySelectorAll(".enemy-active").length;
+			
+		  let enemyPosition1 = randomRangeNumber(0, 7);
+		  let enemyPosition2 = randomRangeNumber(0, 7);
+			
+			if (activeEnemies > 1){
+				while (!enemiesList[enemyPosition1].classList.contains("enemy-active")){
+					enemyPosition1 = randomRangeNumber(0, 7);
+				}
+				
+				while (!enemiesList[enemyPosition2].classList.contains("enemy-active") || enemyPosition2 === enemyPosition1){
+					enemyPosition2 = randomRangeNumber(0, 7);
+				}
+				
+				shotgunAttack(enemyPosition1);
+				shotgunAttack(enemyPosition2);
+			}
+			
+			else{
+				while (!enemiesList[enemyPosition1].classList.contains("enemy-active")){
+					enemyPosition1 = randomRangeNumber(0, 7);
+				}
+				shotgunAttack(enemyPosition1);
+			}
+			
+			
+		  
+		  function shotgunAttack(position){
+				let hitChanceResult = randomPercentage();
+				let criticalChanceResult = randomPercentage();
+				let criticalHit;
+				if (criticalChanceResult <= criticalChance){
+					enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+					criticalHit = true;
+				}
+				else{
+					enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+					criticalHit = false;
+				}
+					
+				if (hitChanceResult <= hitChance){
+					enemiesDamageList[position].style.cssText = "font-style: normal; font-weight: bold";
+					enemiesObjects[position].life -= enemyReceivedDamage;
+					enemiesDamageList[position].innerHTML = enemyReceivedDamage;
+					if (criticalHit === true){	enemiesDamageList[position].classList.add("enemy-damage-display-critical");
+					}
+					
+					else{
+						enemiesDamageList[position].classList.add("enemy-damage-display");
+					}
+				}
+				else{
+					if (enemiesObjects[position].life > 0){
+						enemiesDamageList[position].style.cssText = "font-style: italic; font-weight: normal";
+						enemiesDamageList[position].innerHTML = "errou";
+						enemiesDamageList[position].classList.add("enemy-damage-display");
+					}
+				}
+				
+				enemiesDamageList[position].addEventListener("animationend", function(){
+					enemiesDamageList[position].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
+				});
+			}
 		}
 	}
 	
 	
-	
-	else if (equipedWeapon == "molotov"){
+	else if (equipedWeapon === "molotov"){
 		if (savedGame.player.itemsQuantity.molotov === 0){
-		alert("Sem munição");
-		return;
+			enemiesAttackFunction();
+			return;
 		}
 		else{
+			hits = 1;
 			savedGame.player.itemsQuantity.molotov -= 1;
+			molotovAttack();
+		  
+		  function molotovAttack(){
+		  	hitsDone ++;
+		  	burning = true;
+				burningCriticalChance = 10;
+				burningMinDamage = 35;
+				burningMaxdamage = 35;
+				burningMinCriticalDamage = 100;
+				burningMaxCriticalDamage = 300;
+				
+				enemiesDamageList.forEach(function(element, index){
+					let criticalChanceResult = randomPercentage();
+					let criticalHit;
+					if (criticalChanceResult <= criticalChance){
+						enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+						criticalHit = true;
+					}
+					else{
+						enemyReceivedDamage = minDamage;
+						criticalHit = false;
+					}
+					
+					if (enemiesList[index].classList.contains("enemy-active")){
+						element.style.cssText = "font-style: normal; font-weight: bold";
+						enemiesObjects[index].life -= enemyReceivedDamage;
+						enemiesDamageList[index].innerHTML = enemyReceivedDamage;
+						if (criticalHit === true){	enemiesDamageList[index].classList.add("enemy-damage-display-critical");
+						}
+						
+						else{
+							enemiesDamageList[index].classList.add("enemy-damage-display");
+						}
+					}
+				});
+				
+				enemiesDamageList.forEach(element =>{
+					element.addEventListener("animationend", function(){
+						element.classList.remove("enemy-damage-display", "enemy-damage-display-critical");
+					});
+				});
+		  }
 		}
 	}
 	
@@ -1274,7 +1383,12 @@ attackButton.addEventListener("click", function(){
 			}
 	  //Função do turno dos zumbis
 		//Chamar a função depois que o som da arma terminar (quando adicionar som ao jogo)
+			if (burning === true){
+				setTimeout(enemiesAttackFunction, 2000);
+			}
+			else{
 			enemiesAttackFunction();
+			}
 		}
 	}
 	
@@ -1286,8 +1400,6 @@ attackButton.addEventListener("click", function(){
 	
 	const checkPlayerTurn = setInterval(checkHitsDone, 100);
 	
-	
-  console.log(enemy1.life, enemy2.life, enemy3.life, enemy4.life, enemy5.life, enemy6.life, enemy7.life, enemy8.life);
   //Condição para quando for preciso chamar um evento logo após uma luta
   /*
   if (fighting === true && savedGame.player.scenary1Progress >= 90 && enemiesObjects.every(object =>{return object.life <= 0;})){
@@ -1300,7 +1412,6 @@ let walking = false;
 
 walkButton.addEventListener("click", function(){
 	walking = true;
-	console.log("botão");
 	savedGame.player.scenary1Progress += 10;
 	progressControlFunction();
 	gameProgress();
@@ -1421,6 +1532,13 @@ function mainDisplayFunction(){
 		});
 		*/
 	}
+	//Mostrando os eventos na área de ventos
+	if (burning === true){
+		fireEvent.classList.remove("d-none");
+	}
+	else{
+		fireEvent.classList.add("d-none");
+	}
 }
 
 
@@ -1458,6 +1576,11 @@ function mainControlFunction(){
 		searchButton.style.opacity = 0;
 		searchButton.style.pointerEvents = "none";
 	}[]
+	//Checando o estado de queimadura dos inimigos
+	if (burningCounter === 2 || fighting === false){
+		burning = false;
+		burningCounter = 0;
+	}
 }
 
 
