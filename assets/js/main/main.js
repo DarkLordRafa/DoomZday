@@ -481,12 +481,12 @@ function searchItems(){
 		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
 		savedGame.player.weapons.shotgun = true;
 	}
-	else if (clothPercentage <= 20){
+	else if (clothPercentage <= 18){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 25){
+	else if (alcoholPercentage <= 23){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
