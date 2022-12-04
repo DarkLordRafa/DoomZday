@@ -1184,8 +1184,8 @@ attackButton.addEventListener("click", function(){
 		}
 		else{
 		  let multipleHitChance = randomPercentage();
-		  if (multipleHitChance <= 100){
-		  	hits = randomRangeNumber(1, 3);
+		  if (multipleHitChance <= 50){
+		  	hits = randomRangeNumber(2, 3);
 		  }
 		  
 		  pistolAttack();
@@ -1198,6 +1198,7 @@ attackButton.addEventListener("click", function(){
 				if (hitsDone === hits || savedGame.player.weapons.pistolAmmo === 0 || fighting === false){
 					clearInterval(attacking);
 					clearInterval(checkPistolAttack);
+					hitsDone = hits;
 				}
 			}
 			
@@ -1375,7 +1376,7 @@ attackButton.addEventListener("click", function(){
 	}
 	
 	function checkHitsDone(){
-		if (hitsDone === hits || savedGame.player.weapons.pistolAmmo === 0){
+		if (hitsDone === hits){
 			clearInterval(checkPlayerTurn);
 			if (fighting === false){
 				document.body.classList.remove("pe-none");
