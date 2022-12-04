@@ -502,7 +502,7 @@ function searchItems(){
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
 	else if (ammoShotgunPercentage <= 55 && savedGame.player.scenary1Progress>= 50){
-		let foundQuantity = randomRangeNumber(1, 5);
+		let foundQuantity = randomRangeNumber(1, 3);
 		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
 		savedGame.player.weapons.shotgunAmmo += foundQuantity;
 	}
@@ -1333,8 +1333,8 @@ attackButton.addEventListener("click", function(){
 			molotovAttack();
 		  
 		  function molotovAttack(){
-		  	hitsDone ++;
 		  	burning = true;
+		  	hitsDone ++;
 				burningCriticalChance = 10;
 				burningMinDamage = 35;
 				burningMaxdamage = 35;
