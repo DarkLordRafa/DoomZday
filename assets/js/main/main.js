@@ -43,6 +43,7 @@ const medikitUseButton = document.querySelector("#medikit-use-button");
 //Botões de ação do jogador
 const attackButton = document.querySelector(".actions-area__attack-button");
 const searchButton = document.querySelector(".actions-area__search-button");
+const passTurnButton = document.querySelector(".actions-area__pass-turn-button");
 const walkButton = document.querySelector(".actions-area__walk-button");
 
 //Variáveis da barra de vida do jogador
@@ -487,7 +488,7 @@ function randomItems(){
 		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
 		savedGame.player.weapons.shotgun = true;
 	}
-	else if (clothPercentage <= 16){
+	else if (clothPercentage <= 19){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
@@ -497,13 +498,13 @@ function randomItems(){
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
-	else if (bottlePercentage <= 6){
+	else if (bottlePercentage <= 4){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
 	else if (ammo9mmPercentage <= 45){
-		let foundQuantity = randomRangeNumber(5, 10);
+		let foundQuantity = randomRangeNumber(1, 10);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
@@ -512,7 +513,7 @@ function randomItems(){
 		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
 		savedGame.player.weapons.shotgunAmmo += foundQuantity;
 	}
-	else if (molotovPercentage <= 8){
+	else if (molotovPercentage <= 5){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
@@ -1108,6 +1109,13 @@ function searchAction(){
 	else{
 	//Aumentar mais as dificuldades, como chance dos inimigos aparecerem e a dificuldade da luta
 		enemy8AppearChance += 10;
+		enemy7AppearChance += 5;
+		enemy6AppearChance += 3;
+		enemy5AppearChance += 2;
+		enemy4AppearChance += 2;
+		enemy3AppearChance += 2;
+		enemy2AppearChance += 2;
+		enemy1AppearChance += 2;
 	//Os inimigos não vão aparecer se a chance de luta não for suficiente pra entrar em um luta
 		fightChance += 10;
 	}
@@ -1446,6 +1454,10 @@ attackButton.addEventListener("click", function(){
 	attackAction();
 });
 
+passTurnButton.addEventListener("click", function(){
+	document.body.classList.add("pe-none");
+	enemiesAttackFunction();
+});
 
 walkButton.addEventListener("click", function(){
 	walkAction();
@@ -1469,11 +1481,13 @@ function mainDisplayFunction(){
 		searchButton.classList.add("opacity-0", "pe-none");
 		walkButton.classList.add("opacity-0", "pe-none");
 		attackButton.classList.remove("opacity-0", "pe-none");
+		passTurnButton.classList.remove("opacity-0", "pe-none");
 	}
 	else{
 		searchButton.classList.remove("opacity-0", "pe-none");
 		walkButton.classList.remove("opacity-0", "pe-none");
 		attackButton.classList.add("pe-none");
+		passTurnButton.classList.add("opacity-0", "pe-none");
 		document.body.classList.remove("pe-none");
 	}
 	

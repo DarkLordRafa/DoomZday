@@ -202,6 +202,13 @@
 	margin-right: 10vw;
 }
 
+.actions-area__pass-turn-button{
+	height: 15vw;
+	width: 15vw;
+	align-self: flex-end;
+	margin-right: 10vw;
+}
+
 .player-item-confirm{
 	background-color: black;
 	margin-bottom: 20vh;
