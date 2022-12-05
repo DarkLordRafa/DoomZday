@@ -8,6 +8,11 @@
 	100%{transform: scale(1) translateY(0);}
 }
 
+@keyframes search-bar{
+	100%{width: 100%;}
+}
+
+
 
 
 body{
@@ -165,7 +170,7 @@ body{
 	object-fit: contain;
 }
 
-.game-texts, .characters-dialogues, .received-items, .received-weapon{
+.game-texts, .characters-dialogues, .received-items, .received-weapon, .search-screen-area{
 	margin-top: 20vh;
 	color: white;
 }
@@ -174,7 +179,7 @@ body{
 	z-index: 99;
 }
 
-.game-texts p, .characters-dialogues p, .received-items p{
+.game-texts p, .characters-dialogues p, .received-items{
 	margin-bottom: 0!important;
 }
 
@@ -252,4 +257,29 @@ body{
 	font-size: 6vw;
 	font-weight: 900;
 	text-transform: uppercase;
+}
+
+.search-screen-area{
+	width: 80vw;
+	padding: 20vw 5vw;
+}
+
+.search-screen-area__content span{
+	font-size: 6vw;
+	font-weight: bold;
+}
+
+.search-screen-area__bar-container{
+	width: 65vw;
+	height: 8vw;
+}
+
+.search-screen-area__bar{
+	height: 100%;
+	width: 0%;
+	background-color: white;
+}
+
+.search-bar-animation{
+	animation: search-bar 2s linear forwards;
 }

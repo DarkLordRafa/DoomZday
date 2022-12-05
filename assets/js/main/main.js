@@ -101,6 +101,9 @@ const ammoImage9mm = "assets/images/ammo/9mm_ammo.png";
 const ammoImageShotgun = "assets/images/ammo/shotgun_shells.png";
 
 
+//Variáveis da tela de busca
+const searchScreen = document.querySelector(".search-screen");
+const searchScreenBar = document.querySelector(".search-screen-area__bar");
 
 //Variáveis da tela de item recebido
 const receivedItemsScreen = document.querySelector(".received-items-screen");
@@ -225,6 +228,9 @@ let fightDifficult = 1;
 
 //Variável com o estado da luta
 let fighting = false;
+
+//Variável com o estado de andando
+let walking = false;
 
 //Estado do efeito de queimadura dos inimigos
 let burning = false;
@@ -461,8 +467,8 @@ function displayReceivedWeaponScreen(image, name, legendary){
 
 
 
-//Função de fazer busca
-function searchItems(){
+//Função de randomizar itens
+function randomItems(){
 	let pistolPercentage = randomPercentage();
 	let shotgunPercentage = randomPercentage();
 	let bandagePercentage = randomPercentage();
@@ -1094,48 +1100,10 @@ function displayGameTextsScreen(text){
 }
 
 
-
-
-//Ações dos botões de criar item
-craftBandageButton.addEventListener("click", function(){
-	craftBandage();
-	}
-);
-
-craftMolotovButton.addEventListener("click", function(){
-	craftMolotov();
-	}
-);
-
-
-//Ações dos botões de equipar armas e itens
-pistolEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("pistol", 80, 30, 50, 70, 100, 150);
-});
-shotgunEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("shotgun", 70, 0, 100, 200);
-});
-molotovEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("molotov", 100, 10, 35, 35, 100, 300);
-});
-
-
-//Ações dos botões de usar itens
-bandageUseButton.addEventListener("click", function(){
-	useHealtItem(30, "bandage");
-});
-
-medikitUseButton.addEventListener("click", function(){
-	useHealtItem(70, "medikit");
-});
-
-
-
-//Ações dos botões de ações
-searchButton.addEventListener("click", function(){
+//Função da ação de busca
+function searchAction(){
 	if (savedGame.player.scenary1Progress === 0){
 		savedGame.player.scenary1Progress += 5;
-		//gameProgress();
 	}
 	else{
 	//Aumentar mais as dificuldades, como chance dos inimigos aparecerem e a dificuldade da luta
@@ -1143,19 +1111,18 @@ searchButton.addEventListener("click", function(){
 	//Os inimigos não vão aparecer se a chance de luta não for suficiente pra entrar em um luta
 		fightChance += 10;
 	}
-		searchItems();
+		randomItems();
 	const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
 	const receivedWeaponOkButton = document.querySelector(".received-weapon__ok-button");
   const searchFailOkButton = document.querySelector(".search-fail__ok-button");
   receivedItemsOkButton.addEventListener("click", randomFight);
   receivedWeaponOkButton.addEventListener("click", randomFight);
   searchFailOkButton.addEventListener("click", randomFight);
-});
+}
 
 
-
-//Função de ataque do jogador
-attackButton.addEventListener("click", function(){
+//Função da ação de ataque
+function attackAction(){
 	document.body.classList.add("pe-none");
 	let enemyPosition = randomRangeNumber(0, 7);
 	while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
@@ -1407,11 +1374,11 @@ attackButton.addEventListener("click", function(){
   	alert("Evento exatamente após acabar a última luta");
   }
   */
-});
+}
 
-let walking = false;
 
-walkButton.addEventListener("click", function(){
+//função da ação de andar
+function walkAction(){
 	walking = true;
 	savedGame.player.scenary1Progress += 10;
 	progressControlFunction();
@@ -1420,6 +1387,68 @@ walkButton.addEventListener("click", function(){
 	setTimeout(function(){
 		walking = false;
 	}, 500);
+}
+
+
+
+//Ações dos botões de criar item
+craftBandageButton.addEventListener("click", function(){
+	craftBandage();
+	}
+);
+
+craftMolotovButton.addEventListener("click", function(){
+	craftMolotov();
+	}
+);
+
+
+//Ações dos botões de equipar armas e itens
+pistolEquipButton.addEventListener("click", function(){
+	changedEquipedWeapon("pistol", 80, 30, 50, 70, 100, 150);
+});
+shotgunEquipButton.addEventListener("click", function(){
+	changedEquipedWeapon("shotgun", 70, 0, 100, 200);
+});
+molotovEquipButton.addEventListener("click", function(){
+	changedEquipedWeapon("molotov", 100, 10, 35, 35, 100, 300);
+});
+
+
+//Ações dos botões de usar itens
+bandageUseButton.addEventListener("click", function(){
+	useHealtItem(30, "bandage");
+});
+
+medikitUseButton.addEventListener("click", function(){
+	useHealtItem(70, "medikit");
+});
+
+
+
+//Ações dos botões de ações
+searchButton.addEventListener("click", function(){
+	let searchDone = false;
+	searchScreen.classList.remove("d-none");
+	searchScreenBar.classList.add("search-bar-animation");
+	searchScreenBar.addEventListener("animationend", function(){
+		searchScreen.classList.add("d-none");
+		searchScreenBar.classList.remove("search-bar-animation");
+		if (searchDone === false){
+			searchAction();
+			searchDone = true;
+		}
+	});
+});
+
+
+attackButton.addEventListener("click", function(){
+	attackAction();
+});
+
+
+walkButton.addEventListener("click", function(){
+	walkAction();
 });
 
 
