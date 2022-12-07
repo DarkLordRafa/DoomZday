@@ -879,7 +879,7 @@ function gameProgress(){
 		fightChance = 0;
 	}
 	else if (savedGame.player.scenary1Progress > 5 && savedGame.player.scenary1Progress <= 50){
-		fightChance = 30;
+		fightChance = 40;
 		fightDifficult = 1;
 		enemy1AppearChance = 0;
 		enemy2AppearChance = 0;
@@ -891,7 +891,7 @@ function gameProgress(){
 		enemy8AppearChance = 100;
 	}
 	else if (savedGame.player.scenary1Progress > 50 && savedGame.player.scenary1Progress < 90){
-		fightChance = 40;
+		fightChance = 50;
 		fightDifficult = 2;
 		enemy1AppearChance = 0;
 		enemy2AppearChance = 0;
