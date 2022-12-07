@@ -1,4 +1,7 @@
 
+//Tela principal do jogo
+const mainScreen = document.querySelector(".main-screen");
+
 //Variáveis das quantidades de itens exibidas na tela
 const displayedBandageQuantity = document.querySelector(".displayed-bandage-quantity");
 const displayedMedikitQuantity = document.querySelector(".displayed-medikit-quantity");
@@ -488,23 +491,23 @@ function randomItems(){
 		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
 		savedGame.player.weapons.shotgun = true;
 	}
-	else if (clothPercentage <= 19){
+	else if (clothPercentage <= 18){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 20){
+	else if (alcoholPercentage <= 18){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
-	else if (bottlePercentage <= 4){
+	else if (bottlePercentage <= 3){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
 	else if (ammo9mmPercentage <= 45){
-		let foundQuantity = randomRangeNumber(1, 10);
+		let foundQuantity = randomRangeNumber(5, 10);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
@@ -513,7 +516,7 @@ function randomItems(){
 		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
 		savedGame.player.weapons.shotgunAmmo += foundQuantity;
 	}
-	else if (molotovPercentage <= 5){
+	else if (molotovPercentage <= 4){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
@@ -883,9 +886,9 @@ function gameProgress(){
 		enemy3AppearChance = 0;
 		enemy4AppearChance = 0;
 		enemy5AppearChance = 0;
-		enemy6AppearChance = 20;
+		enemy6AppearChance = 10;
 		enemy7AppearChance = 20;
-		enemy8AppearChance = 50;
+		enemy8AppearChance = 100;
 	}
 	else if (savedGame.player.scenary1Progress > 50 && savedGame.player.scenary1Progress < 90){
 		fightChance = 40;
@@ -895,9 +898,9 @@ function gameProgress(){
 		enemy3AppearChance = 0;
 		enemy4AppearChance = 0;
 		enemy5AppearChance = 0;
-		enemy6AppearChance = 40;
-		enemy7AppearChance = 40;
-		enemy8AppearChance = 50;
+		enemy6AppearChance = 20;
+		enemy7AppearChance = 30;
+		enemy8AppearChance = 100;
 	}
 	else if (savedGame.player.scenary1Progress > 0 && savedGame.player.scenary1Progress === 90){
 		fightChance = 100;
@@ -1355,7 +1358,9 @@ function attackAction(){
 		if (hitsDone === hits){
 			clearInterval(checkPlayerTurn);
 			if (fighting === false){
-				document.body.classList.remove("pe-none");
+				setTimeout(function(){
+					document.body.classList.remove("pe-none");
+					}, 1000);
 			}
 	  //Função do turno dos zumbis
 		//Chamar a função depois que o som da arma terminar (quando adicionar som ao jogo)
@@ -1387,14 +1392,10 @@ function attackAction(){
 
 //função da ação de andar
 function walkAction(){
-	walking = true;
 	savedGame.player.scenary1Progress += 10;
 	progressControlFunction();
 	gameProgress();
 	randomFight();
-	setTimeout(function(){
-		walking = false;
-	}, 500);
 }
 
 
@@ -1460,7 +1461,17 @@ passTurnButton.addEventListener("click", function(){
 });
 
 walkButton.addEventListener("click", function(){
-	walkAction();
+	walking = true;
+	mainScreen.classList.add("walk-animation");
+	document.body.classList.add("pe-none");
+	mainScreen.addEventListener("animationend", function(){
+		if (walking === true){
+			walking = false;
+			mainScreen.classList.remove("walk-animation");
+			walkAction();
+			document.body.classList.remove("pe-none");
+		}
+	});
 });
 
 
@@ -1488,15 +1499,6 @@ function mainDisplayFunction(){
 		walkButton.classList.remove("opacity-0", "pe-none");
 		attackButton.classList.add("pe-none");
 		passTurnButton.classList.add("opacity-0", "pe-none");
-		document.body.classList.remove("pe-none");
-	}
-	
-	//Checando se o jogador está andando
-	if (walking === true){
-		walkButton.classList.add("pe-none");
-	}
-	else{
-		walkButton.classList.remove("pe-none");
 	}
 	
 	//Checando a arma equipada
