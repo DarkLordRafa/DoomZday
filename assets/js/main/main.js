@@ -66,6 +66,8 @@ const explosionEvent = document.querySelector(".event-area__explosion");
 //Variáveis da tela de texto do jogo
 const gameTextsScreen = document.querySelector(".game-texts-screen");
 const gameTextsScreenText = document.querySelector(".game-texts-screen p");
+const gameTextsNextButton = document.querySelector(".game-texts__next-button");
+let gameTextsPosition = 0;
 
 
 
