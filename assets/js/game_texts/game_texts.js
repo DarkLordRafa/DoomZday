@@ -8,12 +8,18 @@ export const gameTexts = [
 	
 	"O botão entre o botão de busca e o botão de andar é o botão de ataque. Clicar nele fará você atacar aleatoriamente os inimigos na tela. Assim que seu turno terminar, será a vez dos inimigos.<br/>A munição da arma equipada aparece na parte de baixo do botão.",
 	
-	"O botão com ícone de seta curvada é o botão de passar o turno. Acho que não preciso dizer pra quê ele serve.",
+	"O botão com ícone de seta curvada é o botão de passar o turno. Clique nele para passar o turno para os inimigos",
 	
 	"Ao lado esquerdo da tela está o menu do jogador.",
 	
-	"Os botões na extrema esquerda são os botões principais do menu do jogador.",
+	"Os botões na extrema esquerda são os botões principais do menu do jogador. Respectivamente: Armas, consumíveis, outros, menu de fabricação, e menu principal.",
 	
-	""
+	"Ao lado dos botões do menu do jogador está o painel de seleção dos itens e logo ao lado dele está a sua barra de vida.",
+	
+	"As armas do jogo possuem características únicas, e podem possuir até mesmo habilidades exclusivas. Um bom sobrevivênte sabe escolher a arma ou item certo para cada situação.",
+	
+	"Por falar nisso, você não tem nada para se defender. Melhor procurar uma arma ou não vai sobreviver por muito tempo neste novo mundo esquecido por Deus.",
+	
+	"Encontre uma arma"
 ];
 	

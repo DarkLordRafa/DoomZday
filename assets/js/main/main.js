@@ -1,4 +1,7 @@
 
+//Importando os textos do jogo
+import {gameTexts} from "../game_texts/game_texts.js";
+
 //Tela principal do jogo
 const mainScreen = document.querySelector(".main-screen");
 
@@ -1392,7 +1395,7 @@ function attackAction(){
 }
 
 
-//função da ação de andar
+//Função da ação de andar
 function walkAction(){
 	savedGame.player.scenary1Progress += 10;
 	progressControlFunction();
@@ -1400,6 +1403,27 @@ function walkAction(){
 	randomFight();
 }
 
+//Função do botão de avançar o texto do jogo
+gameTextsNextButton.addEventListener("click", function(){
+	const textArea = document.querySelector(".game-texts__text-area");
+	textArea.scrollTo(0, 0);
+	console.log(gameTextsPosition)
+	//Array com as posições para fechar a tela de texto
+	const endPositions = [gameTextsPosition === 10];
+	//Checando as afirmações do array e fechando a tela caso alguma seja verdadeira
+	if (endPositions.some(item =>{return item === true;})){
+		gameTextsScreenText.innerHTML = gameTexts[gameTextsPosition];
+		gameTextsNextButton.addEventListener("click", function(){
+			gameTextsScreen.classList.add("d-none");
+			gameTextsPosition ++;
+		});
+	}
+	else{
+			gameTextsScreenText.innerHTML = gameTexts[gameTextsPosition];
+			console.log(gameTextsPosition);
+			gameTextsPosition ++;
+	}
+});
 
 
 //Ações dos botões de criar item
