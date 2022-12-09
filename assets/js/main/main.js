@@ -259,6 +259,9 @@ let burningCounter = 0;
 //Variável com o estado da última luta
 let LastFightDone = false;
 
+//Variável com o estado do botão de busca
+let searchButtonHidden = false;
+
 //Variáveis do efeito de queimadura
 let burningCriticalChance = 0;
 let burningMinDamage = 0;
@@ -518,7 +521,9 @@ function randomItems(){
 		savedGame.player.weapons.shotgun = true;
 	}
 	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true){
+		thankYouNoteEventImage.classList.add("opacity-0");
 		displayReceivedEventItemScreen(thankYouNoteImage, "Anotação");
+	//Criar o texto de agradecimento da nota e fazer ele aparecer quando clicar no botão ok do item de evento recebido
 	}
 	else if (clothPercentage <= 18){
 		let foundQuantity = randomRangeNumber(1, 2);
@@ -909,6 +914,7 @@ function gameProgress(){
 	}
 	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true){
 		fightChance = 0;
+		searchButtonHidden = false;
 		thankYouNoteEventImage.classList.remove("opacity-0");
 	}
 	else if (savedGame.player.scenary1Progress > 5 && savedGame.player.scenary1Progress <= 50){
@@ -1082,6 +1088,7 @@ function enemiesAttackFunction(){
 	//Checando se essa é a luta final e fazendo algo logo após ela acabar
 				  if (fighting === false && savedGame.player.scenary1Progress === 90 && enemiesObjects.every(object =>{return object.life <= 0;})){
 				  	LastFightDone = true;
+				  	searchButtonHidden = true;
 				  }
 				  
 					clearInterval(enemiesInterval);
@@ -1422,6 +1429,7 @@ function attackAction(){
 //Checando se essa é a luta final e fazendo algo logo após ela acabar
   if (fighting === true && savedGame.player.scenary1Progress === 90 && enemiesObjects.every(object =>{return object.life <= 0;})){
   	LastFightDone = true;
+  	searchButtonHidden = true;
   }
 }
 
@@ -1598,10 +1606,15 @@ function mainDisplayFunction(){
 		if (savedGame.player.scenary1Progress === 0){
 			walkButton.classList.add("opacity-0", "pe-none");
 		}
-		//Checando se pegou a pistola na busca no tutorial
-		if (savedGame.player.scenary1Progress === 5){
+		//Alterando a exibição do botão de busca de acordo com o progresso no jogo
+		if (savedGame.player.scenary1Progress === 5 || searchButtonHidden === true){
 			searchButton.classList.add("opacity-0", "pe-none");
 		}
+	//Checando se é o fim do cenário 1
+		if (savedGame.player.scenary1Progress === 100){
+			walkButton.classList.add("opacity-0", "pe-none");
+		}
+		
 	//Checando a vida dos inimigos e fazendo eles sumirem caso a vida seja 0
 	enemiesObjects.forEach(function(object, objectIndex){
 		if (object.life <= 0){
