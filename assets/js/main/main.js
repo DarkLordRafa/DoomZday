@@ -61,9 +61,10 @@ const playerLifeBarImage = document.querySelector(".player-menu-area__life-bar i
 const screenDamageArea = document.querySelector(".screen-damage-area");
 const screenBloodArea = document.querySelector(".screen-blood-area");
 
-//Variáveis da área de evento
-const fireEvent = document.querySelector(".event-area__fire");
-const explosionEvent = document.querySelector(".event-area__explosion");
+//Variáveis das imagens da área de evento
+const fireEventImage = document.querySelector(".event-area__fire");
+const explosionEventImage = document.querySelector(".event-area__explosion");
+const thankYouNoteEventImage = document.querySelector(".event-area__thank-you-note");
 
 
 //Variáveis da tela de texto do jogo
@@ -110,6 +111,10 @@ const ammoImage9mm = "assets/images/ammo/9mm_ammo.png";
 const ammoImageShotgun = "assets/images/ammo/shotgun_shells.png";
 
 
+//Variáveis das imagens dos itens de evento
+const thankYouNoteImage = "assets/images/event_items/thank_you_note.png";
+
+
 //Variáveis da tela de busca
 const searchScreen = document.querySelector(".search-screen");
 const searchScreenBar = document.querySelector(".search-screen-area__bar");
@@ -127,6 +132,12 @@ const receivedWeaponScreen = document.querySelector(".received-weapon-screen");
 const receivedWeaponImage = document.querySelector(".received-weapon__image");
 const receivedWeaponLegendary = document.querySelector(".received-weapon-screen .legendary-badge");
 const receivedWeaponName = document.querySelector(".received-weapon__name");
+
+
+//Variáveis da tela de item de evento recebido
+const receivedEventItemScreen = document.querySelector(".received-event-item-screen");
+const receivedEventItemImage = document.querySelector(".received-event-item__image");
+const receivedEventItemName = document.querySelector(".received-event-item__name");
 
 
 //Variável da tela de busca malsucedida
@@ -245,6 +256,9 @@ let walking = false;
 let burning = false;
 let burningCounter = 0;
 
+//Variável com o estado da última luta
+let LastFightDone = false;
+
 //Variáveis do efeito de queimadura
 let burningCriticalChance = 0;
 let burningMinDamage = 0;
@@ -291,14 +305,14 @@ savedGame = {
 		itemsQuantity: {
 			bandage: 0,
 			medikit: 0,
-			molotov: 0
+			molotov: 1
 		},
 		craftingItemsQuantity: {
 			cloth: 0,
 			alcohol: 0,
 			bottle: 0
 		},
-		scenary1Progress: 0,
+		scenary1Progress: 90,
 	}
 };
 
@@ -475,6 +489,13 @@ function displayReceivedWeaponScreen(image, name, legendary){
 }
 
 
+//Função de exibir a tela de item de evento recebido baseada nos argumentos passados
+function displayReceivedEventItemScreen(image, name){
+	receivedEventItemScreen.classList.remove("d-none");
+	receivedEventItemImage.src = image;
+	receivedEventItemName.innerHTML = name;
+}
+
 
 //Função de randomizar itens
 function randomItems(){
@@ -495,6 +516,9 @@ function randomItems(){
 	else if (shotgunPercentage <= 100 && savedGame.player.weapons.shotgun === false && savedGame.player.scenary1Progress >= 50){
 		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
 		savedGame.player.weapons.shotgun = true;
+	}
+	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true){
+		displayReceivedEventItemScreen(thankYouNoteImage, "Anotação");
 	}
 	else if (clothPercentage <= 18){
 		let foundQuantity = randomRangeNumber(1, 2);
@@ -883,6 +907,10 @@ function gameProgress(){
 	if (savedGame.player.scenary1Progress <= 5){
 		fightChance = 0;
 	}
+	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true){
+		fightChance = 0;
+		thankYouNoteEventImage.classList.remove("opacity-0");
+	}
 	else if (savedGame.player.scenary1Progress > 5 && savedGame.player.scenary1Progress <= 50){
 		fightChance = 40;
 		fightDifficult = 1;
@@ -907,7 +935,7 @@ function gameProgress(){
 		enemy7AppearChance = 30;
 		enemy8AppearChance = 100;
 	}
-	else if (savedGame.player.scenary1Progress > 0 && savedGame.player.scenary1Progress === 90){
+	else if (savedGame.player.scenary1Progress === 90 && LastFightDone === false){
 		fightChance = 100;
 		fightDifficult = 3;
 		enemy1AppearChance = 40;
@@ -1051,6 +1079,11 @@ function enemiesAttackFunction(){
 				enemy8Attack === true ||
 				savedGame.player.life <= 0 ||
 				fighting === false){
+	//Checando se essa é a luta final e fazendo algo logo após ela acabar
+				  if (fighting === false && savedGame.player.scenary1Progress === 90 && enemiesObjects.every(object =>{return object.life <= 0;})){
+				  	LastFightDone = true;
+				  }
+				  
 					clearInterval(enemiesInterval);
 					clearInterval(checkEnemiesTurn);
 
@@ -1385,13 +1418,11 @@ function attackAction(){
 	});
 	
 	const checkPlayerTurn = setInterval(checkHitsDone, 100);
-	
-  //Condição para quando for preciso chamar um evento logo após uma luta
-  /*
-  if (fighting === true && savedGame.player.scenary1Progress >= 90 && enemiesObjects.every(object =>{return object.life <= 0;})){
-  	alert("Evento exatamente após acabar a última luta");
+  
+//Checando se essa é a luta final e fazendo algo logo após ela acabar
+  if (fighting === true && savedGame.player.scenary1Progress === 90 && enemiesObjects.every(object =>{return object.life <= 0;})){
+  	LastFightDone = true;
   }
-  */
 }
 
 
@@ -1606,10 +1637,10 @@ function mainDisplayFunction(){
 	}
 	//Mostrando os eventos na área de ventos
 	if (burning === true){
-		fireEvent.classList.remove("d-none");
+		fireEventImage.classList.remove("opacity-0");
 	}
 	else{
-		fireEvent.classList.add("d-none");
+		fireEventImage.classList.add("opacity-0");
 	}
 }
 
@@ -1644,10 +1675,6 @@ function mainControlFunction(){
 	if (savedGame.player.life === 0){
 		displayGameTextsScreen("Você morreu");
 	}
-	if (savedGame.player.scenary1Progress === 90 && fighting === false){
-		searchButton.style.opacity = 0;
-		searchButton.style.pointerEvents = "none";
-	}[]
 	//Checando o estado de queimadura dos inimigos
 	if (burningCounter === 2 || fighting === false){
 		burning = false;
@@ -1658,12 +1685,11 @@ function mainControlFunction(){
 
 //Função que previne o progresso dos cenários de ultrapassar o limite de evento final e limite de 100
 function progressControlFunction(){
-	if (savedGame.player.scenary1Progress > 90 && savedGame.player.scenary1Progress < 100){
+	if (savedGame.player.scenary1Progress > 90 && LastFightDone === false){
 		savedGame.player.scenary1Progress = 90;
 	}
-	if (savedGame.player.scenary1Progress > 90 && fighting === false){
+	else if (savedGame.player.scenary1Progress > 100){
 		savedGame.player.scenary1Progress = 100;
-		displayGameTextsScreen("Você finalizou o cenário. Parabéns");
 	}
 }
 

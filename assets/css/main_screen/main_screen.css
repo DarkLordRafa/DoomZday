@@ -161,11 +161,22 @@ body{
 
 .event-area{
 	width: 100vw;
+	height: 50vw;
 	margin-top: -30vh;
+	position: relative;
+}
+
+.event-area img{
+	position: absolute;
 }
 
 .event-area__fire{
   width: 100%;
+}
+
+.event-area__thank-you-note{
+  height: 50%;
+  transition: opacity 2s;
 }
 
 .screen-blood-area{
@@ -179,7 +190,7 @@ body{
 	object-fit: contain;
 }
 
-.game-texts, .characters-dialogues, .received-items, .received-weapon{
+.game-texts, .characters-dialogues, .received-items, .received-weapon, .received-event-item{
 	margin-top: 20vh;
 	color: white;
 }
@@ -188,7 +199,7 @@ body{
 	z-index: 99;
 }
 
-.game-texts p, .characters-dialogues p, .received-items{
+.game-texts p, .characters-dialogues p, .received-items, .received-event-item p{
 	margin-bottom: 0!important;
 }
 
@@ -214,7 +225,7 @@ body{
 	padding-right: 2vw;
 }
 
-.received-items, .received-weapon{
+.received-items, .received-weapon, .received-event-item{
 	background-color: black;
 	border-radius: 20px;
 	height: 40vh;
@@ -222,12 +233,12 @@ body{
 	padding: 3vw;
 }
 
-.received-items__title, .received-weapon__title{
+.received-items__title, .received-weapon__title, .received-event-item__title{
 	font-size: 7vw;
 	font-weight: 900;
 }
 
-.received-items img, .received-weapon img{
+.received-items img, .received-weapon img, .received-event-item img{
 	max-height: 10vh;
 	max-width: 90%;
 	background-color: #343434;
@@ -238,12 +249,12 @@ body{
 	font-weight: 900;
 }
 
-.received-items p, .received-weapon p{
+.received-items p, .received-weapon p, .received-event-item p{
 	font-size: 5vw;
 	font-weight: 900;
 }
 
-.received-items__ok-button, .received-weapon__ok-button{
+.received-items__ok-button, .received-weapon__ok-button, .received-event-item__ok-button{
 	font-size: 6vw;
 	font-weight: 900;
 	text-transform: uppercase;

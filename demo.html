@@ -139,6 +139,19 @@
 				</div>
 			</div>
 			
+			<!-- Tela de item de evento recebida -->
+			<div class="received-event-item-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
+				<div class="received-event-item d-flex flex-column align-items-center">
+					<div class="received-event-item__content d-flex flex-column align-items-center text-center justify-content-start h-100 w-100">
+						<span class="received-weapon__title">Obteve</span>
+						<img class="received-event-item__image" />
+						<p class="received-event-item__name mt-1">
+						</p>
+					</div>
+					<span class="received-event-item__ok-button align-self-end mt-2 me-3">Ok</span>
+				</div>
+			</div>
+			
 			<!-- Tela de busca malsucecida -->
 			<div class="search-fail-screen offset-screen position-absolute w-100 h-100 d-flex flex-column align-items-center d-none">
 				<div class="search-fail d-flex flex-column align-items-center">
@@ -219,9 +232,10 @@
 			</div>
 			
 			<!-- Área de eventos do jogo (fogo, explosóes, etc). -->
-			<div class="event-area">
-				<img class="event-area__fire d-none" src="assets/images/screen/molotov_fire2.png" />
-				<img class="event-area__explosion d-none" />
+			<div class="event-area d-flex justify-content-center">
+				<img class="event-area__fire opacity-0" src="assets/images/screen/molotov_fire2.png" />
+				<img class="event-area__explosion opacity-0" />
+				<img class="event-area__thank-you-note opacity-0" src="assets/images/event_items/thank_you_note.png" />
 			</div>
 			
 			<!-- Tela de dano sofrido pelo jogador -->

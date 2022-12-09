@@ -58,6 +58,8 @@ const receivedItemsScreen = document.querySelector(".received-items-screen");
 const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
 const receivedWeaponScreen = document.querySelector(".received-weapon-screen");
 const receivedWeaponOkButton = document.querySelector(".received-weapon__ok-button");
+const receivedEventItemScreen = document.querySelector(".received-event-item-screen");
+const receivedEventItemOkButton = document.querySelector(".received-event-item__ok-button");
 const searchFailScreen = document.querySelector(".search-fail-screen");
 const searchFailOkButton = document.querySelector(".search-fail__ok-button");
 
@@ -352,6 +354,11 @@ receivedItemsOkButton.addEventListener("click", function(){
 //Botão que fecha a tela de arma recebida
 receivedWeaponOkButton.addEventListener("click", function(){
 	closeScreen(receivedWeaponScreen);
+});
+
+//Botão que fecha a tela de arma recebida
+receivedEventItemOkButton.addEventListener("click", function(){
+	closeScreen(receivedEventItemScreen);
 });
 
 
