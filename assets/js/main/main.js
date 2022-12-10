@@ -522,8 +522,12 @@ function randomItems(){
 	}
 	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true){
 		thankYouNoteEventImage.classList.add("opacity-0");
-		displayReceivedEventItemScreen(thankYouNoteImage, "Anotação");
-	//Criar o texto de agradecimento da nota e fazer ele aparecer quando clicar no botão ok do item de evento recebido
+		displayReceivedEventItemScreen(thankYouNoteImage, "Nota do desenvolvedor");
+		const receivedEventItemOkButton = document.querySelector(".received-event-item__ok-button");
+		receivedEventItemOkButton.addEventListener("click", function(){
+			displayGameTextsScreen(gameTexts[gameTextsPosition]);
+			gameTextsPosition ++;
+		});
 	}
 	else if (clothPercentage <= 18){
 		let foundQuantity = randomRangeNumber(1, 2);
@@ -1446,7 +1450,6 @@ function walkAction(){
 gameTextsNextButton.addEventListener("click", function(){
 	const textArea = document.querySelector(".game-texts__text-area");
 	textArea.scrollTo(0, 0);
-	console.log(gameTextsPosition)
 	//Array com as posições para fechar a tela de texto
 	const endPositions = [gameTextsPosition === 10];
 	//Checando as afirmações do array e fechando a tela caso alguma seja verdadeira
@@ -1459,7 +1462,6 @@ gameTextsNextButton.addEventListener("click", function(){
 	}
 	else{
 			gameTextsScreenText.innerHTML = gameTexts[gameTextsPosition];
-			console.log(gameTextsPosition);
 			gameTextsPosition ++;
 	}
 });
@@ -1626,6 +1628,7 @@ function mainDisplayFunction(){
 	playerLifeBar.style.height = `${savedGame.player.life}%`;
 	if (savedGame.player.life >= 60){
 		playerLifeBarImage.src = "assets/images/screen/healt_line_fine.png";
+	//Caso queira fazer a vida mudar de cor depois que a transição acabar
 		/*
 		playerLifeBar.addEventListener("transitionend", function(){
 			playerLifeBarImage.src = "assets/images/screen/healt_line_fine.png";
