@@ -308,14 +308,14 @@ savedGame = {
 		itemsQuantity: {
 			bandage: 0,
 			medikit: 0,
-			molotov: 1
+			molotov: 0
 		},
 		craftingItemsQuantity: {
 			cloth: 0,
 			alcohol: 0,
 			bottle: 0
 		},
-		scenary1Progress: 90,
+		scenary1Progress: 0
 	}
 };
 
@@ -922,7 +922,7 @@ function gameProgress(){
 		thankYouNoteEventImage.classList.remove("opacity-0");
 	}
 	else if (savedGame.player.scenary1Progress > 5 && savedGame.player.scenary1Progress <= 50){
-		fightChance = 40;
+		fightChance = 50;
 		fightDifficult = 1;
 		enemy1AppearChance = 0;
 		enemy2AppearChance = 0;
@@ -934,7 +934,7 @@ function gameProgress(){
 		enemy8AppearChance = 100;
 	}
 	else if (savedGame.player.scenary1Progress > 50 && savedGame.player.scenary1Progress < 90){
-		fightChance = 50;
+		fightChance = 70;
 		fightDifficult = 2;
 		enemy1AppearChance = 0;
 		enemy2AppearChance = 0;

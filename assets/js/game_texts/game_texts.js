@@ -20,7 +20,7 @@ export const gameTexts = [
 	
 	"Por falar nisso, você não tem nada para se defender. Melhor procurar uma arma ou não vai sobreviver por muito tempo neste novo mundo esquecido por Deus.",
 	
-	"Encontre uma arma",
+	"<b>Ache uma arma<b/>",
 	
 	"Obrigado por jogar a demo do DoomZday!<br/><br/>Esta é apenas a demo do jogo.<br/>Mais elementos, mecânicas, itens, cenários e eventos serão adicionados ao jogo futuramente.<br/>Espero que tenha se divertido nesta breve apresentação.<br/>Nos encontraremos novamente na beta do jogo &#128578;.<br/><br/>#doomzday"
 ];
