@@ -8,7 +8,7 @@
 	100%{transform: scale(1) translateY(0);}
 }
 
-@keyframes search-bar{
+@keyframes progress-bar{
 	100%{width: 100%;}
 }
 
@@ -27,7 +27,7 @@ body{
 }
 
 .menu-screen{
-	z-index: 98;
+	z-index: 10;
 }
 
 .menu-screen nav{
@@ -51,7 +51,7 @@ body{
 .menu-screen .confirmation-screen{
 	width: 100%;
 	height: 100%;
-	z-index: 99;
+	z-index: 11;
 	background-color: black;
 	padding: 0 15vw;
 }
@@ -97,7 +97,7 @@ body{
 
 .screen-damage-area{
 	box-shadow: 0 0 20px 10px red inset;
-	z-index: 99;
+	z-index: 12;
 }
 
 .enemy{
@@ -196,7 +196,11 @@ body{
 }
 
 .offset-screen{
-	z-index: 99;
+	z-index: 17;
+}
+
+.crafting-progress-screen{
+	z-index: 18;
 }
 
 .game-texts p, .characters-dialogues p, .received-items, .received-event-item p{
@@ -279,29 +283,33 @@ body{
 	text-transform: uppercase;
 }
 
-.search-screen-area{
+.search-screen-area, .crafting-progress-screen__area{
 	margin-top: 30vh;
 	color: white;
 	width: 80vw;
 	padding: 15vw 5vw;
 }
 
-.search-screen-area__content span{
+.search-screen-area__content span, .crafting-progress-screen-area__content span{
 	font-size: 6vw;
 	font-weight: bold;
 }
 
-.search-screen-area__bar-container{
+.search-screen-area__bar-container, .crafting-progress-screen-area__bar-container{
 	width: 100%;
 	height: 8vw;
 }
 
-.search-screen-area__bar{
+.search-screen-area__bar, .crafting-progress-screen-area__bar{
 	height: 100%;
 	width: 0%;
 	background-color: white;
 }
 
 .search-bar-animation{
-	animation: search-bar 3s linear forwards;
+	animation: progress-bar 3s linear forwards;
+}
+
+.crafting-bar-animation{
+	animation: progress-bar 1.5s linear forwards;
 }

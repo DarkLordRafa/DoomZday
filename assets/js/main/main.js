@@ -119,6 +119,10 @@ const thankYouNoteImage = "assets/images/event_items/thank_you_note.png";
 const searchScreen = document.querySelector(".search-screen");
 const searchScreenBar = document.querySelector(".search-screen-area__bar");
 
+//Variáveis da tela de progresso da criação de item
+const craftingProgressScreen = document.querySelector(".crafting-progress-screen");
+const craftingProgressScreenBar = document.querySelector(".crafting-progress-screen-area__bar");
+
 //Variáveis da tela de item recebido
 const receivedItemsScreen = document.querySelector(".received-items-screen");
 const receivedItemsImage = document.querySelector(".received-items__image");
@@ -1469,12 +1473,32 @@ gameTextsNextButton.addEventListener("click", function(){
 
 //Ações dos botões de criar item
 craftBandageButton.addEventListener("click", function(){
-	craftBandage();
+	let craftingDone = false;
+	craftingProgressScreen.classList.remove("d-none");
+	craftingProgressScreenBar.classList.add("crafting-bar-animation");
+	craftingProgressScreenBar.addEventListener("animationend", function(){
+		craftingProgressScreen.classList.add("d-none");
+		craftingProgressScreenBar.classList.remove("crafting-bar-animation");
+		if (craftingDone === false){
+			craftBandage();
+			craftingDone = true;
+		}
+	});
 	}
 );
 
 craftMolotovButton.addEventListener("click", function(){
-	craftMolotov();
+	let craftingDone = false;
+	craftingProgressScreen.classList.remove("d-none");
+	craftingProgressScreenBar.classList.add("crafting-bar-animation");
+	craftingProgressScreenBar.addEventListener("animationend", function(){
+		craftingProgressScreen.classList.add("d-none");
+		craftingProgressScreenBar.classList.remove("crafting-bar-animation");
+		if (craftingDone === false){
+			craftMolotov();
+			craftingDone = true;
+		}
+	});
 	}
 );
 
