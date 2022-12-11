@@ -296,32 +296,47 @@ const zombie4Image = "assets/images/enemies/zombie4.png";
 
 
 //Variável do jogo salvo
-let savedGame = {};
+let savedGame = null;
 
-//Objeto do jogo salvo
-savedGame = {
-	player: {
-		life: 100,
-		weapons: {
-			pistol: false,
-//Quando a munição for infinita, trocar por "---"
-			pistolAmmo: 10,
-			shotgun: false,
-			shotgunAmmo: 5
-		},
-		itemsQuantity: {
-			bandage: 0,
-			medikit: 0,
-			molotov: 0
-		},
-		craftingItemsQuantity: {
-			cloth: 0,
-			alcohol: 0,
-			bottle: 0
-		},
-		scenary1Progress: 0
-	}
-};
+//Função de salvar o jogo
+function saveGameFunction(){
+	window.localStorage.setItem("saved_game_key", JSON.stringify(savedGame));
+}
+
+//Função de carregar o jogo
+function loadGameFunction(){
+	savedGame = JSON.parse(window.localStorage.getItem("saved_game_key"));
+}
+
+loadGameFunction();
+
+if (savedGame === null){
+	gameTextsScreen.classList.remove("d-none");
+	savedGame = {
+		player: {
+			life: 100,
+			weapons: {
+				pistol: false,
+	//Quando a munição for infinita, trocar por "---"
+				pistolAmmo: 10,
+				shotgun: false,
+				shotgunAmmo: 5
+			},
+			itemsQuantity: {
+				bandage: 0,
+				medikit: 0,
+				molotov: 0
+			},
+			craftingItemsQuantity: {
+				cloth: 0,
+				alcohol: 0,
+				bottle: 0
+			},
+			scenary1Progress: 0
+		}
+	};
+	saveGameFunction();
+}
 
 
 
@@ -961,6 +976,21 @@ function gameProgress(){
 		enemy7AppearChance = 100;
 		enemy8AppearChance = 100;
 	}
+	
+	
+	
+	//Salvamento automático do jogo
+	const autoSavePoints = [
+		savedGame.player.scenary1Progress === 5,
+		savedGame.player.scenary1Progress === 25,
+		savedGame.player.scenary1Progress === 55,
+		savedGame.player.scenary1Progress === 75,
+		savedGame.player.scenary1Progress === 100,
+		];
+	
+	if (autoSavePoints.some(item =>{return item === true;})){
+		saveGameFunction();
+	}
 }
 
 
@@ -1097,6 +1127,11 @@ function enemiesAttackFunction(){
 				  if (fighting === false && savedGame.player.scenary1Progress === 90 && enemiesObjects.every(object =>{return object.life <= 0;})){
 				  	LastFightDone = true;
 				  	searchButtonHidden = true;
+				  }
+				  
+	//Salvando o jogo logo após a luta acabar
+				  if (fighting === false && enemiesObjects.every(object =>{return object.life <= 0;})){
+				  	saveGameFunction();
 				  }
 				  
 					clearInterval(enemiesInterval);
@@ -1438,6 +1473,11 @@ function attackAction(){
   if (fighting === true && savedGame.player.scenary1Progress === 90 && enemiesObjects.every(object =>{return object.life <= 0;})){
   	LastFightDone = true;
   	searchButtonHidden = true;
+  }
+  
+  //Salvando o jogo logo após a luta acabar
+  if (fighting === true && enemiesObjects.every(object =>{return object.life <= 0;})){
+  	saveGameFunction();
   }
 }
 
