@@ -24,7 +24,9 @@ function menuScreenDisplay(targetScreen){
 //Função que fecha a tela de confirmação da opção do menu principal junto com o menu, baseada no argumento passado
 function menuScreenClose(targetScreen, targetMenuScreen){
 	targetScreen.classList.add("d-none");
-	targetMenuScreen.classList.add("d-none");
+	if (arguments.length > 1){
+		targetMenuScreen.classList.add("d-none");
+	}
 }
 
 //Botões que fecham a tela da opçáo do menu ou a tela de opção junto com o menu

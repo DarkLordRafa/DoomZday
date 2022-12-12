@@ -9,6 +9,7 @@ const menuDisplayButton = playerMenuOptions[6];
 const playerMenuItemsScreens = document.querySelectorAll(".player-menu-area-display__screen");
 const attackButtonWeaponImage = document.querySelector(".actions-area__attack-button img");
 const menuScreen = document.querySelector(".menu-screen");
+const menuScreenSaveButton = document.querySelector(".menu-screen__save-game");
 const menuScreenReturnButton = document.querySelector(".menu-screen__return");
 const pistolConfirmScreen = document.querySelector("#pistol-confirm-screen");
 const shotgunConfirmScreen = document.querySelector("#shotgun-confirm-screen");
@@ -224,6 +225,7 @@ craftDisplayButton.addEventListener("click", function(){
 menuDisplayButton.addEventListener("click", function(){
 	menuScreen.classList.remove("d-none");
 	menuScreenReturnButton.classList.remove("d-none");
+	menuScreenSaveButton.classList.remove("d-none");
 });
 
 //Botões que exibem a tela de confirmação do item específico ao clicar nele no menu

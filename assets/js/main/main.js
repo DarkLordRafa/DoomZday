@@ -71,8 +71,16 @@ const thankYouNoteEventImage = document.querySelector(".event-area__thank-you-no
 const gameTextsScreen = document.querySelector(".game-texts-screen");
 const gameTextsScreenText = document.querySelector(".game-texts-screen p");
 const gameTextsNextButton = document.querySelector(".game-texts__next-button");
-let gameTextsPosition = 0;
 
+
+
+//Variáveis do menu principal
+const newGameButton = document.querySelector(".menu-screen__new-game");
+const loadGameButton = document.querySelector(".menu-screen__load-game");
+const saveGameButton = document.querySelector(".menu-screen__save-game");
+const newGameConfirmButton = document.querySelector("#new-game-confirm-button");
+const loadGameConfirmButton = document.querySelector("#load-game-confirm-button");
+const saveGameConfirmButton = document.querySelector("#save-game-confirm-button");
 
 
 
@@ -306,36 +314,53 @@ function saveGameFunction(){
 //Função de carregar o jogo
 function loadGameFunction(){
 	savedGame = JSON.parse(window.localStorage.getItem("saved_game_key"));
+	console.log(savedGame);
+}
+
+//Função de novo jogo
+function newGameFunction(){
+	window.localStorage.removeItem("saved_game_key");
+	loadGameFunction();
+	checkGameSave();
+	savedGame.hasGameSaved = true;
 }
 
 loadGameFunction();
+checkGameSave();
 
-if (savedGame === null){
-	gameTextsScreen.classList.remove("d-none");
-	savedGame = {
-		player: {
-			life: 100,
-			weapons: {
-				pistol: false,
-	//Quando a munição for infinita, trocar por "---"
-				pistolAmmo: 10,
-				shotgun: false,
-				shotgunAmmo: 5
+console.log(savedGame.player.scenary1Progress);
+
+function checkGameSave(){
+	if (savedGame === null){
+		equipedWeapon = "none";
+		gameTextsScreen.classList.remove("d-none");
+		savedGame = {
+			hasGameSaved: false,
+			player: {
+				life: 100,
+				weapons: {
+					pistol: false,
+		//Quando a munição for infinita, trocar por "---"
+					pistolAmmo: 10,
+					shotgun: false,
+					shotgunAmmo: 5
+				},
+				itemsQuantity: {
+					bandage: 0,
+					medikit: 0,
+					molotov: 0
+				},
+				craftingItemsQuantity: {
+					cloth: 0,
+					alcohol: 0,
+					bottle: 0
+				},
+				scenary1Progress: 0
 			},
-			itemsQuantity: {
-				bandage: 0,
-				medikit: 0,
-				molotov: 0
-			},
-			craftingItemsQuantity: {
-				cloth: 0,
-				alcohol: 0,
-				bottle: 0
-			},
-			scenary1Progress: 0
-		}
-	};
-	saveGameFunction();
+			gameTextsPosition: 0
+		};
+		saveGameFunction();
+	}
 }
 
 
@@ -544,8 +569,8 @@ function randomItems(){
 		displayReceivedEventItemScreen(thankYouNoteImage, "Nota do desenvolvedor");
 		const receivedEventItemOkButton = document.querySelector(".received-event-item__ok-button");
 		receivedEventItemOkButton.addEventListener("click", function(){
-			displayGameTextsScreen(gameTexts[gameTextsPosition]);
-			gameTextsPosition ++;
+			displayGameTextsScreen(gameTexts[savedGame.gameTextsPosition]);
+			savedGame.gameTextsPosition ++;
 		});
 	}
 	else if (clothPercentage <= 18){
@@ -1495,18 +1520,19 @@ gameTextsNextButton.addEventListener("click", function(){
 	const textArea = document.querySelector(".game-texts__text-area");
 	textArea.scrollTo(0, 0);
 	//Array com as posições para fechar a tela de texto
-	const endPositions = [gameTextsPosition === 10];
+	const endPositions = [savedGame.gameTextsPosition === 10];
 	//Checando as afirmações do array e fechando a tela caso alguma seja verdadeira
 	if (endPositions.some(item =>{return item === true;})){
-		gameTextsScreenText.innerHTML = gameTexts[gameTextsPosition];
+		gameTextsScreenText.innerHTML = gameTexts[savedGame.gameTextsPosition];
 		gameTextsNextButton.addEventListener("click", function(){
 			gameTextsScreen.classList.add("d-none");
-			gameTextsPosition ++;
+			savedGame.gameTextsPosition ++;
+			saveGameFunction()
 		});
 	}
 	else{
-			gameTextsScreenText.innerHTML = gameTexts[gameTextsPosition];
-			gameTextsPosition ++;
+			gameTextsScreenText.innerHTML = gameTexts[savedGame.gameTextsPosition];
+			savedGame.gameTextsPosition ++;
 	}
 });
 
@@ -1606,6 +1632,13 @@ walkButton.addEventListener("click", function(){
 });
 
 
+//Ações dos botões do menu principal
+newGameConfirmButton.addEventListener("click", newGameFunction);
+
+loadGameConfirmButton.addEventListener("click", loadGameFunction);
+
+saveGameConfirmButton.addEventListener("click", saveGameFunction);
+
 
 
 //Principal função de exibição do jogo
@@ -1630,6 +1663,16 @@ function mainDisplayFunction(){
 		walkButton.classList.remove("opacity-0", "pe-none");
 		attackButton.classList.add("pe-none");
 		passTurnButton.classList.add("opacity-0", "pe-none");
+	}
+	
+	//Validando os botões do menu principal
+	if (fighting === true || savedGame.hasGameSaved === false){
+		loadGameButton.classList.add("disabled-menu-button");
+		saveGameButton.classList.add("disabled-menu-button");
+	}
+	else{
+		loadGameButton.classList.remove("disabled-menu-button");
+		saveGameButton.classList.remove("disabled-menu-button");
 	}
 	
 	//Checando a arma equipada
