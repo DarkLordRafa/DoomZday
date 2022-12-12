@@ -80,8 +80,7 @@ body{
 }
 
 .disabled-menu-button{
-  color: grey!important;
-	border-bottom: 3px solid grey!important;
+	opacity: 0.3;
 	pointer-events: none;
 }
 
