@@ -71,6 +71,7 @@ const thankYouNoteEventImage = document.querySelector(".event-area__thank-you-no
 const gameTextsScreen = document.querySelector(".game-texts-screen");
 const gameTextsScreenText = document.querySelector(".game-texts-screen p");
 const gameTextsNextButton = document.querySelector(".game-texts__next-button");
+const gameTextsCheckpointButton = document.querySelector(".game-texts__checkpoint-button");
 
 
 
@@ -314,7 +315,8 @@ function saveGameFunction(){
 //Função de carregar o jogo
 function loadGameFunction(){
 	savedGame = JSON.parse(window.localStorage.getItem("saved_game_key"));
-	console.log(savedGame);
+	equipedWeapon = "none";
+	resetScreen();
 }
 
 //Função de novo jogo
@@ -323,12 +325,13 @@ function newGameFunction(){
 	loadGameFunction();
 	checkGameSave();
 	savedGame.hasGameSaved = true;
+	resetScreen();
+	savedGame.gameTextsPosition = 0;
+	gameTextsScreenText.innerHTML = gameTexts[savedGame.gameTextsPosition];
 }
 
 loadGameFunction();
 checkGameSave();
-
-console.log(savedGame.player.scenary1Progress);
 
 function checkGameSave(){
 	if (savedGame === null){
@@ -909,6 +912,35 @@ function activateEnemy8(){
 }
 
 
+//Função que limpa a tela
+function resetScreen(){
+	const playerMenuItemsScreens = document.querySelectorAll(".player-menu-area-display__screen");
+	playerMenuItemsScreens.forEach(function(screen){
+		screen.classList.add("d-none");
+	});
+	playerMenuItemsScreens[0].classList.remove("d-none");
+	
+	const playerMenuAllItems = document.querySelectorAll(".player-menu-area__display li")
+	playerMenuAllItems.forEach(function(item){
+		item.style.backgroundColor = "#e8dcb8";
+	});
+	
+	enemiesList.forEach(element =>{
+		element.classList.add("no-transition");
+	});
+	playerLifeBar.classList.add("no-transition");
+	
+	enemiesObjects.forEach(object =>{
+		object.life = 0;
+	});
+	
+	setTimeout(function(){
+		enemiesList.forEach(element =>{
+			element.classList.remove("no-transition");
+		});
+		playerLifeBar.classList.remove("no-transition");
+	}, 100)
+}
 
 
 //Função de luta aleatória
@@ -1023,7 +1055,7 @@ function gameProgress(){
 function enemyAttackFunction(objectPosition){
 	if (enemiesList[objectPosition].classList.contains("enemy-active")){
 		enemiesList[objectPosition].classList.add("enemy-attacking");
-		enemiesList[objectPosition].style.zIndex = 90;
+		enemiesList[objectPosition].style.zIndex = 3;
 		enemiesList[objectPosition].addEventListener("animationend", function(){
 			enemiesList[objectPosition].classList.remove("enemy-attacking");
 		enemiesList[objectPosition].style.zIndex = 1;
@@ -1515,20 +1547,27 @@ function walkAction(){
 	randomFight();
 }
 
+//Função para fechar a tela de texto quando chegar no texto limite
+function gameTextsScreenEndpointClose(){
+			gameTextsScreen.classList.add("d-none");
+			savedGame.gameTextsPosition ++;
+			saveGameFunction()
+			gameTextsNextButton.removeEventListener("click", gameTextsScreenEndpointClose);
+		}
+		
 //Função do botão de avançar o texto do jogo
 gameTextsNextButton.addEventListener("click", function(){
 	const textArea = document.querySelector(".game-texts__text-area");
 	textArea.scrollTo(0, 0);
+	if (savedGame.gameTextsPosition === 0){
+		savedGame.gameTextsPosition ++;
+	}
 	//Array com as posições para fechar a tela de texto
-	const endPositions = [savedGame.gameTextsPosition === 10];
+	const endPositions = [savedGame.gameTextsPosition === 11];
 	//Checando as afirmações do array e fechando a tela caso alguma seja verdadeira
 	if (endPositions.some(item =>{return item === true;})){
 		gameTextsScreenText.innerHTML = gameTexts[savedGame.gameTextsPosition];
-		gameTextsNextButton.addEventListener("click", function(){
-			gameTextsScreen.classList.add("d-none");
-			savedGame.gameTextsPosition ++;
-			saveGameFunction()
-		});
+		gameTextsNextButton.addEventListener("click", gameTextsScreenEndpointClose);
 	}
 	else{
 			gameTextsScreenText.innerHTML = gameTexts[savedGame.gameTextsPosition];
@@ -1796,7 +1835,20 @@ function mainControlFunction(){
 	}
 	//Ação caso o jogador morra
 	if (savedGame.player.life === 0){
+		gameTextsNextButton.classList.add("d-none");
+		gameTextsCheckpointButton.classList.remove("d-none");
+		
 		displayGameTextsScreen("Você morreu");
+		
+		gameTextsCheckpointButton.addEventListener("click", function(){
+			
+			resetScreen();
+			loadGameFunction();
+			
+			gameTextsScreen.classList.add("d-none");
+			gameTextsNextButton.classList.remove("d-none");
+			gameTextsCheckpointButton.classList.add("d-none");
+		});
 	}
 	//Checando o estado de queimadura dos inimigos
 	if (burningCounter === 2 || fighting === false){

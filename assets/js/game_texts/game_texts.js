@@ -1,5 +1,7 @@
 
 export const gameTexts = [
+	"Você está controlando David, um dos poucos sobreviventes de um vírus mortal que assolou o mundo e transformou quase todos em seres irracionais famintos. O mundo que você conhecia não existe mais. Este não é um lugar para os fracos.",
+	
 	"Os botões no lado direito da tela são os botões de ação.",
 	
 	"O botão com ícone de lupa fará a ação de busca.<br/>Ao fazer uma busca você terá a chance de encontrar um item aleatório. Alguns itens são mais raros de achar que outros. Mas cuidado, fazer buscas seguidas aumentará a chance de chamar a atenção dos infectados.<br/>Procurar itens no cenário será essencial para a sua sobrevivência, pois sem eles você não chegará muito longe. Será apenas mais um cadáver apodrecendo no solo. Ou se tornará um dos mortos-vivos que agora vagueiam pela Terra.",
