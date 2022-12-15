@@ -1,7 +1,6 @@
 
 //Variáveis de elementos
 const menuScreen = document.querySelector(".menu-screen");
-const newGameButton = document.querySelector(".menu-screen__new-game");
 const loadGameButton = document.querySelector(".menu-screen__load-game");
 const saveGameButton = document.querySelector(".menu-screen__save-game");
 const newGameScreen = document.querySelector(".new-game-screen");
@@ -30,9 +29,6 @@ function menuScreenClose(targetScreen, targetMenuScreen){
 }
 
 //Botões que fecham a tela da opçáo do menu ou a tela de opção junto com o menu
-newGameButton.addEventListener("click", function(){
-	menuScreenDisplay(newGameScreen);
-});
 
 newGameCancelButton.addEventListener("click", function(){
 	menuScreenClose(newGameScreen);

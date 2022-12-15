@@ -362,14 +362,14 @@ function checkGameSave(){
 				itemsQuantity: {
 					bandage: 0,
 					medikit: 0,
-					molotov: 2
+					molotov: 0
 				},
 				craftingItemsQuantity: {
 					cloth: 0,
 					alcohol: 0,
 					bottle: 0
 				},
-				scenary1Progress: 80
+				scenary1Progress: 0
 			},
 			gameTextsPosition: 0
 		};
@@ -1696,6 +1696,19 @@ newGameConfirmButton.addEventListener("click", newGameFunction);
 loadGameConfirmButton.addEventListener("click", loadGameFunction);
 
 saveGameConfirmButton.addEventListener("click", saveGameFunction);
+
+//Botão de novo jogo
+newGameButton.addEventListener("click", function(){
+	const menuScreen = document.querySelector(".menu-screen");
+	const newGameScreen = document.querySelector(".new-game-screen");
+	if (savedGame.hasGameSaved === true){
+		newGameScreen.classList.remove("d-none");
+	}
+	else{
+		menuScreen.classList.add("d-none");
+		newGameFunction();
+	}
+});
 
 
 
