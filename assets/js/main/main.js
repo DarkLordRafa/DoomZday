@@ -251,8 +251,7 @@ const enemiesObjects = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7, 
 
 
 
-//Variável de chance de luta aleatória
-let fightChance = 0;
+
 
 
 //Variável da dificuldade da luta
@@ -371,7 +370,8 @@ function checkGameSave(){
 				},
 				scenary1Progress: 0
 			},
-			gameTextsPosition: 0
+			gameTextsPosition: 0,
+			fightChance: 0
 		};
 		saveGameFunction();
 	}
@@ -958,7 +958,7 @@ function resetScreen(){
 //Função de luta aleatória
 function randomFight(){
 	let fightChanceResult = randomPercentage();
-	if (fightChanceResult <= fightChance){
+	if (fightChanceResult <= savedGame.fightChance){
 		enemiesDamageList.forEach(element =>{element.classList.remove("enemy-damage-display", "enemy-damage-display-critical")});
 		let enemy1AppearResult = randomPercentage();
 		let enemy2AppearResult = randomPercentage();
@@ -1002,21 +1002,21 @@ function randomFight(){
 //função que controla o progresso do jogo
 function gameProgress(){
 	if (savedGame.player.scenary1Progress <= 5){
-		fightChance = 0;
+		savedGame.fightChance = 0;
 	}
 	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true && newGamePlus === false){
-		fightChance = 0;
+		savedGame.fightChance = 0;
 		searchButtonHidden = false;
 		thankYouNoteEventImage.classList.remove("opacity-0");
 	}
 	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true && newGamePlus === true){
-		fightChance = 0;
+		savedGame.fightChance = 0;
 		displayGameTextsScreen(gameTexts[savedGame.gameTextsPosition]);
 		gameTextsNextButton.addEventListener("click", newGamePlusFunction);
 		gameTextsNextButton.addEventListener("click", gameTextsScreenEndpointClose);
 	}
 	else if (savedGame.player.scenary1Progress > 5 && savedGame.player.scenary1Progress <= 50){
-		fightChance = 50;
+		savedGame.fightChance = 50;
 		fightDifficult = 1;
 		enemy1AppearChance = 0;
 		enemy2AppearChance = 0;
@@ -1028,7 +1028,7 @@ function gameProgress(){
 		enemy8AppearChance = 100;
 	}
 	else if (savedGame.player.scenary1Progress > 50 && savedGame.player.scenary1Progress < 90){
-		fightChance = 70;
+		savedGame.fightChance = 70;
 		fightDifficult = 2;
 		enemy1AppearChance = 0;
 		enemy2AppearChance = 0;
@@ -1040,7 +1040,7 @@ function gameProgress(){
 		enemy8AppearChance = 100;
 	}
 	else if (savedGame.player.scenary1Progress === 90 && LastFightDone === false){
-		fightChance = 100;
+		savedGame.fightChance = 100;
 		fightDifficult = 3;
 		enemy1AppearChance = 40;
 		enemy2AppearChance = 40;
@@ -1283,7 +1283,7 @@ function searchAction(){
 		enemy2AppearChance += 2;
 		enemy1AppearChance += 2;
 	//Os inimigos não vão aparecer se a chance de luta não for suficiente pra entrar em um luta
-		fightChance += 10;
+		savedGame.fightChance += 10;
 	}
 		randomItems();
 	const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
@@ -1851,9 +1851,9 @@ function mainControlFunction(){
 			enemiesObjects[objectIndex].life = 0;
 		}
 	});
-	//Prevenindo que a Variável fightChance ultrapasse 100
-	if (fightChance > 100){
-		fightChance = 100;
+	//Prevenindo que a propriedade fightChance ultrapasse 100
+	if (savedGame.fightChance > 100){
+		savedGame.fightChance = 100;
 	}
 	//Checando se o jogador está numa luta
 	if (enemiesList[0].classList.contains("opacity-0") && enemiesList[1].classList.contains("opacity-0") && enemiesList[2].classList.contains("opacity-0") && enemiesList[3].classList.contains("opacity-0") && enemiesList[4].classList.contains("opacity-0") && enemiesList[5].classList.contains("opacity-0") && enemiesList[6].classList.contains("opacity-0") && enemiesList[7].classList.contains("opacity-0")){
