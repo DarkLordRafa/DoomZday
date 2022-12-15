@@ -1738,12 +1738,16 @@ function mainDisplayFunction(){
 	
 	//Validando os botões do menu principal
 	if (fighting === true || savedGame.hasGameSaved === false){
-		loadGameButton.classList.add("disabled-menu-button");
 		saveGameButton.classList.add("disabled-menu-button");
 	}
 	else{
-		loadGameButton.classList.remove("disabled-menu-button");
 		saveGameButton.classList.remove("disabled-menu-button");
+	}
+	if (savedGame.hasGameSaved === false){
+		loadGameButton.classList.add("disabled-menu-button");
+	}
+	else{
+		loadGameButton.classList.remove("disabled-menu-button");
 	}
 	
 	//Checando a arma equipada
