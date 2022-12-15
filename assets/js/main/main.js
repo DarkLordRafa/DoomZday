@@ -272,6 +272,9 @@ let burningCounter = 0;
 //Variável com o estado da última luta
 let LastFightDone = false;
 
+//Variável com o estado de novo jogo mais
+let newGamePlus = false;
+
 //Variável com o estado do botão de busca
 let searchButtonHidden = false;
 
@@ -330,6 +333,14 @@ function newGameFunction(){
 	gameTextsScreenText.innerHTML = gameTexts[savedGame.gameTextsPosition];
 }
 
+function newGamePlusFunction(){
+	savedGame.player.scenary1Progress = 0;
+	LastFightDone = false;
+	newGamePlus = true;
+	savedGame.gameTextsPosition = 11;
+	gameTextsNextButton.removeEventListener("click", newGamePlusFunction);
+}
+
 loadGameFunction();
 checkGameSave();
 
@@ -351,14 +362,14 @@ function checkGameSave(){
 				itemsQuantity: {
 					bandage: 0,
 					medikit: 0,
-					molotov: 0
+					molotov: 2
 				},
 				craftingItemsQuantity: {
 					cloth: 0,
 					alcohol: 0,
 					bottle: 0
 				},
-				scenary1Progress: 0
+				scenary1Progress: 80
 			},
 			gameTextsPosition: 0
 		};
@@ -567,13 +578,14 @@ function randomItems(){
 		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
 		savedGame.player.weapons.shotgun = true;
 	}
-	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true){
+	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true && newGamePlus === false){
 		thankYouNoteEventImage.classList.add("opacity-0");
 		displayReceivedEventItemScreen(thankYouNoteImage, "Nota do desenvolvedor");
 		const receivedEventItemOkButton = document.querySelector(".received-event-item__ok-button");
 		receivedEventItemOkButton.addEventListener("click", function(){
 			displayGameTextsScreen(gameTexts[savedGame.gameTextsPosition]);
-			savedGame.gameTextsPosition ++;
+			gameTextsNextButton.addEventListener("click", newGamePlusFunction);
+			gameTextsNextButton.addEventListener("click", gameTextsScreenEndpointClose);
 		});
 	}
 	else if (clothPercentage <= 18){
@@ -992,10 +1004,16 @@ function gameProgress(){
 	if (savedGame.player.scenary1Progress <= 5){
 		fightChance = 0;
 	}
-	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true){
+	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true && newGamePlus === false){
 		fightChance = 0;
 		searchButtonHidden = false;
 		thankYouNoteEventImage.classList.remove("opacity-0");
+	}
+	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true && newGamePlus === true){
+		fightChance = 0;
+		displayGameTextsScreen(gameTexts[savedGame.gameTextsPosition]);
+		gameTextsNextButton.addEventListener("click", newGamePlusFunction);
+		gameTextsNextButton.addEventListener("click", gameTextsScreenEndpointClose);
 	}
 	else if (savedGame.player.scenary1Progress > 5 && savedGame.player.scenary1Progress <= 50){
 		fightChance = 50;
@@ -1563,7 +1581,8 @@ gameTextsNextButton.addEventListener("click", function(){
 		savedGame.gameTextsPosition ++;
 	}
 	//Array com as posições para fechar a tela de texto
-	const endPositions = [savedGame.gameTextsPosition === 11];
+	const endPositions = [savedGame.gameTextsPosition === 11
+	];
 	//Checando as afirmações do array e fechando a tela caso alguma seja verdadeira
 	if (endPositions.some(item =>{return item === true;})){
 		gameTextsScreenText.innerHTML = gameTexts[savedGame.gameTextsPosition];
