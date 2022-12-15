@@ -14,7 +14,7 @@ export const gameTexts = [
 	
 	"Ao lado esquerdo da tela está o menu do jogador.",
 	
-	"Os botões na extrema esquerda são os botões principais do menu do jogador. Respectivamente: Armas, consumíveis, outros, tela de criação de itens, e menu principal.",
+	"Os botões na extrema esquerda são os botões principais do menu do jogador. Respectivamente: Armas, consumíveis, outros, tela de criação de itens e menu principal.",
 	
 	"Ao lado dos botões do menu do jogador está o painel de seleção dos itens e logo ao lado dele está a sua barra de vida.",
 	
