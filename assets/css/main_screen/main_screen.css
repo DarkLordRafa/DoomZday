@@ -18,7 +18,11 @@
 }
 
 
-
+.ttt{
+	align-self: flex-start!important;
+	text-align: left!important;
+	justify-self: flex-start!important;
+}
 
 body{
 	width: 100vw;

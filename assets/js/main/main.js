@@ -321,6 +321,7 @@ const gunClickSound = new Audio("assets/audio/weapons/gun_click_sound.mp3");
 const zombieSound = new Audio("assets/audio/enemies/zombie_sound.mp3");
 
 //Variáveis de áudio do jogo
+const zombieSound2 = "assets/audio/enemies/zombie_sound.mp3";
 const playerHurtSound = "assets/audio/player/player_hurt_sound.mp3";
 const playerHurtCriticalSound = "assets/audio/player/player_hurt_critical_sound.mp3";
 
@@ -377,20 +378,20 @@ function checkGameSave(){
 					pistol: false,
 		//Quando a munição for infinita, trocar por "---"
 					pistolAmmo: 10,
-					shotgun: true,
+					shotgun: false,
 					shotgunAmmo: 5
 				},
 				itemsQuantity: {
 					bandage: 0,
-					medikit: 10,
+					medikit: 0,
 					molotov: 0
 				},
 				craftingItemsQuantity: {
-					cloth: 50,
-					alcohol: 50,
-					bottle: 25
+					cloth: 0,
+					alcohol: 0,
+					bottle: 0
 				},
-				scenary1Progress: 80
+				scenary1Progress: 0
 			},
 			gameTextsPosition: 0,
 			fightChance: 0
@@ -1131,6 +1132,8 @@ function gameProgress(){
 
 //Função de ataque individual dos inimigos
 function enemyAttackFunction(objectPosition){
+	const enemySound = new Audio(zombieSound2);
+	enemySound.play();
 	if (enemiesList[objectPosition].classList.contains("enemy-active")){
 		enemiesList[objectPosition].classList.add("enemy-attacking");
 		enemiesList[objectPosition].style.zIndex = 3;
@@ -1309,7 +1312,7 @@ function burningEffect(){
 				enemiesDamageList[index].classList.add("enemy-damage-display");
 			}
 			if (enemiesObjects[index].life <= 0){
-				enemiesObjects[index].sound.play();
+				//enemiesObjects[index].sound.play();
 			}
 		}
 	});
@@ -1437,7 +1440,7 @@ function attackAction(){
 						enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
 						enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
 						if (enemiesObjects[enemyPosition].life <= 0){
-							enemiesObjects[enemyPosition].sound.play();
+							//enemiesObjects[enemyPosition].sound.play();
 						}
 						enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
 						if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
@@ -1523,7 +1526,7 @@ function attackAction(){
 							enemiesDamageList[position].classList.add("enemy-damage-display");
 						}
 						if (enemiesObjects[position].life <= 0){
-							enemiesObjects[position].sound.play();
+							//enemiesObjects[position].sound.play();
 						}
 					}
 					else{
@@ -1588,7 +1591,7 @@ function attackAction(){
 							enemiesDamageList[index].classList.add("enemy-damage-display");
 						}
 						if (enemiesObjects[index].life <= 0){
-							enemiesObjects[index].sound.play();
+							//enemiesObjects[index].sound.play();
 						}
 					}
 				});
