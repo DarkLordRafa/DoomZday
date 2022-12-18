@@ -127,6 +127,8 @@ let equipedMenuItem = playerMenuWeaponsList[0];
 
 //Função que faz a mudança visual do item equipado, baseada nas variáveis de imagem, a nodeList do item, e a posição do item
 function changeEquipedItem(itemImage, itemList, itemIndex){
+	const equipItemSound = new Audio("assets/audio/items/equip_item_sound.mp3");
+	equipItemSound.play();
 	attackButtonWeaponImage.src = itemImage;
 	itemList.forEach(function(item){
 		item.style.backgroundColor = "#e8dcb8";

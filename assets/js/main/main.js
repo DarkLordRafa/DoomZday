@@ -172,7 +172,8 @@ const enemy1 = {
 	minDamage: 0,
 	maxDamage: 0,
 	minCriticalDamage: 0,
-	maxCriticalDamage: 0
+	maxCriticalDamage: 0,
+	sound: ""
 };
 
 const enemy2 = {
@@ -182,7 +183,8 @@ const enemy2 = {
 	minDamage: 0,
 	maxDamage: 0,
 	minCriticalDamage: 0,
-	maxCriticalDamage: 0
+	maxCriticalDamage: 0,
+	sound: ""
 };
 
 const enemy3 = {
@@ -192,7 +194,8 @@ const enemy3 = {
 	minDamage: 0,
 	maxDamage: 0,
 	minCriticalDamage: 0,
-	maxCriticalDamage: 0
+	maxCriticalDamage: 0,
+	sound: ""
 };
 
 const enemy4 = {
@@ -202,7 +205,8 @@ const enemy4 = {
 	minDamage: 0,
 	maxDamage: 0,
 	minCriticalDamage: 0,
-	maxCriticalDamage: 0
+	maxCriticalDamage: 0,
+	sound: ""
 };
 
 const enemy5 = {
@@ -212,7 +216,8 @@ const enemy5 = {
 	minDamage: 0,
 	maxDamage: 0,
 	minCriticalDamage: 0,
-	maxCriticalDamage: 0
+	maxCriticalDamage: 0,
+	sound: ""
 };
 
 const enemy6 = {
@@ -222,7 +227,8 @@ const enemy6 = {
 	minDamage: 0,
 	maxDamage: 0,
 	minCriticalDamage: 0,
-	maxCriticalDamage: 0
+	maxCriticalDamage: 0,
+	sound: ""
 };
 
 const enemy7 = {
@@ -232,7 +238,8 @@ const enemy7 = {
 	minDamage: 0,
 	maxDamage: 0,
 	minCriticalDamage: 0,
-	maxCriticalDamage: 0
+	maxCriticalDamage: 0,
+	sound: ""
 };
 
 const enemy8 = {
@@ -242,7 +249,8 @@ const enemy8 = {
 	minDamage: 0,
 	maxDamage: 0,
 	minCriticalDamage: 0,
-	maxCriticalDamage: 0
+	maxCriticalDamage: 0,
+	sound: ""
 };
 
 
@@ -304,6 +312,20 @@ const zombie3Image = "assets/images/enemies/zombie3.png";
 const zombie4Image = "assets/images/enemies/zombie4.png";
 
 
+//Objetos de áudio do jogo
+const searchSound = new Audio("assets/audio/events/search_sound1.mp3");
+const walkSound = new Audio("assets/audio/events/walk_sound.mp3");
+const molotovSound = new Audio("assets/audio/items/molotov_sound2.mp3");
+const shotgunSound = new Audio("assets/audio/weapons/shotgun_sound.mp3");
+const gunClickSound = new Audio("assets/audio/weapons/gun_click_sound.mp3");
+const zombieSound = new Audio("assets/audio/enemies/zombie_sound.mp3");
+
+//Variáveis de áudio do jogo
+const playerHurtSound = "assets/audio/player/player_hurt_sound.mp3";
+const playerHurtCriticalSound = "assets/audio/player/player_hurt_critical_sound.mp3";
+
+
+
 
 
 //Variável do jogo salvo
@@ -355,20 +377,20 @@ function checkGameSave(){
 					pistol: false,
 		//Quando a munição for infinita, trocar por "---"
 					pistolAmmo: 10,
-					shotgun: false,
+					shotgun: true,
 					shotgunAmmo: 5
 				},
 				itemsQuantity: {
 					bandage: 0,
-					medikit: 0,
+					medikit: 10,
 					molotov: 0
 				},
 				craftingItemsQuantity: {
-					cloth: 0,
-					alcohol: 0,
-					bottle: 0
+					cloth: 50,
+					alcohol: 50,
+					bottle: 25
 				},
-				scenary1Progress: 0
+				scenary1Progress: 80
 			},
 			gameTextsPosition: 0,
 			fightChance: 0
@@ -633,7 +655,6 @@ function randomItems(){
 	}
 }
 
-
 //Funções de ativar os inimigos
 function activateEnemy1(){
 	enemiesList[0].classList.remove("opacity-0");
@@ -647,6 +668,7 @@ function activateEnemy1(){
 		enemy1.maxDamage = 20;
 		enemy1.minCriticalDamage = 25;
 		enemy1.maxCriticalDamage = 35;
+		enemy1.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[0].src = zombie1Image;
@@ -657,6 +679,7 @@ function activateEnemy1(){
 		enemy1.maxDamage = 20;
 		enemy1.minCriticalDamage = 25;
 		enemy1.maxCriticalDamage = 35;
+		enemy1.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[0].src = zombie1Image;
@@ -667,6 +690,7 @@ function activateEnemy1(){
 		enemy1.maxDamage = 20;
 		enemy1.minCriticalDamage = 25;
 		enemy1.maxCriticalDamage = 35;
+		enemy1.sound = zombieSound;
 	}
 	//Continuar no mesmo esquema para os próximos cenários, utilizando else if
 }
@@ -684,6 +708,7 @@ function activateEnemy2(){
 		enemy2.maxDamage = 15;
 		enemy2.minCriticalDamage = 20;
 		enemy2.maxCriticalDamage = 27;
+		enemy2.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[1].src = zombie2Image;
@@ -694,6 +719,7 @@ function activateEnemy2(){
 		enemy2.maxDamage = 15;
 		enemy2.minCriticalDamage = 20;
 		enemy2.maxCriticalDamage = 27;
+		enemy2.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[1].src = zombie2Image;
@@ -704,6 +730,7 @@ function activateEnemy2(){
 		enemy2.maxDamage = 15;
 		enemy2.minCriticalDamage = 20;
 		enemy2.maxCriticalDamage = 27;
+		enemy2.sound = zombieSound;
 	}
 }
 
@@ -716,10 +743,11 @@ function activateEnemy3(){
 		enemy3.life = 100;
 		enemy3.hitChance = 50;
 		enemy3.criticalChance = 20;
-		enemy2.minDamage = 5;
-		enemy2.maxDamage = 15;
-		enemy2.minCriticalDamage = 20;
-		enemy2.maxCriticalDamage = 27;
+		enemy3.minDamage = 5;
+		enemy3.maxDamage = 15;
+		enemy3.minCriticalDamage = 20;
+		enemy3.maxCriticalDamage = 27;
+		enemy3.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[2].src = zombie3Image;
@@ -730,6 +758,7 @@ function activateEnemy3(){
 		enemy3.maxDamage = 15;
 		enemy3.minCriticalDamage = 20;
 		enemy3.maxCriticalDamage = 27;
+		enemy3.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[2].src = zombie3Image;
@@ -740,6 +769,7 @@ function activateEnemy3(){
 		enemy3.maxDamage = 15;
 		enemy3.minCriticalDamage = 20;
 		enemy3.maxCriticalDamage = 27;
+		enemy3.sound = zombieSound;
 	}
 }
 
@@ -756,6 +786,7 @@ function activateEnemy4(){
 		enemy4.maxDamage = 15;
 		enemy4.minCriticalDamage = 20;
 		enemy4.maxCriticalDamage = 27;
+		enemy4.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[3].src = zombie4Image;
@@ -766,6 +797,7 @@ function activateEnemy4(){
 		enemy4.maxDamage = 15;
 		enemy4.minCriticalDamage = 20;
 		enemy4.maxCriticalDamage = 27;
+		enemy4.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[3].src = zombie4Image;
@@ -776,6 +808,7 @@ function activateEnemy4(){
 		enemy4.maxDamage = 15;
 		enemy4.minCriticalDamage = 20;
 		enemy4.maxCriticalDamage = 27;
+		enemy4.sound = zombieSound;
 	}
 }
 
@@ -792,6 +825,7 @@ function activateEnemy5(){
 		enemy5.maxDamage = 15;
 		enemy5.minCriticalDamage = 20;
 		enemy5.maxCriticalDamage = 27;
+		enemy5.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[4].src = zombie3Image;
@@ -802,6 +836,7 @@ function activateEnemy5(){
 		enemy5.maxDamage = 15;
 		enemy5.minCriticalDamage = 20;
 		enemy5.maxCriticalDamage = 27;
+		enemy5.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[4].src = zombie3Image;
@@ -812,6 +847,7 @@ function activateEnemy5(){
 		enemy5.maxDamage = 15;
 		enemy5.minCriticalDamage = 20;
 		enemy5.maxCriticalDamage = 27;
+		enemy5.sound = zombieSound;
 	}
 }
 
@@ -828,6 +864,7 @@ function activateEnemy6(){
 		enemy6.maxDamage = 15;
 		enemy6.minCriticalDamage = 20;
 		enemy6.maxCriticalDamage = 27;
+		enemy6.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[5].src = zombie2Image;
@@ -838,6 +875,7 @@ function activateEnemy6(){
 		enemy6.maxDamage = 15;
 		enemy6.minCriticalDamage = 20;
 		enemy6.maxCriticalDamage = 27;
+		enemy6.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[5].src = zombie3Image;
@@ -848,6 +886,7 @@ function activateEnemy6(){
 		enemy6.maxDamage = 15;
 		enemy6.minCriticalDamage = 20;
 		enemy6.maxCriticalDamage = 27;
+		enemy6.sound = zombieSound;
 	}
 }
 
@@ -864,6 +903,7 @@ function activateEnemy7(){
 		enemy7.maxDamage = 15;
 		enemy7.minCriticalDamage = 20;
 		enemy7.maxCriticalDamage = 27;
+		enemy7.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[6].src = zombie3Image;
@@ -874,6 +914,7 @@ function activateEnemy7(){
 		enemy7.maxDamage = 15;
 		enemy7.minCriticalDamage = 20;
 		enemy7.maxCriticalDamage = 27;
+		enemy7.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemy7.life = 100;
@@ -884,6 +925,7 @@ function activateEnemy7(){
 		enemy7.maxDamage = 15;
 		enemy7.minCriticalDamage = 20;
 		enemy7.maxCriticalDamage = 27;
+		enemy7.sound = zombieSound;
 	}
 }
 
@@ -900,6 +942,7 @@ function activateEnemy8(){
 		enemy8.maxDamage = 15;
 		enemy8.minCriticalDamage = 20;
 		enemy8.maxCriticalDamage = 27;
+		enemy8.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 2){
 		enemiesImageList[7].src = zombie1Image;
@@ -910,6 +953,7 @@ function activateEnemy8(){
 		enemy8.maxDamage = 15;
 		enemy8.minCriticalDamage = 20;
 		enemy8.maxCriticalDamage = 27;
+		enemy8.sound = zombieSound;
 	}
 	else if (savedGame.player.scenary1Progress < 100 && fightDifficult === 3){
 		enemiesImageList[7].src = zombie1Image;
@@ -920,6 +964,7 @@ function activateEnemy8(){
 		enemy8.maxDamage = 15;
 		enemy8.minCriticalDamage = 20;
 		enemy8.maxCriticalDamage = 27;
+		enemy8.sound = zombieSound;
 	}
 }
 
@@ -971,28 +1016,43 @@ function randomFight(){
 		
 		
 		if (enemy1AppearResult <= enemy1AppearChance){
+			
 			activateEnemy1();
+			enemy1.sound.play();
 		}
 		if (enemy2AppearResult <= enemy2AppearChance){
+			
 			activateEnemy2();
+			enemy2.sound.play();
 		}
 		if (enemy3AppearResult <= enemy3AppearChance){
+			
 			activateEnemy3();
+			enemy3.sound.play();
 		}
 		if (enemy4AppearResult <= enemy4AppearChance){
+			
 			activateEnemy4();
+			enemy4.sound.play();
 		}
 		if (enemy5AppearResult <= enemy5AppearChance){
+			
 			activateEnemy5();
+			enemy5.sound.play();
 		}
 		if (enemy6AppearResult <= enemy6AppearChance){
+			
 			activateEnemy6();
+			enemy6.sound.play();
 		}
 		if (enemy7AppearResult <= enemy7AppearChance){
+			
 			activateEnemy7();
+			enemy7.sound.play();
 		}
 		if (enemy8AppearResult <= enemy8AppearChance){
 			activateEnemy8();
+			enemy8.sound.play();
 		}
 	}
 }
@@ -1076,7 +1136,7 @@ function enemyAttackFunction(objectPosition){
 		enemiesList[objectPosition].style.zIndex = 3;
 		enemiesList[objectPosition].addEventListener("animationend", function(){
 			enemiesList[objectPosition].classList.remove("enemy-attacking");
-		enemiesList[objectPosition].style.zIndex = 1;
+			enemiesList[objectPosition].style.zIndex = 1;
 			screenDamageArea.classList.add("d-none");
 			screenBloodArea.classList.add("d-none");
 		});
@@ -1087,19 +1147,21 @@ function enemyAttackFunction(objectPosition){
 		let playerReceivedDamage;
 		
 		if (enemyHitChanceResult <= enemiesObjects[objectPosition].hitChance){
+			const playerHurtedSound = new Audio(playerHurtSound);
+			playerHurtedSound.play();
 			playerReceivedDamage = randomRangeNumber(
 				enemiesObjects[objectPosition].minDamage, enemiesObjects[objectPosition].maxDamage
 				);
-				//alert("dano normal");
 				savedGame.player.life -= playerReceivedDamage;
 				screenDamageArea.classList.remove("d-none");
 		}
 		
 		else if (enemyCriticalChanceResult <= enemiesObjects[objectPosition].criticalChance){
+			const playerHurtedCriticalSound = new Audio(playerHurtCriticalSound);
+			playerHurtedCriticalSound.play();
 			playerReceivedDamage = randomRangeNumber(
 				enemiesObjects[objectPosition].minCriticalDamage, enemiesObjects[objectPosition].maxCriticalDamage
 				);
-			//alert("dano crítico");
 			savedGame.player.life -= playerReceivedDamage;
 			screenDamageArea.classList.remove("d-none");
 			screenBloodArea.classList.remove("d-none");
@@ -1246,6 +1308,9 @@ function burningEffect(){
 			else{
 				enemiesDamageList[index].classList.add("enemy-damage-display");
 			}
+			if (enemiesObjects[index].life <= 0){
+				enemiesObjects[index].sound.play();
+			}
 		}
 	});
 	
@@ -1320,6 +1385,7 @@ function attackAction(){
 	//Checando a arma equipada
 	if (equipedWeapon === "pistol"){
 		if (savedGame.player.weapons.pistolAmmo === 0){
+			gunClickSound.play();
 			enemiesAttackFunction();
 			return;
 		}
@@ -1345,41 +1411,48 @@ function attackAction(){
 			
 		  
 		  function pistolAttack(){
-				hitsDone ++;
-				savedGame.player.weapons.pistolAmmo -= 1;
-				let hitChanceResult = randomPercentage();
-				let criticalChanceResult = randomPercentage();
-				let criticalHit;
-				if (criticalChanceResult <= criticalChance){
-					enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
-					criticalHit = true;
-				}
-				else{
-					enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
-					criticalHit = false;
-				}
-	
-				enemyPosition = randomRangeNumber(0, 7);
-				while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
-					enemyPosition = randomRangeNumber(0, 7);
-				}
-					
-				if (hitChanceResult <= hitChance){
-					enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
-					enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
-					enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
-					if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
+		  	const pistolSound = new Audio("assets/audio/weapons/handgun_sound.mp3");
+		  	pistolSound.play();
+		  	pistolSound.addEventListener("playing", function(){
+					hitsDone ++;
+					savedGame.player.weapons.pistolAmmo -= 1;
+					let hitChanceResult = randomPercentage();
+					let criticalChanceResult = randomPercentage();
+					let criticalHit;
+					if (criticalChanceResult <= criticalChance){
+						enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+						criticalHit = true;
 					}
-					
 					else{
+						enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+						criticalHit = false;
+					}
+		
+					enemyPosition = randomRangeNumber(0, 7);
+					while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
+						enemyPosition = randomRangeNumber(0, 7);
+					}
+						
+					if (hitChanceResult <= hitChance){
+						enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
+						enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
+						if (enemiesObjects[enemyPosition].life <= 0){
+							enemiesObjects[enemyPosition].sound.play();
+						}
+						enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
+						if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
+						}
+						
+						else{
+							enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
+						}
+					}
+					else{
+						enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
+						enemiesDamageList[enemyPosition].innerHTML = "errou";
 						enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
 					}
-				}
-				else{
-					enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
-					enemiesDamageList[enemyPosition].innerHTML = "errou";
-					enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
-				}
+		  	});
 		  }
 		}
 	}
@@ -1388,12 +1461,13 @@ function attackAction(){
 	
 	else if (equipedWeapon === "shotgun"){
 		if (savedGame.player.weapons.shotgunAmmo === 0){
+			gunClickSound.play();
 			enemiesAttackFunction();
 			return;
 		}
 		else{
 			hits = 1;
-			savedGame.player.weapons.shotgunAmmo -= 1;
+			savedGame.player.weapons.shotgunAmmo -= 1
 			hitsDone ++;
 			
 	//Fazendo a função sempre atacar inimigos diferentes
@@ -1424,40 +1498,46 @@ function attackAction(){
 			}
 			
 		  function shotgunAttack(position){
-				let hitChanceResult = randomPercentage();
-				let criticalChanceResult = randomPercentage();
-				let criticalHit;
-				if (criticalChanceResult <= criticalChance){
-					enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
-					criticalHit = true;
-				}
-				else{
-					enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
-					criticalHit = false;
-				}
-					
-				if (hitChanceResult <= hitChance){
-					enemiesDamageList[position].style.cssText = "font-style: normal; font-weight: bold";
-					enemiesObjects[position].life -= enemyReceivedDamage;
-					enemiesDamageList[position].innerHTML = enemyReceivedDamage;
-					if (criticalHit === true){	enemiesDamageList[position].classList.add("enemy-damage-display-critical");
+		  	shotgunSound.play();
+		  	shotgunSound.addEventListener("playing", function(){
+					let hitChanceResult = randomPercentage();
+					let criticalChanceResult = randomPercentage();
+					let criticalHit;
+					if (criticalChanceResult <= criticalChance){
+						enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+						criticalHit = true;
 					}
-					
 					else{
-						enemiesDamageList[position].classList.add("enemy-damage-display");
+						enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+						criticalHit = false;
 					}
-				}
-				else{
-					if (enemiesObjects[position].life > 0){
-						enemiesDamageList[position].style.cssText = "font-style: italic; font-weight: normal";
-						enemiesDamageList[position].innerHTML = "errou";
-						enemiesDamageList[position].classList.add("enemy-damage-display");
+						
+					if (hitChanceResult <= hitChance){
+						enemiesDamageList[position].style.cssText = "font-style: normal; font-weight: bold";
+						enemiesObjects[position].life -= enemyReceivedDamage;
+						enemiesDamageList[position].innerHTML = enemyReceivedDamage;
+						if (criticalHit === true){	enemiesDamageList[position].classList.add("enemy-damage-display-critical");
+						}
+						
+						else{
+							enemiesDamageList[position].classList.add("enemy-damage-display");
+						}
+						if (enemiesObjects[position].life <= 0){
+							enemiesObjects[position].sound.play();
+						}
 					}
-				}
-				
-				enemiesDamageList[position].addEventListener("animationend", function(){
-					enemiesDamageList[position].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
-				});
+					else{
+						if (enemiesObjects[position].life > 0){
+							enemiesDamageList[position].style.cssText = "font-style: italic; font-weight: normal";
+							enemiesDamageList[position].innerHTML = "errou";
+							enemiesDamageList[position].classList.add("enemy-damage-display");
+						}
+					}
+					
+					enemiesDamageList[position].addEventListener("animationend", function(){
+						enemiesDamageList[position].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
+					});
+				}, {once : true});
 			}
 		}
 	}
@@ -1474,6 +1554,8 @@ function attackAction(){
 			molotovAttack();
 		  
 		  function molotovAttack(){
+		  	molotovSound.play();
+		  	molotovSound.addEventListener("ended", function(){
 		  	burningCounter = 0
 		  	burning = true;
 		  	hitsDone ++;
@@ -1505,6 +1587,9 @@ function attackAction(){
 						else{
 							enemiesDamageList[index].classList.add("enemy-damage-display");
 						}
+						if (enemiesObjects[index].life <= 0){
+							enemiesObjects[index].sound.play();
+						}
 					}
 				});
 				
@@ -1513,6 +1598,7 @@ function attackAction(){
 						element.classList.remove("enemy-damage-display", "enemy-damage-display-critical");
 					});
 				});
+		  	}, {once: true});
 		  }
 		}
 	}
@@ -1597,6 +1683,8 @@ gameTextsNextButton.addEventListener("click", function(){
 
 //Ações dos botões de criar item
 craftBandageButton.addEventListener("click", function(){
+	const craftBandageSound = new Audio("assets/audio/craft/craft_bandage_sound.mp3");
+	craftBandageSound.play();
 	let craftingDone = false;
 	craftingProgressScreen.classList.remove("d-none");
 	craftingProgressScreenBar.classList.add("crafting-bar-animation");
@@ -1612,6 +1700,8 @@ craftBandageButton.addEventListener("click", function(){
 );
 
 craftMolotovButton.addEventListener("click", function(){
+	const craftMolotovSound = new Audio("assets/audio/craft/craft_molotov_sound.mp3");
+	craftMolotovSound.play();
 	let craftingDone = false;
 	craftingProgressScreen.classList.remove("d-none");
 	craftingProgressScreenBar.classList.add("crafting-bar-animation");
@@ -1641,17 +1731,21 @@ molotovEquipButton.addEventListener("click", function(){
 
 //Ações dos botões de usar itens
 bandageUseButton.addEventListener("click", function(){
+	const bandageSound = new Audio("assets/audio/items/bandage_sound.mp3");
+	bandageSound.play();
 	useHealtItem(30, "bandage");
 });
 
 medikitUseButton.addEventListener("click", function(){
+	const medikitSound = new Audio("assets/audio/items/medikit_sound1.mp3");
+	medikitSound.play();
 	useHealtItem(70, "medikit");
 });
 
 
-
 //Ações dos botões de ações
 searchButton.addEventListener("click", function(){
+	searchSound.play();
 	let searchDone = false;
 	searchScreen.classList.remove("d-none");
 	searchScreenBar.classList.add("search-bar-animation");
@@ -1676,6 +1770,7 @@ passTurnButton.addEventListener("click", function(){
 });
 
 walkButton.addEventListener("click", function(){
+	walkSound.play();
 	walking = true;
 	mainScreen.classList.add("walk-animation");
 	document.body.classList.add("pe-none");
