@@ -1417,7 +1417,6 @@ function attackAction(){
 		  	const pistolSound = new Audio("assets/audio/weapons/handgun_sound.mp3");
 		  	pistolSound.play();
 		  	pistolSound.addEventListener("playing", function(){
-		  		setTimeout(function(){
 					hitsDone ++;
 					savedGame.player.weapons.pistolAmmo -= 1;
 					let hitChanceResult = randomPercentage();
@@ -1456,7 +1455,6 @@ function attackAction(){
 						enemiesDamageList[enemyPosition].innerHTML = "errou";
 						enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
 					}
-		  		}, 500);
 		  	});
 		  }
 		}
@@ -1505,7 +1503,6 @@ function attackAction(){
 		  function shotgunAttack(position){
 		  	shotgunSound.play();
 		  	shotgunSound.addEventListener("playing", function(){
-		  		setTimeout(function(){
 					let hitChanceResult = randomPercentage();
 					let criticalChanceResult = randomPercentage();
 					let criticalHit;
@@ -1543,7 +1540,6 @@ function attackAction(){
 					enemiesDamageList[position].addEventListener("animationend", function(){
 						enemiesDamageList[position].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
 					});
-		  		}, 500)
 				}, {once : true});
 			}
 		}
