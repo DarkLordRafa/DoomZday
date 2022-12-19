@@ -1344,13 +1344,13 @@ function searchAction(){
 	else{
 	//Aumentar mais as dificuldades, como chance dos inimigos aparecerem e a dificuldade da luta
 		enemy8AppearChance += 10;
-		enemy7AppearChance += 5;
-		enemy6AppearChance += 3;
-		enemy5AppearChance += 2;
-		enemy4AppearChance += 2;
-		enemy3AppearChance += 2;
-		enemy2AppearChance += 2;
-		enemy1AppearChance += 2;
+		enemy7AppearChance += 3;
+		enemy6AppearChance += 2;
+		enemy5AppearChance += 1;
+		enemy4AppearChance += 1;
+		enemy3AppearChance += 1;
+		enemy2AppearChance += 1;
+		enemy1AppearChance += 1;
 	//Os inimigos não vão aparecer se a chance de luta não for suficiente pra entrar em um luta
 		savedGame.fightChance += 10;
 	}
@@ -1402,7 +1402,7 @@ function attackAction(){
 		  pistolAttack();
 	//setInterval apenas para armas que dão mais de um tiro ou golpe
 	//Lembrar de mudar o tempo do intervalo aqui em cima e o delay de remover a classe do enemiesDamageList lá embaixo de acordo com a velocidade da arma
-			const attacking = setInterval(pistolAttack, 1200);
+			const attacking = setInterval(pistolAttack, 1500);
 			const checkPistolAttack = setInterval(checkPistolHits, 100);
 			
 			function checkPistolHits(){
