@@ -611,17 +611,17 @@ function randomItems(){
 			gameTextsNextButton.addEventListener("click", gameTextsScreenEndpointClose);
 		});
 	}
-	else if (clothPercentage <= 30){
+	else if (clothPercentage <= 25){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 35){
+	else if (alcoholPercentage <= 30){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
-	else if (bottlePercentage <= 3){
+	else if (bottlePercentage <= 5){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
