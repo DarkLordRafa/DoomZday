@@ -627,7 +627,7 @@ function randomItems(){
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
 	else if (ammo9mmPercentage <= 55){
-		let foundQuantity = randomRangeNumber(5, 15);
+		let foundQuantity = randomRangeNumber(5, 12);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
@@ -641,7 +641,7 @@ function randomItems(){
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
 	}
-	else if (bandagePercentage <= 18){
+	else if (bandagePercentage <= 25){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;
@@ -1339,6 +1339,7 @@ function displayGameTextsScreen(text){
 //Função da ação de busca
 function searchAction(){
 	if (savedGame.player.scenary1Progress === 0){
+		savedGame.fightChance = 0;
 		savedGame.player.scenary1Progress += 5;
 	}
 	else{
