@@ -1505,6 +1505,7 @@ function attackAction(){
 		  function shotgunAttack(position){
 		  	shotgunSound.play();
 		  	shotgunSound.addEventListener("playing", function(){
+		  		setTimeout(function(){
 					let hitChanceResult = randomPercentage();
 					let criticalChanceResult = randomPercentage();
 					let criticalHit;
@@ -1542,6 +1543,7 @@ function attackAction(){
 					enemiesDamageList[position].addEventListener("animationend", function(){
 						enemiesDamageList[position].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
 					});
+		  		}, 500)
 				}, {once : true});
 			}
 		}
