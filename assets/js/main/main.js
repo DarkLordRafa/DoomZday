@@ -1764,7 +1764,7 @@ searchButton.addEventListener("click", function(){
 
 
 attackButton.addEventListener("click", function(){
-	attackAction();
+	setTimeout(attackAction, 500);
 });
 
 passTurnButton.addEventListener("click", function(){
