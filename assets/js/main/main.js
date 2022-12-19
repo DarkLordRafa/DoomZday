@@ -627,7 +627,7 @@ function randomItems(){
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
 	else if (ammo9mmPercentage <= 50){
-		let foundQuantity = randomRangeNumber(5, 10);
+		let foundQuantity = randomRangeNumber(5, 15);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
