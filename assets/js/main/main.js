@@ -611,12 +611,12 @@ function randomItems(){
 			gameTextsNextButton.addEventListener("click", gameTextsScreenEndpointClose);
 		});
 	}
-	else if (clothPercentage <= 25){
+	else if (clothPercentage <= 22){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 30){
+	else if (alcoholPercentage <= 28){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
@@ -627,12 +627,12 @@ function randomItems(){
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
 	else if (ammo9mmPercentage <= 55){
-		let foundQuantity = randomRangeNumber(5, 10);
+		let foundQuantity = randomRangeNumber(5, 15);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
 	else if (ammoShotgunPercentage <= 50 && savedGame.player.scenary1Progress>= 50){
-		let foundQuantity = randomRangeNumber(1, 3);
+		let foundQuantity = randomRangeNumber(1, 5);
 		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
 		savedGame.player.weapons.shotgunAmmo += foundQuantity;
 	}
