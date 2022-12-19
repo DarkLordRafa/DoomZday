@@ -375,21 +375,21 @@ function checkGameSave(){
 			player: {
 				life: 100,
 				weapons: {
-					pistol: false,
+					pistol: true,
 		//Quando a munição for infinita, trocar por "---"
-					pistolAmmo: 10,
-					shotgun: false,
-					shotgunAmmo: 5
+					pistolAmmo: 100,
+					shotgun: true,
+					shotgunAmmo: 100
 				},
 				itemsQuantity: {
-					bandage: 0,
-					medikit: 0,
-					molotov: 0
+					bandage: 50,
+					medikit: 50,
+					molotov: 50
 				},
 				craftingItemsQuantity: {
-					cloth: 0,
-					alcohol: 0,
-					bottle: 0
+					cloth: 100,
+					alcohol: 100,
+					bottle: 100
 				},
 				scenary1Progress: 0
 			},
