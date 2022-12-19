@@ -631,7 +631,7 @@ function randomItems(){
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
-	else if (ammoShotgunPercentage <= 55 && savedGame.player.scenary1Progress>= 50){
+	else if (ammoShotgunPercentage <= 60 && savedGame.player.scenary1Progress>= 50){
 		let foundQuantity = randomRangeNumber(1, 5);
 		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
 		savedGame.player.weapons.shotgunAmmo += foundQuantity;
