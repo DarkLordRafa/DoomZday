@@ -17,17 +17,23 @@
 	100%{background-position-y: bottom;}
 }
 
-
-.ttt{
-	align-self: flex-start!important;
-	text-align: left!important;
-	justify-self: flex-start!important;
-}
-
 body{
 	width: 100vw;
 	height: 90vh;
 	font-family: Arial, Sans-Serif;
+}
+
+.loading-screen{
+	background-color: black;
+	z-index: 20;
+}
+
+.loading-screen span{
+	color: white;
+	font-size: 7vw;
+	text-align: center;
+	font-weight: 900;
+	text-transform: uppercase;
 }
 
 .menu-screen{

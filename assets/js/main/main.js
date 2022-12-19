@@ -76,6 +76,7 @@ const gameTextsCheckpointButton = document.querySelector(".game-texts__checkpoin
 
 
 //Variáveis do menu principal
+const loadingScreen = document.querySelector(".loading-screen");
 const newGameButton = document.querySelector(".menu-screen__new-game");
 const loadGameButton = document.querySelector(".menu-screen__load-game");
 const saveGameButton = document.querySelector(".menu-screen__save-game");
@@ -332,6 +333,18 @@ const playerHurtCriticalSound = "assets/audio/player/player_hurt_critical_sound.
 //Variável do jogo salvo
 let savedGame = null;
 
+//Funções da tela de carregamento
+window.addEventListener("load", function(){
+	loadingScreen.classList.add("d-none");
+});
+
+function loadEvent(){
+	loadingScreen.classList.remove("d-none");
+	setTimeout(function(){
+		loadingScreen.classList.add("d-none");
+	}, 500);
+}
+
 //Função de salvar o jogo
 function saveGameFunction(){
 	window.localStorage.setItem("saved_game_key", JSON.stringify(savedGame));
@@ -339,6 +352,7 @@ function saveGameFunction(){
 
 //Função de carregar o jogo
 function loadGameFunction(){
+	loadEvent();
 	savedGame = JSON.parse(window.localStorage.getItem("saved_game_key"));
 	equipedWeapon = "none";
 	resetScreen();
@@ -346,6 +360,7 @@ function loadGameFunction(){
 
 //Função de novo jogo
 function newGameFunction(){
+	loadEvent();
 	window.localStorage.removeItem("saved_game_key");
 	loadGameFunction();
 	checkGameSave();
@@ -356,6 +371,7 @@ function newGameFunction(){
 }
 
 function newGamePlusFunction(){
+	loadEvent();
 	savedGame.player.scenary1Progress = 0;
 	LastFightDone = false;
 	newGamePlus = true;
