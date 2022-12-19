@@ -611,12 +611,12 @@ function randomItems(){
 			gameTextsNextButton.addEventListener("click", gameTextsScreenEndpointClose);
 		});
 	}
-	else if (clothPercentage <= 18){
+	else if (clothPercentage <= 20){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 18){
+	else if (alcoholPercentage <= 22){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
@@ -1005,7 +1005,8 @@ function resetScreen(){
 function randomFight(){
 	let fightChanceResult = randomPercentage();
 	if (fightChanceResult <= savedGame.fightChance){
-		enemiesDamageList.forEach(element =>{element.classList.remove("enemy-damage-display", "enemy-damage-display-critical")});
+		enemiesDamageList.forEach(element =>{element.classList.remove("enemy-damage-display", "enemy-damage-display-critical");});
+		enemiesList.forEach(element =>{element.style.zIndex = 1;});
 		let enemy1AppearResult = randomPercentage();
 		let enemy2AppearResult = randomPercentage();
 		let enemy3AppearResult = randomPercentage();
