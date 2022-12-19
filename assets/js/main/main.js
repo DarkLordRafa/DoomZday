@@ -616,7 +616,7 @@ function randomItems(){
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 28){
+	else if (alcoholPercentage <= 30){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
