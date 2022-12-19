@@ -1419,44 +1419,46 @@ function attackAction(){
 		  	const pistolSound = new Audio("assets/audio/weapons/handgun_sound.mp3");
 		  	pistolSound.play();
 		  	pistolSound.addEventListener("playing", function(){
-					hitsDone ++;
-					savedGame.player.weapons.pistolAmmo -= 1;
-					let hitChanceResult = randomPercentage();
-					let criticalChanceResult = randomPercentage();
-					let criticalHit;
-					if (criticalChanceResult <= criticalChance){
-						enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
-						criticalHit = true;
-					}
-					else{
-						enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
-						criticalHit = false;
-					}
-		
-					enemyPosition = randomRangeNumber(0, 7);
-					while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
-						enemyPosition = randomRangeNumber(0, 7);
-					}
-						
-					if (hitChanceResult <= hitChance){
-						enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
-						enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
-						if (enemiesObjects[enemyPosition].life <= 0){
-							//enemiesObjects[enemyPosition].sound.play();
+		  		setTimeout(function(){
+						hitsDone ++;
+						savedGame.player.weapons.pistolAmmo -= 1;
+						let hitChanceResult = randomPercentage();
+						let criticalChanceResult = randomPercentage();
+						let criticalHit;
+						if (criticalChanceResult <= criticalChance){
+							enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+							criticalHit = true;
 						}
-						enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
-						if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
-						}
-						
 						else{
+							enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+							criticalHit = false;
+						}
+			
+						enemyPosition = randomRangeNumber(0, 7);
+						while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
+							enemyPosition = randomRangeNumber(0, 7);
+						}
+							
+						if (hitChanceResult <= hitChance){
+							enemiesDamageList[enemyPosition].style.cssText = "font-style: normal; font-weight: bold";
+							enemiesObjects[enemyPosition].life -= enemyReceivedDamage;
+							if (enemiesObjects[enemyPosition].life <= 0){
+								//enemiesObjects[enemyPosition].sound.play();
+							}
+							enemiesDamageList[enemyPosition].innerHTML = enemyReceivedDamage;
+							if (criticalHit === true){	enemiesDamageList[enemyPosition].classList.add("enemy-damage-display-critical");
+							}
+							
+							else{
+								enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
+							}
+						}
+						else{
+							enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
+							enemiesDamageList[enemyPosition].innerHTML = "errou";
 							enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
 						}
-					}
-					else{
-						enemiesDamageList[enemyPosition].style.cssText = "font-style: italic; font-weight: normal";
-						enemiesDamageList[enemyPosition].innerHTML = "errou";
-						enemiesDamageList[enemyPosition].classList.add("enemy-damage-display");
-					}
+		  		}, 300);
 		  	});
 		  }
 		}
@@ -1505,43 +1507,45 @@ function attackAction(){
 		  function shotgunAttack(position){
 		  	shotgunSound.play();
 		  	shotgunSound.addEventListener("playing", function(){
-					let hitChanceResult = randomPercentage();
-					let criticalChanceResult = randomPercentage();
-					let criticalHit;
-					if (criticalChanceResult <= criticalChance){
-						enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
-						criticalHit = true;
-					}
-					else{
-						enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
-						criticalHit = false;
-					}
-						
-					if (hitChanceResult <= hitChance){
-						enemiesDamageList[position].style.cssText = "font-style: normal; font-weight: bold";
-						enemiesObjects[position].life -= enemyReceivedDamage;
-						enemiesDamageList[position].innerHTML = enemyReceivedDamage;
-						if (criticalHit === true){	enemiesDamageList[position].classList.add("enemy-damage-display-critical");
+		  		setTimeout(function(){
+						let hitChanceResult = randomPercentage();
+						let criticalChanceResult = randomPercentage();
+						let criticalHit;
+						if (criticalChanceResult <= criticalChance){
+							enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+							criticalHit = true;
 						}
-						
 						else{
-							enemiesDamageList[position].classList.add("enemy-damage-display");
+							enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+							criticalHit = false;
 						}
-						if (enemiesObjects[position].life <= 0){
-							//enemiesObjects[position].sound.play();
+							
+						if (hitChanceResult <= hitChance){
+							enemiesDamageList[position].style.cssText = "font-style: normal; font-weight: bold";
+							enemiesObjects[position].life -= enemyReceivedDamage;
+							enemiesDamageList[position].innerHTML = enemyReceivedDamage;
+							if (criticalHit === true){	enemiesDamageList[position].classList.add("enemy-damage-display-critical");
+							}
+							
+							else{
+								enemiesDamageList[position].classList.add("enemy-damage-display");
+							}
+							if (enemiesObjects[position].life <= 0){
+								//enemiesObjects[position].sound.play();
+							}
 						}
-					}
-					else{
-						if (enemiesObjects[position].life > 0){
-							enemiesDamageList[position].style.cssText = "font-style: italic; font-weight: normal";
-							enemiesDamageList[position].innerHTML = "errou";
-							enemiesDamageList[position].classList.add("enemy-damage-display");
+						else{
+							if (enemiesObjects[position].life > 0){
+								enemiesDamageList[position].style.cssText = "font-style: italic; font-weight: normal";
+								enemiesDamageList[position].innerHTML = "errou";
+								enemiesDamageList[position].classList.add("enemy-damage-display");
+							}
 						}
-					}
-					
-					enemiesDamageList[position].addEventListener("animationend", function(){
-						enemiesDamageList[position].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
-					});
+						
+						enemiesDamageList[position].addEventListener("animationend", function(){
+							enemiesDamageList[position].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
+						});
+		  		}, 200);
 				}, {once : true});
 			}
 		}
@@ -1738,30 +1742,36 @@ molotovEquipButton.addEventListener("click", function(){
 bandageUseButton.addEventListener("click", function(){
 	const bandageSound = new Audio("assets/audio/items/bandage_sound.mp3");
 	bandageSound.play();
-	useHealtItem(30, "bandage");
+	setTimeout(function(){
+		useHealtItem(30, "bandage");
+	}, 500);
 });
 
 medikitUseButton.addEventListener("click", function(){
 	const medikitSound = new Audio("assets/audio/items/medikit_sound1.mp3");
 	medikitSound.play();
-	useHealtItem(70, "medikit");
+	setTimeout(function(){
+		useHealtItem(70, "medikit");
+	}, 500);
 });
 
 
 //Ações dos botões de ações
 searchButton.addEventListener("click", function(){
 	searchSound.play();
-	let searchDone = false;
-	searchScreen.classList.remove("d-none");
-	searchScreenBar.classList.add("search-bar-animation");
-	searchScreenBar.addEventListener("animationend", function(){
-		searchScreen.classList.add("d-none");
-		searchScreenBar.classList.remove("search-bar-animation");
-		if (searchDone === false){
-			searchAction();
-			searchDone = true;
-		}
-	});
+	setTimeout(function(){
+		let searchDone = false;
+		searchScreen.classList.remove("d-none");
+		searchScreenBar.classList.add("search-bar-animation");
+		searchScreenBar.addEventListener("animationend", function(){
+			searchScreen.classList.add("d-none");
+			searchScreenBar.classList.remove("search-bar-animation");
+			if (searchDone === false){
+				searchAction();
+				searchDone = true;
+			}
+		});
+	}, 100);
 });
 
 
@@ -1776,6 +1786,7 @@ passTurnButton.addEventListener("click", function(){
 
 walkButton.addEventListener("click", function(){
 	walkSound.play();
+	setTimeout(function(){
 	walking = true;
 	mainScreen.classList.add("walk-animation");
 	document.body.classList.add("pe-none");
@@ -1787,6 +1798,7 @@ walkButton.addEventListener("click", function(){
 			document.body.classList.remove("pe-none");
 		}
 	});
+	}, 200);
 });
 
 

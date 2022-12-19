@@ -129,13 +129,15 @@ let equipedMenuItem = playerMenuWeaponsList[0];
 function changeEquipedItem(itemImage, itemList, itemIndex){
 	const equipItemSound = new Audio("assets/audio/items/equip_item_sound.mp3");
 	equipItemSound.play();
-	attackButtonWeaponImage.src = itemImage;
-	itemList.forEach(function(item){
-		item.style.backgroundColor = "#e8dcb8";
-	});
-	equipedMenuItem.style.backgroundColor = "#e8dcb8";
-	itemList[itemIndex].style.backgroundColor = "#8B4000";
-	equipedMenuItem = itemList[itemIndex];
+	setTimeout(function(){
+		attackButtonWeaponImage.src = itemImage;
+		itemList.forEach(function(item){
+			item.style.backgroundColor = "#e8dcb8";
+		});
+		equipedMenuItem.style.backgroundColor = "#e8dcb8";
+		itemList[itemIndex].style.backgroundColor = "#8B4000";
+		equipedMenuItem = itemList[itemIndex];
+	}, 300);
 }
 
 
