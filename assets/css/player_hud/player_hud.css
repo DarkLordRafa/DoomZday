@@ -398,3 +398,304 @@
 	color: white;
 }
 
+
+
+
+@media (min-width: 1024px){
+.player-menu-area{
+	height: 40vh;
+	align-self: flex-end;
+}
+
+.player-menu-area__display, .player-menu-area-display__screen, .player-menu-area nav{
+	height: 100%;
+}
+
+.player-menu-area-display__screen, .player-menu-area__display li{
+	background-color: #e8dcb8;
+	border: 1px solid black;
+}
+
+.player-menu-area ul{
+	padding-top: 2vh;
+}
+
+.player-menu-area__options{
+	width: 10vh;
+	border-top-left-radius: 10px;
+	border: 1px solid black;
+}
+
+.player-menu-area__options li{
+	border: 2px solid black;
+	border-radius: 15px;
+	margin-left: 1vh;
+	margin-right: 2vh;
+	width: 4.5vw;
+	margin-bottom: 2vh;
+}
+
+.player-menu-area__options, .player-menu-area__options li{
+	height: 8vh;
+}
+
+.player-menu-area__options li img{
+	height: 100%;
+	width: 100%;
+	padding: 0.5vh;
+}
+
+.player-menu-area__display{
+	height: 100%;
+}
+
+.player-menu-area__display, .player-menu-area__display li{
+	width: 10vw;
+	height: 7vh;
+}
+
+.displayed-item-quantity{
+	font-size: 1.5vw;
+	padding: 0.5vh 1vh;
+}
+
+.player-menu-area__life-bar-background{
+	width: 4vw;
+}
+
+.player-menu-area__life-bar img{
+	height: 40vh;
+}
+
+.actions-area{
+	width: 30vw;
+}
+
+.actions-area__button{
+	border-radius: 50%;
+	border: 5px solid #A0522D;
+}
+
+.actions-area__button img{
+	height: 70%;
+	width: 70%;
+	object-fit: contain;
+}
+
+.actions-area__search-button{
+	height: 6vw;
+	width: 6vw;
+	margin-right: 5vh;
+	margin-top: 5vh;
+}
+
+.actions-area__attack-button{
+	height: 10vw;
+	width: 10vw;
+	margin-right: 5vh;
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+}
+
+.actions-area-weapon-ammo{
+	color: white;
+	font-size: 2vw;
+	bottom: 10%;
+	right: 15%;
+	padding: 0.5vh 1vh;
+	border-radius: 10px;
+}
+
+.actions-area__walk-button{
+	height: 6vw;
+	width: 6vw;
+	margin-right: 10vh;
+}
+
+.actions-area__pass-turn-button{
+	height: 6vw;
+	width: 6vw;
+	margin-right: 10vh;
+}
+
+.player-item-confirm{
+	background-color: black;
+	margin-bottom: 15vh;
+	padding: 8vh 8vh;
+	margin-left: 20vw;
+}
+
+.player-item-confirm div{
+	border-radius: 15px;
+	border: 5px solid #A0522D;
+	min-width: 15vh;
+	padding: 1vh 0;
+	font-size: 2vw;
+}
+
+.player-item-info, .player-weapon-info{
+	background-color: black;
+	height: 70vh;
+	width: 80vw;
+	margin-top: 10vh;
+	color: white;
+	padding: 5vw;
+}
+
+.item-info-name, .weapon-info-name{
+	font-size: 6vw;
+	font-weight: bold;
+}
+
+.item-info-image, .weapon-info-image{
+	max-height: 15vh;
+	max-width: 90%;
+	background-color: #343434;
+}
+
+.legendary-badge{
+	font-size: 4vw;
+	font-weight: 900;
+	background-color: #DAA520;
+	text-transform: uppercase;
+	padding: 1vw 3vw;
+	color: black;
+	border-radius: 5px;
+}
+
+.item-info-description, .weapon-info-content{
+	text-align: center;
+	font-size: 4.5vw;
+	overflow-y: auto;
+	height: 100%;
+}
+
+.item-info-ok-button, .weapon-info-ok-button{
+  font-size: 6vw;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+
+.craft-item-screen__content{
+	height: 50vh;
+	width: 100vw;
+	background-color: black;
+	position: relative;
+	margin-top: 20vh;
+}
+
+.craft-item__item-list{
+	height: 90%;
+	width: 30%;
+	background-color: #e8dcb8;
+	overflow-y: auto;
+}
+
+.craft-item__item-list li{
+	height: 15%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	border: 1px solid black;
+}
+
+.craft-item__item-list li:hover{
+	background-color: #8B4000;
+}
+
+.craft-item__item-list li img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.craft-item-area{
+	background-color: black;
+	position: absolute;
+	height: 100%;
+	width: 70%;
+	right: 0;
+	padding-bottom: 10%;
+}
+
+.craft-item-area__content{
+	margin-bottom: 5%;
+	padding: 0 3%;
+	height: 100%;
+}
+.craft-item-area__content *{
+	flex-shrink: 0;
+	flex-grow: 0;
+}
+
+.craft-item__materials-list{
+	width: 30vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 2vw;
+}
+
+.craft-item__materials-list li{
+	height: 14vw;
+	width: 14vw;
+	background-color: grey;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.displayed-craft-item-quantity{
+	position: absolute;
+	background-color: rgba(00, 00, 00, 0.7);
+	color: white;
+	font-size: 4vw;
+	display: inline-block;
+	bottom: 0;
+	right: 0;
+	height: auto!important;
+	padding: 0.5vw 2vw;
+	padding-bottom: 0;
+}
+
+.craft-item__materials-list li img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.craft-item__arrow-icon{
+	width: 15%;
+}
+
+.craft-item__result{
+	height: 20vw;
+	width: 20vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e8dcb8;
+	background-color: grey;
+}
+
+.craft-item__result img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.craft-item-area__button{
+	color: black;
+  background-color: #CD7F32;
+	border-radius: 10px;
+	border: 3px solid #A0522D;
+	min-width: 20vw;
+	text-align: center;
+	padding: 1vw 0;
+	font-size: 4.5vw;
+}
+
+.craft-item-area__button:active{
+	background-color: #8B4000;
+	color: white;
+}
+}

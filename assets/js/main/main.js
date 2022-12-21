@@ -393,21 +393,21 @@ function checkGameSave(){
 				weapons: {
 					pistol: false,
 		//Quando a munição for infinita, trocar por "---"
-					pistolAmmo: 10,
+					pistolAmmo: 100,
 					shotgun: false,
-					shotgunAmmo: 5
+					shotgunAmmo: 100
 				},
 				itemsQuantity: {
-					bandage: 0,
-					medikit: 0,
-					molotov: 0
+					bandage: 100,
+					medikit: 100,
+					molotov: 100
 				},
 				craftingItemsQuantity: {
-					cloth: 0,
-					alcohol: 0,
-					bottle: 0
+					cloth: 100,
+					alcohol: 100,
+					bottle: 100
 				},
-				scenary1Progress: 0
+				scenary1Progress: 80
 			},
 			gameTextsPosition: 0,
 			fightChance: 0
@@ -479,10 +479,10 @@ function craftItemCheck(
 		necessaryItem4
 		].some(value => {return value === 0;}))
 		{
-			targetCraftButton.classList.add("opacity-0", "pe-none");
+			targetCraftButton.classList.add("opacity-1", "pe-none");
 		}
 	else{
-			targetCraftButton.classList.remove("opacity-0", "pe-none");
+			targetCraftButton.classList.remove("opacity-1", "pe-none");
 	}
 }
 
@@ -618,7 +618,7 @@ function randomItems(){
 		savedGame.player.weapons.shotgun = true;
 	}
 	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true && newGamePlus === false){
-		thankYouNoteEventImage.classList.add("opacity-0");
+		thankYouNoteEventImage.classList.add("opacity-1");
 		displayReceivedEventItemScreen(thankYouNoteImage, "Nota do desenvolvedor");
 		const receivedEventItemOkButton = document.querySelector(".received-event-item__ok-button");
 		receivedEventItemOkButton.addEventListener("click", function(){
@@ -674,7 +674,7 @@ function randomItems(){
 
 //Funções de ativar os inimigos
 function activateEnemy1(){
-	enemiesList[0].classList.remove("opacity-0");
+	enemiesList[0].classList.remove("opacity-1");
 	enemiesList[0].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[0].src = zombie1Image;
@@ -714,7 +714,7 @@ function activateEnemy1(){
 
 
 function activateEnemy2(){
-	enemiesList[1].classList.remove("opacity-0");
+	enemiesList[1].classList.remove("opacity-1");
 	enemiesList[1].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[1].src = zombie2Image;
@@ -753,7 +753,7 @@ function activateEnemy2(){
 
 
 function activateEnemy3(){
-	enemiesList[2].classList.remove("opacity-0");
+	enemiesList[2].classList.remove("opacity-1");
 	enemiesList[2].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[2].src = zombie3Image;
@@ -792,7 +792,7 @@ function activateEnemy3(){
 
 
 function activateEnemy4(){
-	enemiesList[3].classList.remove("opacity-0");
+	enemiesList[3].classList.remove("opacity-1");
 	enemiesList[3].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[3].src = zombie4Image;
@@ -831,7 +831,7 @@ function activateEnemy4(){
 
 
 function activateEnemy5(){
-	enemiesList[4].classList.remove("opacity-0");
+	enemiesList[4].classList.remove("opacity-1");
 	enemiesList[4].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[4].src = zombie3Image;
@@ -870,7 +870,7 @@ function activateEnemy5(){
 
 
 function activateEnemy6(){
-	enemiesList[5].classList.remove("opacity-0");
+	enemiesList[5].classList.remove("opacity-1");
 	enemiesList[5].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[5].src = zombie1Image;
@@ -909,7 +909,7 @@ function activateEnemy6(){
 
 
 function activateEnemy7(){
-	enemiesList[6].classList.remove("opacity-0");
+	enemiesList[6].classList.remove("opacity-1");
 	enemiesList[6].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[6].src = zombie1Image;
@@ -948,7 +948,7 @@ function activateEnemy7(){
 
 
 function activateEnemy8(){
-	enemiesList[7].classList.remove("opacity-0");
+	enemiesList[7].classList.remove("opacity-1");
 	enemiesList[7].classList.add("enemy-active");
 	if (savedGame.player.scenary1Progress < 100 && fightDifficult === 1){
 		enemiesImageList[7].src = zombie1Image;
@@ -1085,7 +1085,7 @@ function gameProgress(){
 	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true && newGamePlus === false){
 		savedGame.fightChance = 0;
 		searchButtonHidden = false;
-		thankYouNoteEventImage.classList.remove("opacity-0");
+		thankYouNoteEventImage.classList.remove("opacity-1");
 	}
 	else if (savedGame.player.scenary1Progress > 90 && LastFightDone === true && newGamePlus === true){
 		savedGame.fightChance = 0;
@@ -1120,11 +1120,11 @@ function gameProgress(){
 	else if (savedGame.player.scenary1Progress === 90 && LastFightDone === false){
 		savedGame.fightChance = 100;
 		fightDifficult = 3;
-		enemy1AppearChance = 40;
-		enemy2AppearChance = 40;
-		enemy3AppearChance = 40;
-		enemy4AppearChance = 40;
-		enemy5AppearChance = 40;
+		enemy1AppearChance = 100;
+		enemy2AppearChance = 100;
+		enemy3AppearChance = 100;
+		enemy4AppearChance = 100;
+		enemy5AppearChance = 100;
 		enemy6AppearChance = 100;
 		enemy7AppearChance = 100;
 		enemy8AppearChance = 100;
@@ -1852,16 +1852,16 @@ function mainDisplayFunction(){
 	displayCraftingItemQuantity(displayedBottleQuantity, "bottle");
 	//Checando se o jogador está em uma luta
 	if (fighting === true){
-		searchButton.classList.add("opacity-0", "pe-none");
-		walkButton.classList.add("opacity-0", "pe-none");
-		attackButton.classList.remove("opacity-0", "pe-none");
-		passTurnButton.classList.remove("opacity-0", "pe-none");
+		searchButton.classList.add("opacity-1", "pe-none");
+		walkButton.classList.add("opacity-1", "pe-none");
+		attackButton.classList.remove("opacity-1", "pe-none");
+		passTurnButton.classList.remove("opacity-1", "pe-none");
 	}
 	else{
-		searchButton.classList.remove("opacity-0", "pe-none");
-		walkButton.classList.remove("opacity-0", "pe-none");
+		searchButton.classList.remove("opacity-1", "pe-none");
+		walkButton.classList.remove("opacity-1", "pe-none");
 		attackButton.classList.add("pe-none");
-		passTurnButton.classList.add("opacity-0", "pe-none");
+		passTurnButton.classList.add("opacity-1", "pe-none");
 	}
 	
 	//Validando os botões do menu principal
@@ -1881,10 +1881,10 @@ function mainDisplayFunction(){
 	//Checando a arma equipada
 	if (equipedWeapon === "none"){
 		displayedAmmoQuantity.innerHTML = "?";
-		attackButton.classList.add("opacity-0", "pe-none");
+		attackButton.classList.add("opacity-1", "pe-none");
 	}
 	else if (equipedWeapon !== "none"){
-		attackButton.classList.remove("opacity-0");
+		attackButton.classList.remove("opacity-1");
 	}
   if (equipedWeapon === "pistol"){
 		displayedAmmoQuantity.innerHTML = savedGame.player.weapons.pistolAmmo;
@@ -1916,21 +1916,21 @@ function mainDisplayFunction(){
 		menuWeaponCheck("shotgun", playerMenuWeaponsList, 1);
 		//Checando se é o início do jogo
 		if (savedGame.player.scenary1Progress === 0){
-			walkButton.classList.add("opacity-0", "pe-none");
+			walkButton.classList.add("opacity-1", "pe-none");
 		}
 		//Alterando a exibição do botão de busca de acordo com o progresso no jogo
 		if (savedGame.player.scenary1Progress === 5 || searchButtonHidden === true){
-			searchButton.classList.add("opacity-0", "pe-none");
+			searchButton.classList.add("opacity-1", "pe-none");
 		}
 	//Checando se é o fim do cenário 1
 		if (savedGame.player.scenary1Progress === 100){
-			walkButton.classList.add("opacity-0", "pe-none");
+			walkButton.classList.add("opacity-1", "pe-none");
 		}
 		
 	//Checando a vida dos inimigos e fazendo eles sumirem caso a vida seja 0
 	enemiesObjects.forEach(function(object, objectIndex){
 		if (object.life <= 0){
-			enemiesList[objectIndex].classList.add("opacity-0");
+			enemiesList[objectIndex].classList.add("opacity-1");
 			enemiesList[objectIndex].classList.remove("enemy-active");
 		}
 	});
@@ -1963,10 +1963,10 @@ function mainDisplayFunction(){
 	}
 	//Mostrando os eventos na área de ventos
 	if (burning === true){
-		fireEventImage.classList.remove("opacity-0");
+		fireEventImage.classList.remove("opacity-1");
 	}
 	else{
-		fireEventImage.classList.add("opacity-0");
+		fireEventImage.classList.add("opacity-1");
 	}
 }
 
@@ -1984,7 +1984,7 @@ function mainControlFunction(){
 		savedGame.fightChance = 100;
 	}
 	//Checando se o jogador está numa luta
-	if (enemiesList[0].classList.contains("opacity-0") && enemiesList[1].classList.contains("opacity-0") && enemiesList[2].classList.contains("opacity-0") && enemiesList[3].classList.contains("opacity-0") && enemiesList[4].classList.contains("opacity-0") && enemiesList[5].classList.contains("opacity-0") && enemiesList[6].classList.contains("opacity-0") && enemiesList[7].classList.contains("opacity-0")){
+	if (enemiesList[0].classList.contains("opacity-1") && enemiesList[1].classList.contains("opacity-1") && enemiesList[2].classList.contains("opacity-1") && enemiesList[3].classList.contains("opacity-1") && enemiesList[4].classList.contains("opacity-1") && enemiesList[5].classList.contains("opacity-1") && enemiesList[6].classList.contains("opacity-1") && enemiesList[7].classList.contains("opacity-1")){
 		fighting = false;
 	}
 	else{

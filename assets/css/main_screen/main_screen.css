@@ -332,3 +332,192 @@ body{
 .no-transition{
 	transition: none!important;
 }
+
+
+
+
+@media (min-width: 1024px){
+body{
+	width: 100vw;
+	height: 100vh;
+	font-family: Arial, Sans-Serif;
+}
+
+.loading-screen span{
+	font-size: 4vw;
+}
+
+.menu-screen nav{
+	margin-top: 10vh;
+}
+
+.menu-screen nav div{
+	color: white;
+	font-size: 2.5vw;
+	border-bottom: 5px solid white;
+}
+
+.menu-screen .confirmation-screen{
+	width: 100%;
+	height: 100%;
+	z-index: 20;
+	background-color: black;
+	padding: 0 8vw;
+}
+
+.confirmation-screen p{
+	margin-top: 10vh;
+	font-size: 3vw;
+	margin-bottom: 10vh;
+}
+
+.confirmation-button-area{
+	padding: 0 8vh;
+}
+
+.confirmation-button-area .button{
+	font-size: 3.5vw;
+	padding: 1vh 3vh;
+	border: 5px solid white;
+}
+
+.main-screen{
+	background-image: url("../../images/scenaries/scenary1c.jpeg");
+	background-size: auto 99%;
+	background-position: bottom;
+	background-repeat: no-repeat;
+	width: 50%!important;
+}
+
+.screen-damage-area{
+	box-shadow: 0 0 50px 30px red inset;
+}
+
+.enemies-area{
+	margin-top: 10vh;
+}
+
+.enemies-area .enemy{
+	height: 20vh;
+	width: 8vw;
+}
+
+.enemy .enemy__damage{
+	font-size: 2vw;
+	min-width: 8vh;
+}
+
+.mini-boss-area{
+	margin-top: -20vh;
+}
+
+.mini-boss-area .enemy{
+	height: 30vh;
+	width: 20vw;
+}
+
+.boss-area{
+	margin-top: -30vh;
+}
+
+.event-area{
+	width: 50vw;
+	margin-top: -25vh;
+}
+
+.event-area img{
+	position: absolute;
+	max-height: 25vh;
+}
+
+.screen-blood-area{
+	height: 50vh;
+	margin-top: 30vh;
+}
+
+.game-texts, .characters-dialogues, .received-items, .received-weapon, .received-event-item{
+	margin-top: 20vh;
+	color: white;
+}
+
+.game-texts__text-area p, .characters-dialogues__text-area p{
+	font-size: 2.2vw;
+}
+
+.next-button{
+	text-decoration: underline;
+	margin-top: 5vh;
+	font-size: 2.2vw;
+}
+
+.game-texts{
+	width: 60vw;
+	padding: 5vh 15vh;
+}
+
+.game-texts__text-area{
+	height: 25vh;
+	padding-right: 2vh;
+}
+
+.received-items, .received-weapon, .received-event-item{
+	border-radius: 30px;
+	height: 55vh;
+	width: 40vw;
+	padding: 3vh;
+}
+
+.received-items__title, .received-weapon__title, .received-event-item__title{
+	font-size: 3vw;
+	font-weight: 900;
+}
+
+.received-items img, .received-weapon img, .received-event-item img{
+	max-height: 15vh;
+	max-width: 90%;
+}
+
+.received-items__quantity{
+	font-size: 2.8vw;
+}
+
+.received-items p, .received-weapon p, .received-event-item p{
+	font-size: 2.5vw;
+	font-weight: 900;
+}
+
+.received-items__ok-button, .received-weapon__ok-button, .received-event-item__ok-button{
+	font-size: 2.8vw;
+}
+
+.search-fail{
+	background-color: black;
+	width: 45vw;
+	padding: 3vh;
+  margin-top: 30vh;
+}
+
+.search-fail__text{
+	font-size: 3vw;
+}
+
+.search-fail__ok-button{
+	font-size: 2.8vw;
+}
+
+.search-screen-area, .crafting-progress-screen__area{
+	margin-top: 30vh;
+	color: white;
+	width: 45vw;
+	padding: 15vh 5vh;
+}
+
+.search-screen-area__content span, .crafting-progress-screen-area__content span{
+	font-size: 4vw;
+}
+
+.search-screen-area__bar-container, .crafting-progress-screen-area__bar-container{
+	width: 100%;
+	height: 8vh;
+}
+}
