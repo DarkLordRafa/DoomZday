@@ -17,6 +17,13 @@
 	100%{background-position-y: bottom;}
 }
 
+@keyframes walkLargeScreen{
+	50%{background-position-y: 3vh;}
+	100%{background-position-y: bottom;}
+}
+
+
+
 body{
 	width: 100vw;
 	height: 90vh;
@@ -376,8 +383,8 @@ body{
 }
 
 .confirmation-button-area .button{
-	font-size: 3.5vw;
-	padding: 1vh 3vh;
+	font-size: 2.5vw;
+	padding: 0.5vh 1.5vh;
 	border: 5px solid white;
 }
 
@@ -394,7 +401,7 @@ body{
 }
 
 .enemies-area{
-	margin-top: 10vh;
+	margin-top: 15vh;
 }
 
 .enemies-area .enemy{
@@ -408,7 +415,7 @@ body{
 }
 
 .mini-boss-area{
-	margin-top: -20vh;
+	margin-top: -15vh;
 }
 
 .mini-boss-area .enemy{
@@ -418,6 +425,10 @@ body{
 
 .boss-area{
 	margin-top: -30vh;
+}
+
+.walk-animation{
+	animation: walkLargeScreen 0.8s linear 5 alternate;
 }
 
 .event-area{
@@ -430,14 +441,18 @@ body{
 	max-height: 25vh;
 }
 
+.event-area__thank-you-note{
+  height: 30%;
+  transition: opacity 2s;
+}
+
 .screen-blood-area{
 	height: 50vh;
 	margin-top: 30vh;
 }
 
 .game-texts, .characters-dialogues, .received-items, .received-weapon, .received-event-item{
-	margin-top: 20vh;
-	color: white;
+	margin-top: 30vh;
 }
 
 .game-texts__text-area p, .characters-dialogues__text-area p{
@@ -445,7 +460,6 @@ body{
 }
 
 .next-button{
-	text-decoration: underline;
 	margin-top: 5vh;
 	font-size: 2.2vw;
 }
@@ -469,7 +483,6 @@ body{
 
 .received-items__title, .received-weapon__title, .received-event-item__title{
 	font-size: 3vw;
-	font-weight: 900;
 }
 
 .received-items img, .received-weapon img, .received-event-item img{
@@ -483,7 +496,6 @@ body{
 
 .received-items p, .received-weapon p, .received-event-item p{
 	font-size: 2.5vw;
-	font-weight: 900;
 }
 
 .received-items__ok-button, .received-weapon__ok-button, .received-event-item__ok-button{

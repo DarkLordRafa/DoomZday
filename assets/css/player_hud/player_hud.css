@@ -534,93 +534,53 @@
 }
 
 .player-item-info, .player-weapon-info{
-	background-color: black;
-	height: 70vh;
-	width: 80vw;
-	margin-top: 10vh;
-	color: white;
-	padding: 5vw;
+	height: 60vh;
+	width: 40vw;
+	margin-top: 30vh;
+	padding: 3vh;
 }
 
 .item-info-name, .weapon-info-name{
-	font-size: 6vw;
-	font-weight: bold;
+	font-size: 3vw;
 }
 
 .item-info-image, .weapon-info-image{
 	max-height: 15vh;
 	max-width: 90%;
-	background-color: #343434;
 }
 
 .legendary-badge{
 	font-size: 4vw;
-	font-weight: 900;
-	background-color: #DAA520;
-	text-transform: uppercase;
 	padding: 1vw 3vw;
-	color: black;
 	border-radius: 5px;
 }
 
 .item-info-description, .weapon-info-content{
-	text-align: center;
-	font-size: 4.5vw;
-	overflow-y: auto;
-	height: 100%;
+	font-size: 2.5vw;
 }
 
 .item-info-ok-button, .weapon-info-ok-button{
-  font-size: 6vw;
-	font-weight: 900;
-	text-transform: uppercase;
+  font-size: 2.8vw;
 }
 
 .craft-item-screen__content{
 	height: 50vh;
-	width: 100vw;
-	background-color: black;
-	position: relative;
-	margin-top: 20vh;
+	width: 50vw;
+	margin-top: 35vh;
 }
 
 .craft-item__item-list{
 	height: 90%;
-	width: 30%;
-	background-color: #e8dcb8;
-	overflow-y: auto;
-}
-
-.craft-item__item-list li{
-	height: 15%;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	border: 1px solid black;
-}
-
-.craft-item__item-list li:hover{
-	background-color: #8B4000;
-}
-
-.craft-item__item-list li img{
-	max-height: 100%;
-	max-width: 100%;
+	width: 20%;
 }
 
 .craft-item-area{
-	background-color: black;
-	position: absolute;
-	height: 100%;
-	width: 70%;
-	right: 0;
-	padding-bottom: 10%;
+	padding-bottom: 5%;
 }
 
 .craft-item-area__content{
-	margin-bottom: 5%;
+	margin-bottom: 2%;
 	padding: 0 3%;
-	height: 100%;
 }
 .craft-item-area__content *{
 	flex-shrink: 0;
@@ -628,40 +588,18 @@
 }
 
 .craft-item__materials-list{
-	width: 30vw;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
+	width: 12vw;
 	gap: 2vw;
 }
 
 .craft-item__materials-list li{
-	height: 14vw;
-	width: 14vw;
-	background-color: grey;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
+	height: 4.5vw;
+	width: 4.5vw;
 }
 
 .displayed-craft-item-quantity{
-	position: absolute;
-	background-color: rgba(00, 00, 00, 0.7);
-	color: white;
-	font-size: 4vw;
-	display: inline-block;
-	bottom: 0;
-	right: 0;
-	height: auto!important;
-	padding: 0.5vw 2vw;
-	padding-bottom: 0;
-}
-
-.craft-item__materials-list li img{
-	max-height: 100%;
-	max-width: 100%;
+	font-size: 1.2vw;
+	padding: 0.3vh 0.8vh;
 }
 
 .craft-item__arrow-icon{
@@ -669,33 +607,15 @@
 }
 
 .craft-item__result{
-	height: 20vw;
-	width: 20vw;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #e8dcb8;
-	background-color: grey;
-}
-
-.craft-item__result img{
-	max-height: 100%;
-	max-width: 100%;
+	height: 6vw;
+	width: 6vw;
 }
 
 .craft-item-area__button{
-	color: black;
-  background-color: #CD7F32;
-	border-radius: 10px;
-	border: 3px solid #A0522D;
-	min-width: 20vw;
-	text-align: center;
-	padding: 1vw 0;
-	font-size: 4.5vw;
-}
-
-.craft-item-area__button:active{
-	background-color: #8B4000;
-	color: white;
+	border-radius: 15px;
+	border: 5px solid #A0522D;
+	min-width: 8vw;
+	padding: 0.5vw 0;
+	font-size: 2vw;
 }
 }
