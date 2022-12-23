@@ -73,6 +73,40 @@ body{
 	padding: 0 15vw;
 }
 
+.feedback-screen input, .feedback-screen textarea{
+	background-color: transparent;
+	outline: none;
+}
+.feedback-screen__email{
+	border: 1px solid white;
+	color: white;
+	width: 100%;
+	font-size: 5vw;
+}
+
+.feedback-screen__message{
+	border: 1px solid white;
+	color: white;
+	width: 100%;
+	font-size: 5vw;
+	height: 15vh;
+}
+
+.feedback-screen__return-button, .feedback-screen__submit-button{
+	color: white;
+	font-size: 5vw;
+	text-align: center;
+	font-weight: 900;
+	border: none;
+	border-bottom: 3px solid white;
+	text-transform: uppercase;
+}
+
+.feedback-screen__return-button:hover, .feedback-screen__submit-button:hover{
+	background-color: white;
+	color: black;
+}
+
 .confirmation-screen p{
 	margin-top: 20vh;
 	font-size: 6vw;
@@ -359,7 +393,6 @@ body{
 }
 
 .menu-screen nav div{
-	color: white;
 	font-size: 2.5vw;
 	border-bottom: 5px solid white;
 }
@@ -370,6 +403,22 @@ body{
 	z-index: 20;
 	background-color: black;
 	padding: 0 8vw;
+}
+
+.feedback-screen__email{
+	border: 3px solid white;
+	font-size: 2.5vw;
+}
+
+.feedback-screen__message{
+	border: 3px solid white;
+	font-size: 2.5vw;
+	height: 15vh;
+}
+
+.feedback-screen__return-button, .feedback-screen__submit-button{
+	font-size: 2.5vw;
+	border-bottom: 5px solid white;
 }
 
 .confirmation-screen p{

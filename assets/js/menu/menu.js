@@ -3,6 +3,9 @@
 const menuScreen = document.querySelector(".menu-screen");
 const loadGameButton = document.querySelector(".menu-screen__load-game");
 const saveGameButton = document.querySelector(".menu-screen__save-game");
+const feedbackButton = document.querySelector(".menu-screen__feedback");
+const feedbackScreen = document.querySelector(".feedback-screen");
+const feedbackReturnButton = document.querySelector(".feedback-screen__return-button");
 const newGameScreen = document.querySelector(".new-game-screen");
 const saveGameScreen = document.querySelector(".save-game-screen");
 const loadGameScreen = document.querySelector(".load-game-screen");
@@ -54,6 +57,10 @@ saveGameButton.addEventListener("click", function(){
 	menuScreenDisplay(saveGameScreen);
 });
 
+feedbackButton.addEventListener("click", function(){
+	menuScreenDisplay(feedbackScreen);
+});
+
 saveGameCancelButton.addEventListener("click", function(){
 	menuScreenClose(saveGameScreen);
 });
@@ -63,5 +70,9 @@ saveGameConfirmButton.addEventListener("click", function(){
 });
 
 menuScreenReturnButton.addEventListener("click", function(){
-	menuScreen.classList.add("d-none");
+	menuScreenClose(menuScreen);
+});
+
+feedbackReturnButton.addEventListener("click", function(){
+	menuScreenClose(feedbackScreen);
 });

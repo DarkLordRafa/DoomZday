@@ -192,7 +192,7 @@
 					<div class="menu-screen__save-game p-2 mb-3 d-none">
 						Salvar
 					</div>
-					<div class="menu-screen__feedback p-2 d-none">
+					<div class="menu-screen__feedback p-2">
 						Feedback
 					</div>
 					<div class="menu-screen__return p-2 d-none">
@@ -244,8 +244,22 @@
 				</div>
 				
 				<!-- Tela da mensagem de feedback -->
-				<div class="feedback-screen d-none">
-					
+				<div class="feedback-screen confirmation-screen position-absolute d-flex flex-column align-items-center d-none">
+					<p class="mt-2 mb-4">
+						Deixe seu comentário sobre o jogo.
+						<br/>
+						O que achou, opiniões, dúvidas, sugestões, erros, etc.
+					</p>
+					<form class="d-flex flex-column align-items-center" action="https://api.staticforms.xyz/submit" method="post">
+		        <input type="hidden" name="accessKey" value="69e1ddb2-d67f-4200-b93e-b4433483a4fc">
+		        <input class="feedback-screen__email mb-2" type="email" name="email" placeholder="Seu email (opcional)">
+		        <textarea class="feedback-screen__message mb-2" name="message" placeholder="Sua mensagem" required></textarea>
+		        <input type="hidden" name="redirectTo" value="https://doomzday.netlify.app/demo">
+		        <input class="feedback-screen__submit-button p-2" type="submit" value="Enviar" />
+					</form>
+					<div class="feedback-screen__return-button p-2">
+						Voltar
+					</div>
 				</div>
 			</div>
 			
