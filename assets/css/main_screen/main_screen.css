@@ -32,13 +32,37 @@ body{
 
 .loading-screen{
 	background-color: black;
-	z-index: 20;
+	z-index: 21;
 }
 
 .loading-screen span{
 	color: white;
 	font-size: 7vw;
 	text-align: center;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+
+.save-warning-screen{
+	background-color: black;
+	z-index: 20;
+	color: white;
+}
+
+.save-warning-screen__title{
+	font-size: 7vw;
+	text-align: center;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+
+.save-warning-screen__text{
+	font-size: 5vw;
+	text-align: center;
+}
+
+.save-warning-screen__ok-button{
+	font-size: 6vw;
 	font-weight: 900;
 	text-transform: uppercase;
 }
@@ -386,6 +410,18 @@ body{
 
 .loading-screen span{
 	font-size: 4vw;
+}
+
+.save-warning-screen__title{
+	font-size: 4vw;
+}
+
+.save-warning-screen__text{
+	font-size: 3vw;
+}
+
+.save-warning-screen__ok-button{
+	font-size: 3.5vw;
 }
 
 .menu-screen nav{

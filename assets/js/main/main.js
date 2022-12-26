@@ -77,6 +77,7 @@ const gameTextsCheckpointButton = document.querySelector(".game-texts__checkpoin
 
 //Variáveis do menu principal
 const loadingScreen = document.querySelector(".loading-screen");
+const saveWarningScreen = document.querySelector(".save-warning-screen");
 const newGameButton = document.querySelector(".menu-screen__new-game");
 const loadGameButton = document.querySelector(".menu-screen__load-game");
 const saveGameButton = document.querySelector(".menu-screen__save-game");
@@ -348,6 +349,7 @@ function loadEvent(){
 //Função de salvar o jogo
 function saveGameFunction(){
 	window.localStorage.setItem("saved_game_key", JSON.stringify(savedGame));
+	savedGame.firstPlay = true;
 }
 
 //Função de carregar o jogo
@@ -410,12 +412,16 @@ function checkGameSave(){
 				scenary1Progress: 0
 			},
 			gameTextsPosition: 0,
-			fightChance: 0
+			fightChance: 0,
+			firstPlay: false
 		};
 		saveGameFunction();
 	}
 }
 
+if (savedGame.firstPlay === undefined || savedGame.firstPlay === false){
+	saveWarningScreen.classList.remove("d-none");
+}
 
 
 //Função que mostra a quantidade do item na tela baseada no elemento alvo e no nome da propriedade do objeto savedGame.player.itemsQuantity

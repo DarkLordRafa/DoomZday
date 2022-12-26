@@ -16,7 +16,8 @@ const loadGameConfirmButton = document.querySelector("#load-game-confirm-button"
 const saveGameCancelButton = document.querySelector("#save-game-cancel-button");
 const saveGameConfirmButton = document.querySelector("#save-game-confirm-button");
 const menuScreenReturnButton = document.querySelector(".menu-screen__return");
-
+const saveWarningScreen = document.querySelector(".save-warning-screen");
+const saveWarningScreenOkButton = document.querySelector(".save-warning-screen__ok-button");
 
 //Função que abre a tela de confirmação da opção do menu principal, baseada no argumento passado
 function menuScreenDisplay(targetScreen){
@@ -75,4 +76,8 @@ menuScreenReturnButton.addEventListener("click", function(){
 
 feedbackReturnButton.addEventListener("click", function(){
 	menuScreenClose(feedbackScreen);
+});
+
+saveWarningScreenOkButton.addEventListener("click", function(){
+	menuScreenClose(saveWarningScreen);
 });
