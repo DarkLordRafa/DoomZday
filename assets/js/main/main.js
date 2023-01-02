@@ -615,11 +615,48 @@ function randomItems(){
 	let bottlePercentage = randomPercentage();
 	let ammo9mmPercentage = randomPercentage();
 	let ammoShotgunPercentage = randomPercentage();
-	if (pistolPercentage <= 100 && savedGame.player.weapons.pistol === false){
+	
+	let pistolChance = 100;
+	let shotgunChance = 100;
+	let clothChance = 16;
+	let alcoholChance = 28;
+	let ammo9mmChance = 40;
+	let ammoShotgunChance = 50;
+	let bandageChance = 25;
+	let bottleChance = 5;
+	let molotovChance = 4;
+	let medikitChance = 20;
+	
+	if (savedGame.player.weapons.pistolAmmo < 10 && savedGame.player.itemsQuantity.bandage >= 2){
+		clothChance = 0;
+		alcoholChance = 0;
+		bottleChance = 0;
+		ammo9mmChance = 90;
+	}
+	if (savedGame.player.weapons.shotgunAmmo < 5 && savedGame.player.itemsQuantity.bandage >= 2){
+		ammoShotgunChance = 80;
+	}
+	if (savedGame.player.itemsQuantity.bandage < 2 && savedGame.player.itemsQuantity.medikit < 2){
+		if (savedGame.player.craftingItemsQuantity.cloth < 2 || savedGame.player.craftingItemsQuantity.alcohol < 2){
+			clothChance = 0;
+			alcoholChance = 0;
+			bottleChance = 0;
+			molotovChance = 0;
+			if (savedGame.player.weapons.pistolAmmo >= 10){
+				ammo9mmChance = 0;
+			}
+			if (savedGame.player.weapons.shotgunAmmo >= 5){
+				ammoShotgunChance = 0;
+			}
+			bandageChance = 90;
+		}
+	}
+	
+	if (pistolPercentage <= pistolChance && savedGame.player.weapons.pistol === false){
 		displayReceivedWeaponScreen(pistolImage, "Pistola 9mm");
 		savedGame.player.weapons.pistol = true;
 	}
-	else if (shotgunPercentage <= 100 && savedGame.player.weapons.shotgun === false && savedGame.player.scenary1Progress >= 50){
+	else if (shotgunPercentage <= shotgunChance && savedGame.player.weapons.shotgun === false && savedGame.player.scenary1Progress >= 50){
 		displayReceivedWeaponScreen(shotgunImage, "Escopeta");
 		savedGame.player.weapons.shotgun = true;
 	}
@@ -633,42 +670,42 @@ function randomItems(){
 			gameTextsNextButton.addEventListener("click", gameTextsScreenEndpointClose);
 		});
 	}
-	else if (clothPercentage <= 24){
+	else if (clothPercentage <= clothChance){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(clothImage, foundQuantity, "Pano");
 		savedGame.player.craftingItemsQuantity.cloth += foundQuantity;
 	}
-	else if (alcoholPercentage <= 28){
+	else if (alcoholPercentage <= alcoholChance){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(alcoholImage, foundQuantity, "Álcool");
 		savedGame.player.craftingItemsQuantity.alcohol += foundQuantity;
 	}
-	else if (bottlePercentage <= 5){
+	else if (bottlePercentage <= bottleChance){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(bottleImage, foundQuantity, "Garrafa");
 		savedGame.player.craftingItemsQuantity.bottle += foundQuantity;
 	}
-	else if (ammo9mmPercentage <= 50){
+	else if (ammo9mmPercentage <= ammo9mmChance){
 		let foundQuantity = randomRangeNumber(5, 15);
 		displayReceivedItemScreen(ammoImage9mm, foundQuantity, "Munição de 9mm");
 		savedGame.player.weapons.pistolAmmo += foundQuantity;
 	}
-	else if (ammoShotgunPercentage <= 60 && savedGame.player.scenary1Progress>= 50){
+	else if (ammoShotgunPercentage <= ammoShotgunChance && savedGame.player.scenary1Progress>= 50){
 		let foundQuantity = randomRangeNumber(1, 5);
 		displayReceivedItemScreen(ammoImageShotgun, foundQuantity, "Cartuchos de escopeta");
 		savedGame.player.weapons.shotgunAmmo += foundQuantity;
 	}
-	else if (molotovPercentage <= 4){
+	else if (molotovPercentage <= molotovChance){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(molotovImage, foundQuantity, "Molotov");
 		savedGame.player.itemsQuantity.molotov += foundQuantity;
 	}
-	else if (bandagePercentage <= 25){
+	else if (bandagePercentage <= bandageChance){
 		let foundQuantity = randomRangeNumber(1, 2);
 		displayReceivedItemScreen(bandageImage, foundQuantity, "Bandagem");
 		savedGame.player.itemsQuantity.bandage += foundQuantity;
 	}
-	else if (medikitPercentage <= 20){
+	else if (medikitPercentage <= medikitChance){
 		let foundQuantity = randomRangeNumber(1, 1);
 		displayReceivedItemScreen(medikitImage, foundQuantity, "Kit médico");
 		savedGame.player.itemsQuantity.medikit += foundQuantity;
@@ -1750,10 +1787,10 @@ craftMolotovButton.addEventListener("click", function(){
 
 //Ações dos botões de equipar armas e itens
 pistolEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("pistol", 80, 30, 50, 70, 100, 150);
+	changedEquipedWeapon("pistol", 82, 30, 50, 70, 100, 150);
 });
 shotgunEquipButton.addEventListener("click", function(){
-	changedEquipedWeapon("shotgun", 70, 0, 100, 200);
+	changedEquipedWeapon("shotgun", 75, 0, 100, 200);
 });
 molotovEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("molotov", 100, 10, 35, 35, 100, 300);
