@@ -274,9 +274,6 @@ let fighting = false;
 //Variável com o estado de andando
 let walking = false;
 
-//Variável com o estado de buscando
-let searching = false;
-
 //Estado do efeito de queimadura dos inimigos
 let burning = false;
 let burningCounter = 0;
@@ -360,6 +357,7 @@ function loadGameFunction(){
 	loadEvent();
 	savedGame = JSON.parse(window.localStorage.getItem("saved_game_key"));
 	equipedWeapon = "none";
+	gameProgress();
 	resetScreen();
 }
 
@@ -1164,7 +1162,7 @@ function gameProgress(){
 		enemy7AppearChance = 30;
 		enemy8AppearChance = 100;
 	}
-	else if (savedGame.player.scenary1Progress === 90 && LastFightDone === false && searching === false){
+	else if (savedGame.player.scenary1Progress === 90 && LastFightDone === false){
 		savedGame.fightChance = 100;
 		fightDifficult = 3;
 		enemy1AppearChance = 100;
@@ -1401,7 +1399,6 @@ function displayGameTextsScreen(text){
 
 //Função da ação de busca
 function searchAction(){
-	searching = true;
 	if (savedGame.player.scenary1Progress === 0){
 		savedGame.fightChance = 0;
 		savedGame.player.scenary1Progress += 5;
@@ -1423,18 +1420,9 @@ function searchAction(){
 	const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
 	const receivedWeaponOkButton = document.querySelector(".received-weapon__ok-button");
   const searchFailOkButton = document.querySelector(".search-fail__ok-button");
-  receivedItemsOkButton.addEventListener("click", function(){
-  	randomFight();
-  	searching = false;
-  });
-  receivedWeaponOkButton.addEventListener("click", function(){
-  	randomFight();
-  	searching = false;
-  	});
-  searchFailOkButton.addEventListener("click", function(){
-  	randomFight();
-  	searching = false;
-  	});
+  receivedItemsOkButton.addEventListener("click", randomFight);
+  receivedWeaponOkButton.addEventListener("click", randomFight);
+  searchFailOkButton.addEventListener("click", randomFight);
 }
 
 
