@@ -274,6 +274,9 @@ let fighting = false;
 //Variável com o estado de andando
 let walking = false;
 
+//Variável com o estado de buscando
+let searching = false;
+
 //Estado do efeito de queimadura dos inimigos
 let burning = false;
 let burningCounter = 0;
@@ -1064,6 +1067,7 @@ function resetScreen(){
 function randomFight(){
 	let fightChanceResult = randomPercentage();
 	if (fightChanceResult <= savedGame.fightChance){
+	//Resetando elementos no começo da função para evitar erros visuais
 		enemiesDamageList.forEach(element =>{element.classList.remove("enemy-damage-display", "enemy-damage-display-critical");});
 		enemiesList.forEach(element =>{element.style.zIndex = 1;});
 		let enemy1AppearResult = randomPercentage();
@@ -1160,7 +1164,7 @@ function gameProgress(){
 		enemy7AppearChance = 30;
 		enemy8AppearChance = 100;
 	}
-	else if (savedGame.player.scenary1Progress === 90 && LastFightDone === false){
+	else if (savedGame.player.scenary1Progress === 90 && LastFightDone === false && searching === false){
 		savedGame.fightChance = 100;
 		fightDifficult = 3;
 		enemy1AppearChance = 100;
@@ -1397,6 +1401,7 @@ function displayGameTextsScreen(text){
 
 //Função da ação de busca
 function searchAction(){
+	searching = true;
 	if (savedGame.player.scenary1Progress === 0){
 		savedGame.fightChance = 0;
 		savedGame.player.scenary1Progress += 5;
@@ -1421,6 +1426,7 @@ function searchAction(){
   receivedItemsOkButton.addEventListener("click", randomFight);
   receivedWeaponOkButton.addEventListener("click", randomFight);
   searchFailOkButton.addEventListener("click", randomFight);
+  searching = false;
 }
 
 
