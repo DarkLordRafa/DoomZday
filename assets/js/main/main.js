@@ -1423,10 +1423,18 @@ function searchAction(){
 	const receivedItemsOkButton = document.querySelector(".received-items__ok-button");
 	const receivedWeaponOkButton = document.querySelector(".received-weapon__ok-button");
   const searchFailOkButton = document.querySelector(".search-fail__ok-button");
-  receivedItemsOkButton.addEventListener("click", randomFight);
-  receivedWeaponOkButton.addEventListener("click", randomFight);
-  searchFailOkButton.addEventListener("click", randomFight);
-  searching = false;
+  receivedItemsOkButton.addEventListener("click", function(){
+  	randomFight();
+  	searching = false;
+  });
+  receivedWeaponOkButton.addEventListener("click", function(){
+  	randomFight();
+  	searching = false;
+  	});
+  searchFailOkButton.addEventListener("click", function(){
+  	randomFight();
+  	searching = false;
+  	});
 }
 
 
