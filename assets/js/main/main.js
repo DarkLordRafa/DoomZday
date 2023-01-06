@@ -1208,7 +1208,6 @@ function gameProgress(){
 	
 	if (autoSavePoints.some(item =>{return item === true;})){
 		saveGameFunction();
-		alert("salvou");
 	}
 }
 
