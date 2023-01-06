@@ -411,7 +411,7 @@ function checkGameSave(){
 					alcohol: 0,
 					bottle: 0
 				},
-				scenary1Progress: 50
+				scenary1Progress: 0
 			},
 			gameTextsPosition: 0,
 			fightChance: 0,
