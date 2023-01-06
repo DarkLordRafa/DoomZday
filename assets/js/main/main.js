@@ -295,7 +295,7 @@ let burningMinCriticalDamage = 0;
 let burningMaxCriticalDamage = 0;
 
 
-
+/*
 //Variáveis das chances dos inimigos surgirem
 let enemy1AppearChance = 0;
 let enemy2AppearChance = 0;
@@ -305,7 +305,7 @@ let enemy5AppearChance = 0;
 let enemy6AppearChance = 0;
 let enemy7AppearChance = 0;
 let enemy8AppearChance = 0;
-
+*/
 
 //Imagens dos inimigos
 const zombie1Image = "assets/images/enemies/zombie1.png";
@@ -357,8 +357,9 @@ function loadGameFunction(){
 	loadEvent();
 	savedGame = JSON.parse(window.localStorage.getItem("saved_game_key"));
 	equipedWeapon = "none";
-	gameProgress();
+	//gameProgress();
 	resetScreen();
+	
 }
 
 //Função de novo jogo
@@ -410,19 +411,38 @@ function checkGameSave(){
 					alcohol: 0,
 					bottle: 0
 				},
-				scenary1Progress: 0
+				scenary1Progress: 50
 			},
 			gameTextsPosition: 0,
 			fightChance: 0,
+			enemy1AppearChance: 0,
+			enemy2AppearChance: 0,
+			enemy3AppearChance: 0,
+			enemy4AppearChance: 0,
+			enemy5AppearChance: 0,
+			enemy6AppearChance: 0,
+			enemy7AppearChance: 0,
+			enemy8AppearChance: 0,
 			firstPlay: false
 		};
 		saveGameFunction();
 	}
 }
 
-if (savedGame.firstPlay === undefined || savedGame.firstPlay === false){
-	saveWarningScreen.classList.remove("d-none");
-}
+	if (savedGame.firstPlay === undefined || savedGame.firstPlay === false){
+		saveWarningScreen.classList.remove("d-none");
+	}
+	if (savedGame.enemy1AppearChance === undefined){
+		savedGame.enemy1AppearChance = 0;
+		savedGame.enemy2AppearChance = 0;
+		savedGame.enemy3AppearChance = 0;
+		savedGame.enemy4AppearChance = 0;
+		savedGame.enemy5AppearChance = 0;
+		savedGame.enemy6AppearChance = 0;
+		savedGame.enemy7AppearChance = 0;
+		savedGame.enemy8AppearChance = 0;
+		gameProgress();
+	}
 
 
 //Função que mostra a quantidade do item na tela baseada no elemento alvo e no nome da propriedade do objeto savedGame.player.itemsQuantity
@@ -1078,42 +1098,42 @@ function randomFight(){
 		let enemy8AppearResult = randomPercentage();
 		
 		
-		if (enemy1AppearResult <= enemy1AppearChance){
+		if (enemy1AppearResult <= savedGame.enemy1AppearChance){
 			
 			activateEnemy1();
 			enemy1.sound.play();
 		}
-		if (enemy2AppearResult <= enemy2AppearChance){
+		if (enemy2AppearResult <= savedGame.enemy2AppearChance){
 			
 			activateEnemy2();
 			enemy2.sound.play();
 		}
-		if (enemy3AppearResult <= enemy3AppearChance){
+		if (enemy3AppearResult <= savedGame.enemy3AppearChance){
 			
 			activateEnemy3();
 			enemy3.sound.play();
 		}
-		if (enemy4AppearResult <= enemy4AppearChance){
+		if (enemy4AppearResult <= savedGame.enemy4AppearChance){
 			
 			activateEnemy4();
 			enemy4.sound.play();
 		}
-		if (enemy5AppearResult <= enemy5AppearChance){
+		if (enemy5AppearResult <= savedGame.enemy5AppearChance){
 			
 			activateEnemy5();
 			enemy5.sound.play();
 		}
-		if (enemy6AppearResult <= enemy6AppearChance){
+		if (enemy6AppearResult <= savedGame.enemy6AppearChance){
 			
 			activateEnemy6();
 			enemy6.sound.play();
 		}
-		if (enemy7AppearResult <= enemy7AppearChance){
+		if (enemy7AppearResult <= savedGame.enemy7AppearChance){
 			
 			activateEnemy7();
 			enemy7.sound.play();
 		}
-		if (enemy8AppearResult <= enemy8AppearChance){
+		if (enemy8AppearResult <= savedGame.enemy8AppearChance){
 			activateEnemy8();
 			enemy8.sound.play();
 		}
@@ -1141,38 +1161,38 @@ function gameProgress(){
 	else if (savedGame.player.scenary1Progress > 5 && savedGame.player.scenary1Progress <= 50){
 		savedGame.fightChance = 50;
 		fightDifficult = 1;
-		enemy1AppearChance = 0;
-		enemy2AppearChance = 0;
-		enemy3AppearChance = 0;
-		enemy4AppearChance = 0;
-		enemy5AppearChance = 0;
-		enemy6AppearChance = 10;
-		enemy7AppearChance = 20;
-		enemy8AppearChance = 100;
+		savedGame.enemy1AppearChance = 0;
+		savedGame.enemy2AppearChance = 0;
+		savedGame.enemy3AppearChance = 0;
+		savedGame.enemy4AppearChance = 0;
+		savedGame.enemy5AppearChance = 0;
+		savedGame.enemy6AppearChance = 10;
+		savedGame.enemy7AppearChance = 20;
+		savedGame.enemy8AppearChance = 100;
 	}
 	else if (savedGame.player.scenary1Progress > 50 && savedGame.player.scenary1Progress < 90){
 		savedGame.fightChance = 70;
 		fightDifficult = 2;
-		enemy1AppearChance = 0;
-		enemy2AppearChance = 0;
-		enemy3AppearChance = 0;
-		enemy4AppearChance = 0;
-		enemy5AppearChance = 0;
-		enemy6AppearChance = 20;
-		enemy7AppearChance = 30;
-		enemy8AppearChance = 100;
+		savedGame.enemy1AppearChance = 0;
+		savedGame.enemy2AppearChance = 0;
+		savedGame.enemy3AppearChance = 0;
+		savedGame.enemy4AppearChance = 0;
+		savedGame.enemy5AppearChance = 0;
+		savedGame.enemy6AppearChance = 20;
+		savedGame.enemy7AppearChance = 30;
+		savedGame.enemy8AppearChance = 100;
 	}
 	else if (savedGame.player.scenary1Progress === 90 && LastFightDone === false){
 		savedGame.fightChance = 100;
 		fightDifficult = 3;
-		enemy1AppearChance = 100;
-		enemy2AppearChance = 100;
-		enemy3AppearChance = 100;
-		enemy4AppearChance = 100;
-		enemy5AppearChance = 100;
-		enemy6AppearChance = 100;
-		enemy7AppearChance = 100;
-		enemy8AppearChance = 100;
+		savedGame.enemy1AppearChance = 100;
+		savedGame.enemy2AppearChance = 100;
+		savedGame.enemy3AppearChance = 100;
+		savedGame.enemy4AppearChance = 100;
+		savedGame.enemy5AppearChance = 100;
+		savedGame.enemy6AppearChance = 100;
+		savedGame.enemy7AppearChance = 100;
+		savedGame.enemy8AppearChance = 100;
 	}
 	
 	
@@ -1188,6 +1208,7 @@ function gameProgress(){
 	
 	if (autoSavePoints.some(item =>{return item === true;})){
 		saveGameFunction();
+		alert("salvou");
 	}
 }
 
@@ -1405,14 +1426,14 @@ function searchAction(){
 	}
 	else{
 	//Aumentar mais as dificuldades, como chance dos inimigos aparecerem e a dificuldade da luta
-		enemy8AppearChance += 10;
-		enemy7AppearChance += 3;
-		enemy6AppearChance += 2;
-		enemy5AppearChance += 1;
-		enemy4AppearChance += 1;
-		enemy3AppearChance += 1;
-		enemy2AppearChance += 1;
-		enemy1AppearChance += 1;
+		savedGame.enemy8AppearChance += 10;
+		savedGame.enemy7AppearChance += 3;
+		savedGame.enemy6AppearChance += 2;
+		savedGame.enemy5AppearChance += 1;
+		savedGame.enemy4AppearChance += 1;
+		savedGame.enemy3AppearChance += 1;
+		savedGame.enemy2AppearChance += 1;
+		savedGame.enemy1AppearChance += 1;
 	//Os inimigos não vão aparecer se a chance de luta não for suficiente pra entrar em um luta
 		savedGame.fightChance += 10;
 	}
