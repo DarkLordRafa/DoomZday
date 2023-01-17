@@ -54,6 +54,7 @@
 	margin-right: 2vw;
 	width: 10vw;
 	margin-bottom: 2vw;
+	cursor: pointer;
 }
 
 .player-menu-area__options li:hover, .player-menu-area__display li:hover, .actions-area__button:active{
@@ -86,6 +87,7 @@
 .player-menu-area__display, .player-menu-area__display li{
 	width: 25vw;
 	height: 7vh;
+	cursor: pointer;
 }
 
 .player-menu-area__display li{
@@ -159,6 +161,7 @@
 	border-radius: 50%;
 	background-color: #CD7F32;
 	border: 5px solid #A0522D;
+	cursor: pointer;
 }
 
 .actions-area__button img{
@@ -225,6 +228,7 @@
 	color: black;
 	padding: 1vw 0;
 	font-size: 4.5vw;
+	cursor: pointer;
 }
 
 .player-item-confirm div:hover{
@@ -273,6 +277,7 @@
   font-size: 6vw;
 	font-weight: 900;
 	text-transform: uppercase;
+	cursor: pointer;
 }
 
 .craft-item-screen__content{
@@ -296,6 +301,7 @@
 	display: flex;
 	justify-content: center;
 	border: 1px solid black;
+	cursor: pointer;
 }
 
 .craft-item__item-list li:hover{
@@ -391,6 +397,7 @@
 	text-align: center;
 	padding: 1vw 0;
 	font-size: 4.5vw;
+	cursor: pointer;
 }
 
 .craft-item-area__button:active{
@@ -421,7 +428,7 @@
 }
 
 .player-menu-area__options{
-	width: 10vh;
+	max-width: 12vh;
 	border-top-left-radius: 10px;
 	border: 1px solid black;
 }
