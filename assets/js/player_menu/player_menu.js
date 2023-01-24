@@ -11,11 +11,15 @@ const attackButtonWeaponImage = document.querySelector(".actions-area__attack-bu
 const menuScreen = document.querySelector(".menu-screen");
 const menuScreenSaveButton = document.querySelector(".menu-screen__save-game");
 const menuScreenReturnButton = document.querySelector(".menu-screen__return");
+const knifeConfirmScreen = document.querySelector("#knife-confirm-screen");
 const pistolConfirmScreen = document.querySelector("#pistol-confirm-screen");
 const shotgunConfirmScreen = document.querySelector("#shotgun-confirm-screen");
 const bandageConfirmScreen = document.querySelector("#bandage-confirm-screen");
 const medikitConfirmScreen = document.querySelector("#medikit-confirm-screen");
 const molotovConfirmScreen = document.querySelector("#molotov-confirm-screen");
+const knifeEquipButton = document.querySelector("#knife-equip-button");
+const knifeInfoButton = document.querySelector("#knife-info-button");
+const knifeReturnButton = document.querySelector("#knife-return-button");
 const pistolEquipButton = document.querySelector("#pistol-equip-button");
 const pistolInfoButton = document.querySelector("#pistol-info-button");
 const pistolReturnButton = document.querySelector("#pistol-return-button");
@@ -81,6 +85,17 @@ const medikitInfo = {
 	legendary: false
 };
 
+const knifeInfo = {
+	name: "Faca",
+	image: "assets/images/items/knife.png",
+	description: "Uma faca que David encontrou jogada na rua. Não muito útil contra uma horda, mas deve servir para escapar de certas situações.",
+	damage: "Baixo",
+	hitChance: "Garantido",
+	criticalChance: "Baixa",
+	text: "Não será uma flechada no joelho, mas também dá pra matar alguma coisa com isso.",
+	legendary: false
+};
+
 const pistolInfo = {
 	name: "Pistola 9mm",
 	image: "assets/images/items/handgun.png",
@@ -116,6 +131,7 @@ const molotovlInfo = {
 
 
 //Variáveis das imagens
+const knifeImage = "assets/images/items/knife.png";
 const pistolImage = "assets/images/items/handgun.png";
 const shotgunImage = "assets/images/items/shotgun.webp";
 const molotovImage = "assets/images/items/molotov.png";
@@ -234,10 +250,14 @@ menuDisplayButton.addEventListener("click", function(){
 
 //Botões que exibem a tela de confirmação do item específico ao clicar nele no menu
 playerMenuWeaponsList[0].addEventListener("click", function(){
-	displayScreen(pistolConfirmScreen);
+	displayScreen(knifeConfirmScreen);
 });
 
 playerMenuWeaponsList[1].addEventListener("click", function(){
+	displayScreen(pistolConfirmScreen);
+});
+
+playerMenuWeaponsList[2].addEventListener("click", function(){
 	displayScreen(shotgunConfirmScreen);
 });
 
@@ -254,6 +274,10 @@ playerMenuOthersList[0].addEventListener("click", function(){
 });
 
 //Botões que fecham a tela de confirmação do item
+knifeReturnButton.addEventListener("click", function(){
+	closeScreen(knifeConfirmScreen);
+});
+
 pistolReturnButton.addEventListener("click", function(){
 	closeScreen(pistolConfirmScreen);
 });
@@ -284,8 +308,18 @@ medikitUseButton.addEventListener("click", function(){
 
 
 //Botões que fazem a mudança visual do item equipado
+knifeEquipButton.addEventListener("click", function(){
+	changeEquipedItem(knifeImage, playerMenuWeaponsList, 0);
+	closeScreen(knifeConfirmScreen);
+});
+
+knifeInfoButton.addEventListener("click", function(){
+	displayScreen(playerWeaponInfoScreen);
+	changeWeaponInfoScreenInfo(knifeInfo);
+});
+
 pistolEquipButton.addEventListener("click", function(){
-	changeEquipedItem(pistolImage, playerMenuWeaponsList, 0);
+	changeEquipedItem(pistolImage, playerMenuWeaponsList, 1);
 	closeScreen(pistolConfirmScreen);
 });
 
@@ -295,7 +329,7 @@ pistolInfoButton.addEventListener("click", function(){
 });
 
 shotgunEquipButton.addEventListener("click", function(){
-	changeEquipedItem(shotgunImage, playerMenuWeaponsList, 1);
+	changeEquipedItem(shotgunImage, playerMenuWeaponsList, 2);
 	closeScreen(shotgunConfirmScreen);
 });
 
@@ -343,7 +377,7 @@ craftItemList[1].addEventListener("click", function(){
 });
 
 
-//Botões que fecham a tela de criação item
+//Botões que fecham a tela de criação de item
 craftItemScreenReturnButtons.forEach(function(button){
 	button.addEventListener("click", function(){
 		closeScreen(craftItemScreen);

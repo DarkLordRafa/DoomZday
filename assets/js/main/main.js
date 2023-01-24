@@ -36,6 +36,7 @@ const playerMenuWeaponsList = document.querySelectorAll(".player-menu-area-displ
 
 
 //Botões de equipar armas e itens
+const knifeEquipButton = document.querySelector("#knife-equip-button");
 const pistolEquipButton = document.querySelector("#pistol-equip-button");
 const shotgunEquipButton = document.querySelector("#shotgun-equip-button");
 const molotovEquipButton = document.querySelector("#molotov-equip-button");
@@ -295,18 +296,6 @@ let burningMinCriticalDamage = 0;
 let burningMaxCriticalDamage = 0;
 
 
-/*
-//Variáveis das chances dos inimigos surgirem
-let enemy1AppearChance = 0;
-let enemy2AppearChance = 0;
-let enemy3AppearChance = 0;
-let enemy4AppearChance = 0;
-let enemy5AppearChance = 0;
-let enemy6AppearChance = 0;
-let enemy7AppearChance = 0;
-let enemy8AppearChance = 0;
-*/
-
 //Imagens dos inimigos
 const zombie1Image = "assets/images/enemies/zombie1.png";
 const zombie2Image = "assets/images/enemies/zombie2.png";
@@ -319,6 +308,7 @@ const searchSound = new Audio("assets/audio/events/search_sound1.mp3");
 const walkSound = new Audio("assets/audio/events/walk_sound.mp3");
 const molotovSound = new Audio("assets/audio/items/molotov_sound2.mp3");
 const shotgunSound = new Audio("assets/audio/weapons/shotgun_sound.mp3");
+const knifeSound = new Audio("assets/audio/weapons/knife_sound.mp3");
 const gunClickSound = new Audio("assets/audio/weapons/gun_click_sound.mp3");
 const zombieSound = new Audio("assets/audio/enemies/zombie_sound.mp3");
 
@@ -357,7 +347,6 @@ function loadGameFunction(){
 	loadEvent();
 	savedGame = JSON.parse(window.localStorage.getItem("saved_game_key"));
 	equipedWeapon = "none";
-	//gameProgress();
 	resetScreen();
 	
 }
@@ -395,6 +384,8 @@ function checkGameSave(){
 			player: {
 				life: 100,
 				weapons: {
+					knife: true,
+					knifeAmmo: "---",
 					pistol: false,
 		//Quando a munição for infinita, trocar por "---"
 					pistolAmmo: 10,
@@ -429,20 +420,6 @@ function checkGameSave(){
 	}
 }
 
-	if (savedGame.firstPlay === undefined || savedGame.firstPlay === false){
-		saveWarningScreen.classList.remove("d-none");
-	}
-	if (savedGame.enemy1AppearChance === undefined){
-		savedGame.enemy1AppearChance = 0;
-		savedGame.enemy2AppearChance = 0;
-		savedGame.enemy3AppearChance = 0;
-		savedGame.enemy4AppearChance = 0;
-		savedGame.enemy5AppearChance = 0;
-		savedGame.enemy6AppearChance = 0;
-		savedGame.enemy7AppearChance = 0;
-		savedGame.enemy8AppearChance = 0;
-		gameProgress();
-	}
 
 
 //Função que mostra a quantidade do item na tela baseada no elemento alvo e no nome da propriedade do objeto savedGame.player.itemsQuantity
@@ -1410,7 +1387,6 @@ function burningEffect(){
 
 
 //Função que abre a tela de texto do jogo e atribui algo à ela
-//Função que abre uma tela baseada no argumento passado
 function displayGameTextsScreen(text){
 	gameTextsScreen.classList.remove("d-none");
 	gameTextsScreenText.innerHTML = text;
@@ -1469,7 +1445,64 @@ function attackAction(){
 	
 	
 	//Checando a arma equipada
-	if (equipedWeapon === "pistol"){
+	if (equipedWeapon === "knife"){
+		hits = 1;
+		hitsDone ++;
+				
+		let enemyPosition = randomRangeNumber(0, 7);
+		
+		while (!enemiesList[enemyPosition].classList.contains("enemy-active")){
+			enemyPosition = randomRangeNumber(0, 7);
+		}
+		knifeAttack(enemyPosition);
+	
+		function knifeAttack(position){
+		knifeSound.play();
+		knifeSound.addEventListener("playing", function(){
+			setTimeout(function(){
+					let hitChanceResult = randomPercentage();
+					let criticalChanceResult = randomPercentage();
+					let criticalHit;
+					if (criticalChanceResult <= criticalChance){
+						enemyReceivedDamage = randomRangeNumber(minCriticalDamage, maxCriticalDamage);
+						criticalHit = true;
+					}
+					else{
+						enemyReceivedDamage = randomRangeNumber(minDamage, maxDamage);
+						criticalHit = false;
+					}
+						
+					if (hitChanceResult <= hitChance){
+						enemiesDamageList[position].style.cssText = "font-style: normal; font-weight: bold";
+						enemiesObjects[position].life -= enemyReceivedDamage;
+						enemiesDamageList[position].innerHTML = enemyReceivedDamage;
+						if (criticalHit === true){	enemiesDamageList[position].classList.add("enemy-damage-display-critical");
+						}
+						
+						else{
+							enemiesDamageList[position].classList.add("enemy-damage-display");
+						}
+						if (enemiesObjects[position].life <= 0){
+							//enemiesObjects[position].sound.play();
+						}
+					}
+					else{
+						if (enemiesObjects[position].life > 0){
+							enemiesDamageList[position].style.cssText = "font-style: italic; font-weight: normal";
+							enemiesDamageList[position].innerHTML = "errou";
+							enemiesDamageList[position].classList.add("enemy-damage-display");
+						}
+					}
+					
+					enemiesDamageList[position].addEventListener("animationend", function(){
+						enemiesDamageList[position].classList.remove("enemy-damage-display", "enemy-damage-display-critical");
+					});
+			}, 200);
+			}, {once : true});
+		}
+	}
+
+	else if (equipedWeapon === "pistol"){
 		if (savedGame.player.weapons.pistolAmmo === 0){
 			gunClickSound.play();
 			enemiesAttackFunction();
@@ -1808,6 +1841,9 @@ craftMolotovButton.addEventListener("click", function(){
 
 
 //Ações dos botões de equipar armas e itens
+knifeEquipButton.addEventListener("click", function(){
+	changedEquipedWeapon("knife", 100, 20, 50, 60, 100, 120);
+});
 pistolEquipButton.addEventListener("click", function(){
 	changedEquipedWeapon("pistol", 82, 30, 50, 70, 100, 150);
 });
@@ -1951,7 +1987,10 @@ function mainDisplayFunction(){
 	else if (equipedWeapon !== "none"){
 		attackButton.classList.remove("opacity-0");
 	}
-  if (equipedWeapon === "pistol"){
+  if (equipedWeapon === "knife"){
+	   displayedAmmoQuantity.innerHTML = savedGame.player.weapons.knifeAmmo;
+    }
+  else if (equipedWeapon === "pistol"){
 		displayedAmmoQuantity.innerHTML = savedGame.player.weapons.pistolAmmo;
 	}
   else if (equipedWeapon === "shotgun"){
@@ -1977,8 +2016,9 @@ function mainDisplayFunction(){
 		menuItemCheck("medikit", playerMenuConsumablesList, 1);
 		menuItemCheck("molotov", playerMenuOthersList, 0);
 		//Checando se o jogador possui as armas no menu do jogador
-		menuWeaponCheck("pistol", playerMenuWeaponsList, 0);
-		menuWeaponCheck("shotgun", playerMenuWeaponsList, 1);
+		menuWeaponCheck("knife", playerMenuWeaponsList, 0);
+		menuWeaponCheck("pistol", playerMenuWeaponsList, 1);
+		menuWeaponCheck("shotgun", playerMenuWeaponsList, 2);
 		//Checando se é o início do jogo
 		if (savedGame.player.scenary1Progress === 0){
 			walkButton.classList.add("opacity-0", "pe-none");
@@ -2086,7 +2126,6 @@ function mainControlFunction(){
 	}
 }
 
-
 //Função que previne o progresso dos cenários de ultrapassar o limite de evento final e limite de 100
 function progressControlFunction(){
 	if (savedGame.player.scenary1Progress > 90 && LastFightDone === false){
@@ -2097,7 +2136,32 @@ function progressControlFunction(){
 	}
 }
 
+function checkUpdates() {
+	if (savedGame.firstPlay === undefined || savedGame.firstPlay === false){
+		saveWarningScreen.classList.remove("d-none");
+	}
+	
+	if (savedGame.enemy1AppearChance === undefined){
+		savedGame.enemy1AppearChance = 0;
+		savedGame.enemy2AppearChance = 0;
+		savedGame.enemy3AppearChance = 0;
+		savedGame.enemy4AppearChance = 0;
+		savedGame.enemy5AppearChance = 0;
+		savedGame.enemy6AppearChance = 0;
+		savedGame.enemy7AppearChance = 0;
+		savedGame.enemy8AppearChance = 0;
+		gameProgress();
+	}
+		
+	if (savedGame.player.weapons.knife === undefined){
+		savedGame.player.weapons.knife = true;
+		savedGame.player.weapons.knifeAmmo = "---";
+	}	
+}
 
+
+//Chamando a função checkUpdates
+setInterval(checkUpdates, 100);
 
 //Chamando a função mainDisplayFunction constantemente
 setInterval(mainDisplayFunction, 100);

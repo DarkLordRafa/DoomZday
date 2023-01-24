@@ -423,6 +423,10 @@
 	border: 1px solid black;
 }
 
+.player-menu-area__options::-webkit-scrollbar{
+	width: 2vh;
+}
+
 .player-menu-area ul{
 	padding-top: 2vh;
 }
@@ -438,7 +442,7 @@
 	border-radius: 15px;
 	margin-left: 1vh;
 	margin-right: 2vh;
-	width: 4.5vw;
+	width: 7.5vh;
 	margin-bottom: 2vh;
 }
 
