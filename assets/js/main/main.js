@@ -1940,6 +1940,19 @@ newGameButton.addEventListener("click", function(){
 });
 
 
+//Função da mudança da munição atual
+function changeEquipedAmmo(type, name) {
+	setTimeout(() => {
+		if (type === "ammo") {
+			displayedAmmoQuantity.innerHTML = savedGame.player.weapons[name];
+		}
+		else if (type === "item") {
+			displayedAmmoQuantity.innerHTML = savedGame.player.itemsQuantity[name];
+		}
+	}, 300);
+}
+
+
 
 //Principal função de exibição do jogo
 function mainDisplayFunction(){
@@ -1985,19 +1998,21 @@ function mainDisplayFunction(){
 		attackButton.classList.add("opacity-0", "pe-none");
 	}
 	else if (equipedWeapon !== "none"){
-		attackButton.classList.remove("opacity-0");
+		setTimeout(() => {
+			attackButton.classList.remove("opacity-0");
+		}, 300);
 	}
   if (equipedWeapon === "knife"){
-	   displayedAmmoQuantity.innerHTML = savedGame.player.weapons.knifeAmmo;
-    }
+	changeEquipedAmmo("ammo", "knifeAmmo");
+      }
   else if (equipedWeapon === "pistol"){
-		displayedAmmoQuantity.innerHTML = savedGame.player.weapons.pistolAmmo;
+	changeEquipedAmmo("ammo", "pistolAmmo");
 	}
   else if (equipedWeapon === "shotgun"){
-		displayedAmmoQuantity.innerHTML = savedGame.player.weapons.shotgunAmmo;
+	changeEquipedAmmo("ammo", 'shotgunAmmo');
 	}
   else if (equipedWeapon === "molotov"){
-		displayedAmmoQuantity.innerHTML = savedGame.player.itemsQuantity.molotov;
+	changeEquipedAmmo("item", "molotov");
   }
 	//Validando os botões de criação de item
 	craftItemCheck(
