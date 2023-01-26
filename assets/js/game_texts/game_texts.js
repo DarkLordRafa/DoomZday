@@ -20,7 +20,7 @@ export const gameTexts = [
 	
 	"As armas do jogo possuem características únicas, e podem possuir até mesmo habilidades exclusivas. Um bom sobrevivênte sabe escolher a arma ou item certo para cada situação.",
 	
-	"Por falar nisso, você não tem nada para se defender. Melhor procurar uma arma ou não vai sobreviver por muito tempo neste novo mundo esquecido por Deus.",
+	"Por falar nisso, você não tem nada para se defender além dessa faca. Melhor procurar outra arma ou não vai sobreviver por muito tempo neste novo mundo esquecido por Deus.",
 	
 	"<b>Ache uma arma<b/><br/><b>Avance até o final do cenário<b/>",
 	
