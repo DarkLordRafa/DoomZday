@@ -417,19 +417,19 @@ body{
 }
 
 .loading-screen span{
-	font-size: 4vw;
+	font-size: 7vh;
 }
 
 .save-warning-screen__title{
-	font-size: 4vw;
+	font-size: 6vh;
 }
 
 .save-warning-screen__text{
-	font-size: 3vw;
+	font-size: 5vh;
 }
 
 .save-warning-screen__ok-button{
-	font-size: 3.5vw;
+	font-size: 5.5vh;
 }
 
 .menu-screen nav{
