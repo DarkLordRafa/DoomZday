@@ -357,6 +357,7 @@ function newGameFunction(){
 	window.localStorage.removeItem("saved_game_key");
 	loadGameFunction();
 	checkGameSave();
+	saveWarningScreen.classList.add("d-none");
 	savedGame.hasGameSaved = true;
 	resetScreen();
 	savedGame.gameTextsPosition = 0;
@@ -416,8 +417,13 @@ function checkGameSave(){
 			enemy8AppearChance: 0,
 			firstPlay: false
 		};
-		saveGameFunction();
 	}
+
+	if (savedGame.firstPlay === undefined || savedGame.firstPlay === false){
+		saveWarningScreen.classList.remove("d-none");
+	}
+	
+	saveGameFunction();
 }
 
 
@@ -2152,10 +2158,6 @@ function progressControlFunction(){
 }
 
 function checkUpdates() {
-	if (savedGame.firstPlay === undefined || savedGame.firstPlay === false){
-		saveWarningScreen.classList.remove("d-none");
-	}
-	
 	if (savedGame.enemy1AppearChance === undefined){
 		savedGame.enemy1AppearChance = 0;
 		savedGame.enemy2AppearChance = 0;
